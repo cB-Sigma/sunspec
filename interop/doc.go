@@ -12,8 +12,13 @@
 // our own script: pysunspec2 encodes each model from raw point values
 // (points not given hold pysunspec2's "not implemented" value) and a
 // minimal Modbus TCP server of the script serves the map, taking writes
-// only on points the definitions mark read-write. No pysunspec2 code is
-// kept in this repository. The tests run only when SIGMA_SUNSPEC_INTEROP=1
+// only on points the definitions mark read-write. In the other direction
+// (serve_test.go), testdata/pysunspec2_client.py runs pysunspec2's client
+// against maps served by the device and aggregate packages on the host,
+// reached at host.docker.internal. Modbus ASCII, which pysunspec2 lacks,
+// is checked both ways against pymodbus (testdata/pymodbus_ascii.py,
+// ascii_test.go). No pysunspec2 or pymodbus code is kept in this
+// repository. The tests run only when SIGMA_SUNSPEC_INTEROP=1
 // and docker is on PATH, and need network access for the package:
 //
 //	cd interop && SIGMA_SUNSPEC_INTEROP=1 GOWORK=off go test -v -timeout 20m ./...

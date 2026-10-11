@@ -26,8 +26,9 @@ import (
 const (
 	image          = "python:3.12.10-slim"
 	pysunspec2     = "pysunspec2==1.3.6"
+	pymodbus       = "pymodbus==3.8.6" // the Modbus ASCII peer: pysunspec2 has no ASCII client
 	firstPort      = 5020
-	containerPorts = 6
+	containerPorts = 8
 )
 
 var (
@@ -63,7 +64,7 @@ func needPeer(t *testing.T) string {
 			return
 		}
 		name := fmt.Sprintf("sigma-sunspec-pysunspec2-device-%d", os.Getpid())
-		args := []string{"run", "-d", "--name", name, "-v", td + ":/sigma:ro"}
+		args := []string{"run", "-d", "--name", name, "--add-host", "host.docker.internal:host-gateway", "-v", td + ":/sigma:ro"}
 		for p := firstPort; p < firstPort+containerPorts; p++ {
 			args = append(args, "-p", fmt.Sprintf("127.0.0.1::%d", p))
 		}
@@ -75,7 +76,7 @@ func needPeer(t *testing.T) string {
 		}
 		peerName = name
 		out, err = exec.Command("docker", "exec", name, "pip", "install", "--no-cache-dir",
-			"--disable-pip-version-check", "--root-user-action=ignore", pysunspec2).CombinedOutput()
+			"--disable-pip-version-check", "--root-user-action=ignore", pysunspec2, pymodbus).CombinedOutput()
 		if err != nil {
 			peerErr = fmt.Errorf("pip install %s: %v: %s", pysunspec2, err, out)
 		}

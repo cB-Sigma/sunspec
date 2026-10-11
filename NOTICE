@@ -74,14 +74,15 @@ Dependencies
 
 github.com/simonvetter/modbus v1.6.4
   MIT License, Copyright (c) 2019 Simon Vetter
-  Used by the mbtcp package (Modbus client: TCP, TLS, UDP, RTU) and the
-  sunspec command, and by the tests' Modbus servers. The root package
-  sunspec does not import it.
+  Used by the mbtcp package (Modbus client: TCP, TLS, UDP, RTU), the
+  device package (its Modbus TCP and TLS server) and the sunspec
+  command. The root package sunspec does not import it. Modbus ASCII
+  (client and server) and RTU serving are this module's own code.
 
-github.com/goburrow/serial v0.1.0 (required by simonvetter/modbus)
+github.com/goburrow/serial v0.1.0 (also required by simonvetter/modbus)
   MIT License, Copyright (c) 2015 Quoc-Viet Nguyen
-  Used through simonvetter/modbus for Modbus RTU on a serial line; this
-  module's code does not use it directly.
+  Used through simonvetter/modbus for Modbus RTU on a serial line, and
+  directly by mbtcp to open a serial line for Modbus ASCII.
 
 The Go standard library (BSD-3-Clause, Copyright The Go Authors).
 
@@ -89,10 +90,12 @@ Interop tests (nested module interop/, not part of the library)
 ---------------------------------------------------------------
 
 The tests install pysunspec2 1.3.6 from PyPI (Apache License 2.0, by the
-SunSpec Alliance) into a python:3.12.10-slim container while they run.
-Neither pysunspec2 nor the image is redistributed, and no pysunspec2 code
-is in this repository; testdata/pysunspec2_device.py is our own script
-that calls it.
+SunSpec Alliance) and pymodbus 3.8.6 (BSD-3-Clause, the pymodbus
+authors; the Modbus ASCII peer) into a python:3.12.10-slim container
+while they run. Neither package nor the image is redistributed, and no
+code of either is in this repository; testdata/pysunspec2_device.py,
+pysunspec2_client.py and pymodbus_ascii.py are our own scripts that call
+them.
 
 Test data
 ---------

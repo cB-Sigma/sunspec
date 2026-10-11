@@ -3,6 +3,35 @@
 All notable changes to this module. Versions follow semantic versioning;
 before v1 the API may change in minor versions.
 
+## v0.3.0 (2026-10-11)
+
+Backwards compatible with v0.2.0.
+
+- The device side, package `device`: `Build`, `Example`,
+  `NotImplemented`, `AllModels`, `Image` (`NewImage`, `Model`, `Add`,
+  `End`, `Writable`, `Next`, `Get`, `Set`; an image is a
+  `sunspec.Reader`), `Str` and `Filled`, moved here from sunspec-sim;
+  `Device` serves an image with unit filtering, a write log and hooks
+  (`SetKeep`, `SetBefore`, `SetOnWrite`, `Update`); `Handler`, `Mux`,
+  `Listen`, `ServeRTU` and `ServeASCII` put any handler on Modbus TCP,
+  TLS, RTU or ASCII framing over TCP, or on a serial line;
+  `Exception` and `ExceptionCode`.
+- Package `aggregate`: `Proxy` passes units through to their devices,
+  with an optional snapshot of each map (`MaxAge`); `Merged` presents
+  one map over several devices (its own common model, models merged
+  with per-point rules and a scale factor that fits the result, models
+  copied from one device; writes fanned out, split or routed; `Refresh`,
+  `Run`, `Status`); `Local` makes an in-process handler an upstream.
+- Modbus ASCII in `mbtcp`: `ascii://` on a serial line and
+  `asciiovertcp://`, our own framing (`internal/ascii`, checked with
+  known LRC vectors); exceptions map to the same errors as the other
+  transports, so `Refused` works alike.
+- `github.com/goburrow/serial` is now a direct dependency (it was
+  already required through simonvetter/modbus).
+- Interop: pysunspec2 1.3.6 reads and writes maps served by `device`
+  and through `aggregate` (merged and proxied); pymodbus 3.8.6 checks
+  Modbus ASCII both ways (pysunspec2 has no ASCII client).
+
 ## v0.2.0 (2026-10-11)
 
 Backwards compatible with v0.1.0 for callers using keyed `Write`

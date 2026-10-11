@@ -37,6 +37,16 @@ reproduced.
   `sunspec2/device.py` for the facts only; no code was taken. models.json
   was regenerated from all 112 definitions of the same commit by
   `internal/modelgen`; the 25 models of v0.1.0 came out unchanged.
+- v0.3.0 (2026-10-11): the `device` package's `build.go` and `notimpl.go`
+  were moved (not copied) from sunspec-sim's `sim` package, which the
+  same author wrote for this project; its `device.go` and `serve.go` were
+  split out of sunspec-sim's `sim.go` (the image, the server and the
+  RTU framing), with the fault switches left in the simulator and the
+  request, keep and write hooks, `Handler`, `Mux` and the ASCII server
+  added. `aggregate/`, `internal/ascii/`, `mbtcp/ascii.go` and their
+  tests were written for this module. pymodbus 3.8.6 was run as the
+  Modbus ASCII peer in the interop tests only; none of its code was read
+  for the implementation or taken.
 
 ## Sources
 
@@ -51,6 +61,9 @@ reproduced.
 | Definitions at run time (defs.go) | The layout of the json/model_<id>.json files | none |
 | Modbus reader (mbtcp/) | none (it wraps github.com/simonvetter/modbus) | none |
 | RTU test servers (mbtcp/transport_test.go, cmd tests) | The Modbus over serial line framing and CRC-16 (polynomial 0xA001), from the public Modbus specifications | none |
+| Device side (device/: image, Build, server, RTU framing, hooks) | SunSpec Device Information Model Specification v1.2, section 6 (map layout); Modbus Application Protocol v1.1b3 (functions 3, 6, 16, exception codes); Modbus over Serial Line v1.02 (RTU framing, CRC) | none |
+| Modbus ASCII (internal/ascii, mbtcp/ascii.go, device ASCII server) | Modbus over Serial Line v1.02, the ASCII mode and the LRC (colon, two hexadecimal characters per byte, LRC as the two's complement of the byte sum, CR LF) | none |
+| Aggregator (aggregate/) | The map layout above; the merge rules (sums, means, scale factor choice, fan-out and split writes) are our own design | none |
 
 How models.json is produced: `internal/modelgen` reads the
 `json/model_<id>.json` files of the commit above with
@@ -92,6 +105,10 @@ public source:
 - `interop/`: register values written for the tests, and made-up values
   for every model; pysunspec2 encodes them. The TLS certificates in the
   tests are generated while they run.
+- `internal/ascii`: the LRC vectors are computed by hand from the byte
+  sums (one is the serial line guide's worked request, 17 reading three
+  registers from 107, whose bytes and check are facts of the protocol).
+- `device/`, `aggregate/`: made-up inverters and values.
 
 ## Requirement IDs
 

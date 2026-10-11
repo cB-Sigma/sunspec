@@ -7,9 +7,11 @@
 // exception from silence. Despite its name it speaks every transport that
 // library has: Modbus TCP, Modbus TCP over TLS (Modbus/TCP Security, with
 // a client certificate), Modbus over UDP, Modbus RTU on a serial line and
-// RTU framing over TCP or UDP (serial-to-Ethernet gateways). Readers for
-// several units share one connection (ForUnit). An application with its
-// own Modbus connection handling implements sunspec.Reader itself instead.
+// RTU framing over TCP or UDP (serial-to-Ethernet gateways); and, with a
+// client of our own, Modbus ASCII on a serial line or over TCP. Readers
+// for several units share one connection (ForUnit). An application with
+// its own Modbus connection handling implements sunspec.Reader itself
+// instead.
 package mbtcp
 
 import (
@@ -31,17 +33,20 @@ type Config struct {
 	// URL picks the transport and the place: "tcp://host:502",
 	// "tcp+tls://host:802", "udp://host:502", "rtu:///dev/ttyUSB0" (a
 	// serial line; "rtu://COM3" on Windows), "rtuovertcp://host:4001",
-	// "rtuoverudp://host:4001".
+	// "rtuoverudp://host:4001", "ascii:///dev/ttyUSB0" (Modbus ASCII on a
+	// serial line), "asciiovertcp://host:4001".
 	URL string
 	// Unit is the Modbus unit (slave) address: 1 for most inverters,
 	// 126 for SMA's SunSpec unit.
 	Unit uint8
-	// Timeout is the response timeout (0: 2 seconds; 300 ms on a serial
-	// line).
+	// Timeout is the response timeout (0: 2 seconds; 300 ms on an RTU
+	// serial line, 1 second on an ASCII one).
 	Timeout time.Duration
 	// Speed, DataBits, Parity ("N", "E" or "O"; "" is N) and StopBits
 	// set a serial line (rtu); 0 takes 19200 bit/s, 8 data bits, and 2
-	// stop bits without parity or 1 with it.
+	// stop bits without parity or 1 with it. On an ascii line the
+	// defaults are 19200 bit/s, 7 data bits, even parity ("" is E) and
+	// 1 stop bit (2 with parity N).
 	Speed, DataBits uint
 	Parity          string
 	StopBits        uint
@@ -52,10 +57,39 @@ type Config struct {
 	TLSRootCAs    *x509.CertPool
 }
 
+// transport is one Modbus client: github.com/simonvetter/modbus's, or
+// our own for Modbus ASCII.
+type transport interface {
+	readHolding(unit uint8, addr, count uint16) ([]uint16, error)
+	writeHolding(unit uint8, addr uint16, words []uint16) error
+	close() error
+}
+
+type mbClient struct{ c *mb.ModbusClient }
+
+func (m mbClient) readHolding(unit uint8, addr, count uint16) ([]uint16, error) {
+	if err := m.c.SetUnitId(unit); err != nil {
+		return nil, err
+	}
+	return m.c.ReadRegisters(addr, count, mb.HOLDING_REGISTER)
+}
+
+func (m mbClient) writeHolding(unit uint8, addr uint16, words []uint16) error {
+	if err := m.c.SetUnitId(unit); err != nil {
+		return err
+	}
+	if len(words) == 1 {
+		return m.c.WriteRegister(addr, words[0])
+	}
+	return m.c.WriteRegisters(addr, words)
+}
+
+func (m mbClient) close() error { return m.c.Close() }
+
 // conn is one transport, shared by the Readers of its units.
 type conn struct {
 	mu     sync.Mutex
-	c      *mb.ModbusClient
+	t      transport
 	closed bool
 }
 
@@ -76,8 +110,11 @@ func Dial(url string, unit uint8, timeout time.Duration) (*Reader, error) {
 func Open(c Config) (*Reader, error) {
 	if c.Timeout <= 0 {
 		c.Timeout = 2 * time.Second
-		if strings.HasPrefix(c.URL, "rtu://") {
+		switch {
+		case strings.HasPrefix(c.URL, "rtu://"):
 			c.Timeout = 300 * time.Millisecond
+		case strings.HasPrefix(c.URL, "ascii://"):
+			c.Timeout = time.Second // a slow framing
 		}
 	}
 	parity := mb.PARITY_NONE
@@ -89,6 +126,13 @@ func Open(c Config) (*Reader, error) {
 		parity = mb.PARITY_ODD
 	default:
 		return nil, fmt.Errorf("parity %q is not N, E or O", c.Parity)
+	}
+	if strings.HasPrefix(c.URL, "ascii://") || strings.HasPrefix(c.URL, "asciiovertcp://") {
+		a, err := openASCII(c)
+		if err != nil {
+			return nil, err
+		}
+		return &Reader{conn: &conn{t: a}, unit: c.Unit}, nil
 	}
 	cl, err := mb.NewClient(&mb.ClientConfiguration{URL: c.URL, Timeout: c.Timeout, Speed: c.Speed, DataBits: c.DataBits,
 		Parity: parity, StopBits: c.StopBits, TLSClientCert: c.TLSClientCert, TLSRootCAs: c.TLSRootCAs,
@@ -103,7 +147,7 @@ func Open(c Config) (*Reader, error) {
 		return nil, err
 	}
 	_ = cl.SetEncoding(mb.BIG_ENDIAN, mb.HIGH_WORD_FIRST)
-	return &Reader{conn: &conn{c: cl}, unit: c.Unit}, nil
+	return &Reader{conn: &conn{t: mbClient{cl}}, unit: c.Unit}, nil
 }
 
 // ForUnit returns a Reader for another unit on the same connection (a
@@ -117,23 +161,20 @@ func (r *Reader) Unit() uint8 { return r.unit }
 var errClosed = errors.New("mbtcp: the connection is closed")
 
 // do runs one request for the Reader's unit, alone on the connection.
-func (r *Reader) do(f func(c *mb.ModbusClient) error) error {
+func (r *Reader) do(f func(t transport) error) error {
 	r.conn.mu.Lock()
 	defer r.conn.mu.Unlock()
 	if r.conn.closed {
 		return errClosed
 	}
-	if err := r.conn.c.SetUnitId(r.unit); err != nil {
-		return err
-	}
-	return f(r.conn.c)
+	return f(r.conn.t)
 }
 
 // ReadHolding reads count holding registers from addr (function 3).
 func (r *Reader) ReadHolding(addr, count uint16) ([]uint16, error) {
 	var out []uint16
-	err := r.do(func(c *mb.ModbusClient) (err error) {
-		out, err = c.ReadRegisters(addr, count, mb.HOLDING_REGISTER)
+	err := r.do(func(t transport) (err error) {
+		out, err = t.readHolding(r.unit, addr, count)
 		return err
 	})
 	return out, err
@@ -142,12 +183,7 @@ func (r *Reader) ReadHolding(addr, count uint16) ([]uint16, error) {
 // WriteHolding writes words from addr: function 6 for one register,
 // 16 for more.
 func (r *Reader) WriteHolding(addr uint16, words []uint16) error {
-	return r.do(func(c *mb.ModbusClient) error {
-		if len(words) == 1 {
-			return c.WriteRegister(addr, words[0])
-		}
-		return c.WriteRegisters(addr, words)
-	})
+	return r.do(func(t transport) error { return t.writeHolding(r.unit, addr, words) })
 }
 
 // Refused reports whether err is a Modbus exception reply (the device
@@ -162,7 +198,7 @@ func (r *Reader) Close() error {
 		return nil
 	}
 	r.conn.closed = true
-	return r.conn.c.Close()
+	return r.conn.t.close()
 }
 
 // IsException reports whether err is a Modbus exception reply (codes 1
