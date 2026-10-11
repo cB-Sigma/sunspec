@@ -33,27 +33,37 @@ definitions published by the SunSpec Alliance:
               pysunspec2, marks its files "Copyright (C) 2020 SunSpec
               Alliance".
 
-What was taken: for models 1, 101 to 103, 111 to 113, 120 to 124, 126,
-160, 201 to 204, 701 to 705, 713 and 715, each point's name, offset,
-type, size, scale factor, unit, access, mandatory and static flags,
-symbol names and values, and short label; the repeating groups' names,
-offsets and lengths. Descriptions and other prose of the definitions were
-not taken. The data was reshaped into this module's own JSON layout
-(short keys, offsets counted from the first register after ID and L). On
-2026-10-11 every one of its 919 points was compared with the files of
-that commit and found equal, apart from the modifications below.
+What was taken (since v0.2.0 for every one of the 112 models at that
+commit, 1 to 19, 101 to 145, 160, 201 to 220, 302 to 308, 401 to 404,
+501, 502, 601, 701 to 715, 801 to 809, 63001, 63002 and 64001 to 64415;
+v0.1.0 had 25 of them): each point's name, offset, type, size, scale
+factor, unit, access, mandatory and static flags, symbol names and
+values, and short label; the groups' names, places, lengths, counts and
+nesting; each model's name and short label. Descriptions, comments and
+other prose of the definitions were not taken. The data was reshaped
+into this module's own JSON layout (short keys, offsets counted from the
+first register after ID and L) by internal/modelgen, whose output at that
+commit is the file as shipped. The interop tests compare all 3578 points
+with pysunspec2 1.3.6's copy of the definitions (equal, apart from the
+modification below).
+
+The vendor models in the definitions (64001 to 64415) carry names of
+their makers' products in their own names and labels; the module's short
+names for them do not.
 
 Modifications: the symbol names of model 111's St point are written
 OFF ... STANDBY, as in models 101 to 113; the source prefixes them with
-"gg". Trailing spaces of four labels in model 704's groups are dropped.
-The file states its origin and these changes in its "source" field.
+"gg". Leading and trailing spaces of labels are dropped. The file states
+its origin and these changes in its "source" field.
 
 Trademarks
 ----------
 
 SunSpec is a trademark of the SunSpec Alliance. Modbus is a trademark of
 Schneider Electric, licensed to the Modbus Organization. Fronius and Symo
-(test data) and SMA (documentation) are trademarks of their owners. They
+(test data), SMA (documentation), and Veris, Mersen, GreenString, Eltek
+and OutBack (names and labels of vendor models in the SunSpec
+definitions, kept in models.json) are trademarks of their owners. They
 are used only to say which devices, register maps and protocols this
 module works with. This module is not made, endorsed, certified or
 supported by the SunSpec Alliance, the Modbus Organization or any device
@@ -64,12 +74,13 @@ Dependencies
 
 github.com/simonvetter/modbus v1.6.4
   MIT License, Copyright (c) 2019 Simon Vetter
-  Used by the mbtcp package (Modbus TCP client) and by the tests' Modbus
-  server. The root package sunspec does not import it.
+  Used by the mbtcp package (Modbus client: TCP, TLS, UDP, RTU) and the
+  sunspec command, and by the tests' Modbus servers. The root package
+  sunspec does not import it.
 
 github.com/goburrow/serial v0.1.0 (required by simonvetter/modbus)
   MIT License, Copyright (c) 2015 Quoc-Viet Nguyen
-  Linked in through simonvetter/modbus (its serial-line transport); this
+  Used through simonvetter/modbus for Modbus RTU on a serial line; this
   module's code does not use it directly.
 
 The Go standard library (BSD-3-Clause, Copyright The Go Authors).

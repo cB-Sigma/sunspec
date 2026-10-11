@@ -154,38 +154,86 @@ def flat_points(points, start):
     return out, off
 
 
-def group_len(gdef):
+def repeats(gdef):
+    return gdef.get(mdef.COUNT) not in (None, 1)
+
+
+def static_len(gdef):
+    # One occurrence's length with nested repeating groups counted as
+    # absent (the module's Group.Len).
     n = sum(point_size(p) for p in gdef.get(mdef.POINTS, []))
     for g in gdef.get(mdef.GROUPS, []):
-        if g.get(mdef.COUNT) not in (None, 1):
-            return None  # nested repeating groups: no fixed length
-        sub = group_len(g)
-        if sub is None:
-            return None
-        n += sub
+        if not repeats(g):
+            n += static_len(g)
     return n
+
+
+def has_repeats(gdef):
+    return any(repeats(g) or has_repeats(g) for g in gdef.get(mdef.GROUPS, []))
+
+
+def group_defs(groups, start):
+    # Groups in place: each one's offset from its parent occurrence, with
+    # repeating groups before it counted as absent, and its nested groups.
+    out = []
+    off = start
+    for g in groups or []:
+        gp, end = flat_points(g.get(mdef.POINTS), 0)
+        out.append({'name': g[mdef.NAME], 'off': off, 'len': static_len(g), 'count': g.get(mdef.COUNT), 'points': gp,
+                    'groups': group_defs(g.get(mdef.GROUPS), end)})
+        if not repeats(g):
+            off += static_len(g)
+    return out
 
 
 def defs(ids):
     # pysunspec2's own model definitions, flattened: points with offsets
-    # counted after ID and L, and each top-level group's points with
-    # offsets counted from the start of an occurrence.
+    # counted after ID and L, groups (nested to any depth) with their
+    # points' offsets counted from the start of an occurrence.
     out = {}
     for mid in ids:
         md = device.get_model_def(mid)
         top = md[mdef.GROUP]
         points, end = flat_points(top.get(mdef.POINTS), -2)
-        groups = []
-        off = end
-        for g in top.get(mdef.GROUPS, []):
-            gp, _ = flat_points(g.get(mdef.POINTS), 0)
-            glen = group_len(g)
-            groups.append({'name': g[mdef.NAME], 'off': off, 'len': glen, 'count': g.get(mdef.COUNT), 'points': gp})
-            if glen is None:
-                break
-            off += glen
-        out[str(mid)] = {'name': top[mdef.NAME], 'fixed': end, 'points': [p for p in points if p['n'] not in ('ID', 'L')],
-                         'groups': groups}
+        out[str(mid)] = {'name': top[mdef.NAME], 'label': top.get(mdef.LABEL), 'fixed': end, 'repeats': has_repeats(top),
+                         'points': [p for p in points if p['n'] not in ('ID', 'L')],
+                         'groups': group_defs(top.get(mdef.GROUPS), end)}
+    return out
+
+
+def layout(spec):
+    # pysunspec2's own placement of every point of each spec model: its
+    # path (groups and occurrences spelt out, counting from 1), offset
+    # after ID and L, and value as pysunspec2 decodes the registers it
+    # built (scale factors applied; None when not implemented).
+    out = {}
+    for m in spec['models']:
+        if 'raw' in m:
+            continue
+        model = device.Model(model_id=m['id'], data=dict(m.get('values', {})))
+        data = model.get_mb()
+        # Decode the registers pysunspec2 encoded, as a reader would.
+        model.set_mb(data, dirty=False)
+        pts = {}
+
+        def walk(g, prefix):
+            for name, p in g.points.items():
+                if name in ('ID', 'L') and prefix == '':
+                    continue
+                v = p.cvalue
+                if isinstance(v, float) and v != v:
+                    v = 'NaN'
+                if isinstance(v, bytes):
+                    v = v.hex()
+                pts[prefix + name] = {'o': p.offset - 2, 'v': v}
+            for name, sub in g.groups.items():
+                if isinstance(sub, list):
+                    for i, gg in enumerate(sub):
+                        walk(gg, '%s%s.%d.' % (prefix, name, i + 1))
+                else:
+                    walk(sub, prefix + name + '.')
+        walk(model, '')
+        out[str(m['id'])] = {'len': len(data) // 2 - 2, 'points': pts, 'error': model.error_info.strip()}
     return out
 
 
@@ -195,11 +243,15 @@ def main():
     ap.add_argument('--spec')
     ap.add_argument('--dump', action='store_true')
     ap.add_argument('--defs', help='comma-separated model IDs: print pysunspec2\'s definitions of them')
+    ap.add_argument('--layout', action='store_true', help='print pysunspec2\'s placement and values of the spec\'s points')
     a = ap.parse_args()
     if a.defs:
         print(json.dumps(defs([int(x) for x in a.defs.split(',')])))
         return 0
     spec = json.loads(a.spec)
+    if a.layout:
+        print(json.dumps(layout(spec)))
+        return 0
     regs, writable, errors = build(spec)
     if a.dump:
         print(json.dumps({'errors': errors, 'regs': {str(k): v for k, v in sorted(regs.items())},

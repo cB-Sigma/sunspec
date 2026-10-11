@@ -175,13 +175,15 @@ func TestWalkChain(t *testing.T) {
 }
 
 func TestWalkBounded(t *testing.T) {
-	// A broken chain of empty vendor models never ends by itself.
+	// A broken chain of empty vendor models never ends by itself; the
+	// walk stops at 256 models (a device holding every SunSpec model has
+	// 112).
 	regs := map[uint16]uint16{}
-	for a := uint16(40002); a < 40002+2*200; a += 2 {
+	for a := uint16(40002); a < 40002+2*400; a += 2 {
 		regs[a], regs[a+1] = 64999, 0
 	}
 	m, err := sunspec.Walk(&memReader{regs: regs}, 40000)
-	if err != nil || len(m.Models) != 64 {
+	if err != nil || len(m.Models) != 256 {
 		t.Errorf("walk of an endless chain: %d models, %v", len(m.Models), err)
 	}
 }
@@ -494,37 +496,74 @@ func TestRepeatingGroups(t *testing.T) {
 }
 
 func TestModelTables(t *testing.T) {
-	known := sunspec.Known()
-	want := []int{1, 101, 102, 103, 111, 112, 113, 120, 121, 122, 123, 124, 126, 160, 201, 202, 203, 204, 701, 702, 703, 704, 705, 713, 715}
+	known := slices.DeleteFunc(sunspec.Known(), func(id int) bool { return id == 64950 }) // registered by TestRegisterDefinition
+	// Every model of github.com/sunspec/models at the pinned commit.
+	want := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+		101, 102, 103, 111, 112, 113, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134,
+		135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 160, 201, 202, 203, 204, 211, 212, 213, 214, 220,
+		302, 303, 304, 305, 306, 307, 308, 401, 402, 403, 404, 501, 502, 601,
+		701, 702, 703, 704, 705, 706, 707, 708, 709, 710, 711, 712, 713, 714, 715,
+		801, 802, 803, 804, 805, 806, 807, 808, 809, 63001, 63002,
+		64001, 64020, 64101, 64111, 64112, 64410, 64411, 64412, 64413, 64414, 64415}
 	if !slices.Equal(known, want) {
 		t.Errorf("Known() = %v", known)
 	}
 	for _, id := range known {
 		m := sunspec.Lookup(id)
-		if m == nil || m.ID != id || len(m.Points) == 0 {
+		if m == nil || m.ID != id || len(m.Points)+len(m.Groups) == 0 {
 			t.Fatalf("model %d: %+v", id, m)
 		}
-		if m.Len == 0 && m.Fixed == 0 {
-			t.Errorf("model %d has neither a length nor a fixed part", id)
+		repeats := false
+		var walk func(gs []sunspec.Group)
+		walk = func(gs []sunspec.Group) {
+			for _, g := range gs {
+				repeats = repeats || g.Count != 1
+				walk(g.Groups)
+			}
 		}
-		// Every point lies inside the model; every named scale factor exists.
-		names := map[string]bool{}
-		for _, p := range m.Points {
-			names[p.Name] = true
+		walk(m.Groups)
+		if repeats == (m.Len > 0) {
+			t.Errorf("model %d: len %d with repeating groups %v", id, m.Len, repeats)
 		}
-		for _, g := range m.Groups {
-			for _, p := range g.Points {
+		// Every point lies inside its model or group; every named scale
+		// factor and count point is in scope (the point's group, an
+		// enclosing one or the top level).
+		var check func(where string, pts []sunspec.Point, gs []sunspec.Group, size int, scope []map[string]bool)
+		check = func(where string, pts []sunspec.Point, gs []sunspec.Group, size int, scope []map[string]bool) {
+			names := map[string]bool{}
+			for _, p := range pts {
 				names[p.Name] = true
 			}
-		}
-		for _, p := range m.Points {
-			if p.Size < 1 || (m.Len > 0 && p.Offset+p.Size > m.Len) || (m.Fixed > 0 && p.Offset+p.Size > m.Fixed) {
-				t.Errorf("model %d point %s at %d+%d is outside the model", id, p.Name, p.Offset, p.Size)
+			scope = append([]map[string]bool{names}, scope...)
+			inScope := func(n string) bool {
+				for _, s := range scope {
+					if s[n] {
+						return true
+					}
+				}
+				return false
 			}
-			if s, ok := p.SF.(string); ok && !names[s] {
-				t.Errorf("model %d point %s names a missing scale factor %s", id, p.Name, s)
+			end := 0
+			for _, p := range pts {
+				if p.Size < 1 || p.Offset != end || (size > 0 && p.Offset+p.Size > size) {
+					t.Errorf("%s point %s at %d+%d is misplaced (size %d)", where, p.Name, p.Offset, p.Size, size)
+				}
+				end = p.Offset + p.Size
+				if s, ok := p.SF.(string); ok && !inScope(s) {
+					t.Errorf("%s point %s names a missing scale factor %s", where, p.Name, s)
+				}
+			}
+			for _, g := range gs {
+				if g.CountPoint != "" && !inScope(g.CountPoint) {
+					t.Errorf("%s group %s counts by a missing point %s", where, g.Name, g.CountPoint)
+				}
+				if g.Count == 0 && g.CountPoint == "" && !g.FromLength {
+					t.Errorf("%s group %s has no count", where, g.Name)
+				}
+				check(where+"."+g.Name, g.Points, g.Groups, g.Len, scope)
 			}
 		}
+		check(fmt.Sprint(id), m.Points, m.Groups, max(m.Len, m.Fixed), nil)
 		if sunspec.ShortName(id) == fmt.Sprintf("model%d", id) {
 			t.Errorf("model %d has no short name", id)
 		}
@@ -535,7 +574,7 @@ func TestModelTables(t *testing.T) {
 	if !sunspec.Dynamic(103) || !sunspec.Dynamic(160) || sunspec.Dynamic(120) || sunspec.Dynamic(704) {
 		t.Error("Dynamic")
 	}
-	for in, out := range map[string]string{"Pct": "%", "% WMax": "%", "Secs": "s", "Var": "var", "varh": "varh", "cos()": "", "C": "Cel", "W": "W", "Hz": "Hz"} {
+	for in, out := range map[string]string{"Pct": "%", "% WMax": "%", "Secs": "s", "Var": "var", "varh": "varh", "cos()": "", "C": "Cel", "W": "W", "Hz": "Hz", "VNomPct": "%", "DeptRef": "%", "% VRef": "% VRef", "Tms": "s", "mSecs": "ms", "PF": ""} {
 		if got := sunspec.Unit(in); got != out {
 			t.Errorf("Unit(%q) = %q, want %q", in, got, out)
 		}

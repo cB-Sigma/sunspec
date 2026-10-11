@@ -134,3 +134,52 @@ func ExamplePlanControl() {
 	// model 704: WMaxLimPct = 600, write [600] at 40017
 	// model 704: WMaxLimPctEna = 1, write [1] at 40016
 }
+
+// Read the stored curves of a volt-var model (705), whose points sit in a
+// group nested in each curve, then plan a new curve and adopt it.
+func ExamplePlanCurve() {
+	r := registers{40000: 0x5375, 40001: 0x6E53}
+	vv := make([]uint16, 13+2*(10+2*2)) // two curves of two points
+	for i := range vv {
+		vv[i] = 0xFFFF
+	}
+	vv[3], vv[4], vv[10], vv[11], vv[12] = 2, 2, 0xFFFF, 0, 0 // NPt, NCrv, V_SF -1, DeptRef_SF, RspTms_SF
+	for k := 0; k < 2; k++ {
+		c := 13 + 14*k
+		vv[c], vv[c+9] = 2, uint16(1-k)                                    // ActPt, ReadOnly (the first curve)
+		vv[c+10], vv[c+11], vv[c+12], vv[c+13] = 950, 30, 1050, 0x10000-30 // (95 %, 30 %), (105 %, -30 %)
+	}
+	a := r.put(40002, 705, vv)
+	r[a], r[a+1] = 0xFFFF, 0
+	m, err := sunspec.Find(r)
+	if err != nil {
+		log.Fatal(err)
+	}
+	inst := m.Model(705)
+	regs, _ := sunspec.ReadModel(r, *inst)
+	for _, v := range sunspec.Decode(*inst, regs) {
+		if v.Name == "1.Pt.2.V" || v.Name == "1.Pt.2.Var" {
+			fmt.Printf("%s (%s) = %v %s\n", v.Name, v.Path, v.V, v.Unit)
+		}
+	}
+	on := true
+	plan, err := sunspec.PlanCurve(m, sunspec.Curve{Model: 705, Points: [][2]float64{{92, 25}, {108, -25}}, Enable: &on},
+		func(inst sunspec.Instance) ([]uint16, error) { return sunspec.ReadModel(r, inst) })
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, w := range plan.Writes {
+		addr, words, _ := w.Encode()
+		fmt.Printf("%s: %v at %d\n", w.Point, words, addr)
+	}
+	// Output:
+	// 1.Pt.2.V (Crv.1.Pt.2.V) = 105 %
+	// 1.Pt.2.Var (Crv.1.Pt.2.Var) = -30 %
+	// Crv.2.Pt.1.V: [920] at 40041
+	// Crv.2.Pt.1.Var: [25] at 40042
+	// Crv.2.Pt.2.V: [1080] at 40043
+	// Crv.2.Pt.2.Var: [65511] at 40044
+	// Crv.2.ActPt: [2] at 40031
+	// AdptCrvReq: [2] at 40005
+	// Ena: [1] at 40004
+}

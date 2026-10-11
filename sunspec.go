@@ -20,11 +20,15 @@
 //     that scales the points naming it. Each type has a "not implemented"
 //     value (0x8000 for int16, 0xFFFF for uint16 and enums, 0 for
 //     accumulators, all zero for strings …); such a point is left out.
-//   - Repeating groups (model 160's modules, model 126's curves) repeat
-//     after the fixed part, their count given by a point or by L.
+//   - Groups follow the fixed part, once or repeating (model 160's
+//     modules, model 126's curves), their count given by the definition,
+//     by a point or by L; groups nest inside groups to any depth (model
+//     705's curves each carry their points), each occurrence holding its
+//     own points and then its nested groups (Layout).
 //
-// Unknown models are kept as their ID and length (a vendor model, a newer
-// SunSpec model), never refused.
+// The tables hold every model of the SunSpec Alliance's definitions at a
+// pinned commit (112 models). Unknown models are kept as their ID and
+// length (a vendor model, a newer SunSpec model), never refused.
 package sunspec
 
 import (
@@ -34,6 +38,8 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"net/netip"
+	"slices"
 	"sort"
 	"strings"
 	"sync"
@@ -83,26 +89,35 @@ type Point struct {
 	Label string `json:"l,omitempty"`
 }
 
-// Group is a block of points that repeats after the fixed part.
+// Group is a block of points after the fixed part of a model, or after
+// the points of another group (nested), occurring once or repeating.
 type Group struct {
-	// Name is the group's name ("module", "PFWInj").
+	// Name is the group's name ("module", "PFWInj", "Crv", "Pt").
 	Name string `json:"name"`
-	// Offset is where the first occurrence starts, from the model's
-	// first data register.
+	// Offset is where the first occurrence starts: from the model's first
+	// data register for a top-level group, from the start of the parent
+	// occurrence for a nested one. Repeating groups before it are counted
+	// as absent; Layout gives the real places.
 	Offset int `json:"off"`
-	// Len is the length of one occurrence in registers.
+	// Len is the length of one occurrence in registers, nested repeating
+	// groups counted as absent (so the whole length for a group without
+	// them).
 	Len int `json:"len"`
 	// Count is a fixed number of occurrences (1 for a group that occurs
 	// once); 0 when CountPoint or the model length gives it.
 	Count int `json:"count,omitempty"`
-	// CountPoint names the top-level point that holds the number of
-	// occurrences.
+	// CountPoint names the point that holds the number of occurrences: a
+	// point of an enclosing group or of the model's top level (in the
+	// SunSpec definitions always the latter).
 	CountPoint string `json:"countPoint,omitempty"`
 	// FromLength is true when the occurrences fill the model's length.
 	FromLength bool `json:"fromLength,omitempty"`
 	// Points are the group's points, their offsets counted from the start
 	// of an occurrence.
 	Points []Point `json:"points"`
+	// Groups are the groups nested in each occurrence, after its points
+	// (model 705's curve points, the trip curves of models 707 to 710).
+	Groups []Group `json:"groups,omitempty"`
 }
 
 // Model is one SunSpec model definition.
@@ -125,6 +140,7 @@ type Model struct {
 
 var (
 	loadOnce sync.Once
+	modelsMu sync.RWMutex
 	models   map[int]*Model
 	loadErr  error
 )
@@ -146,12 +162,16 @@ func load() {
 // not describe.
 func Lookup(id int) *Model {
 	loadOnce.Do(load)
+	modelsMu.RLock()
+	defer modelsMu.RUnlock()
 	return models[id]
 }
 
 // Known lists the IDs of the described models.
 func Known() []int {
 	loadOnce.Do(load)
+	modelsMu.RLock()
+	defer modelsMu.RUnlock()
 	out := make([]int, 0, len(models))
 	for id := range models {
 		out = append(out, id)
@@ -204,36 +224,87 @@ type Map struct {
 }
 
 // ErrNotSunSpec is returned when no base address holds the marker.
-var ErrNotSunSpec = errors.New("no SunSpec map: none of the addresses 40000, 50000 or 0 starts with \"SunS\"")
+var ErrNotSunSpec = errors.New("no SunSpec map: no \"SunS\" marker at 40000, 50000, 0 or the addresses next to them")
 
 // Find looks for the marker at the base addresses and walks the model
-// chain. A read that fails at one base is not fatal. When no base holds
-// the marker, Find returns ErrNotSunSpec if the device answered at any
-// base (with registers, or with an error its Refuser calls a refusal),
-// else the error of the last base.
+// chain. A read that fails at one base is not fatal. When none of Bases
+// holds the marker, Find tries the addresses next to each base the device
+// answered at (40001, 39999, 50001, 49999, 1): a map placed by someone
+// who counted registers from one, or read from a device that does. When
+// no address holds the marker, Find returns ErrNotSunSpec if the device
+// answered at any (with registers, or with an error its Refuser calls a
+// refusal), else the error of the last read.
 func Find(r Reader) (*Map, error) {
-	var lastErr error
-	answered := false
-	for _, base := range Bases {
+	p := find(r, Bases)
+	if p.found {
+		return p.m, p.err
+	}
+	var next []uint16
+	for _, b := range p.answeredAt {
+		for _, n := range []int{int(b) + 1, int(b) - 1} {
+			if n >= 0 && n <= 0xFFFD && !slices.Contains(Bases, uint16(n)) && !slices.Contains(next, uint16(n)) {
+				next = append(next, uint16(n))
+			}
+		}
+	}
+	if len(next) == 0 {
+		return nil, p.notFound()
+	}
+	q := find(r, next)
+	if q.found {
+		return q.m, q.err
+	}
+	return nil, p.notFound() // the device answered at the bases
+}
+
+// FindAt looks for the marker at the given addresses only, in order, and
+// walks the chain from the first that holds it; the errors are Find's.
+func FindAt(r Reader, bases ...uint16) (*Map, error) {
+	p := find(r, bases)
+	if p.found {
+		return p.m, p.err
+	}
+	return nil, p.notFound()
+}
+
+type probe struct {
+	m          *Map
+	err        error // the walk's error when found, else the last read error
+	found      bool
+	answeredAt []uint16
+}
+
+func (p probe) notFound() error {
+	if len(p.answeredAt) > 0 || p.err == nil {
+		return ErrNotSunSpec
+	}
+	return p.err
+}
+
+// find tries the bases in order and walks the chain from the first that
+// holds the marker.
+func find(r Reader, bases []uint16) probe {
+	var p probe
+	for _, base := range bases {
 		regs, err := r.ReadHolding(base, 2)
 		if err != nil {
-			lastErr = err
-			answered = answered || refused(r, err)
+			p.err = err
+			if refused(r, err) {
+				p.answeredAt = append(p.answeredAt, base)
+			}
 			continue
 		}
-		answered = true
+		p.answeredAt = append(p.answeredAt, base)
 		if len(regs) == 2 && regs[0] == Marker[0] && regs[1] == Marker[1] {
-			return Walk(r, base)
+			m, err := Walk(r, base)
+			return probe{m: m, err: err, found: true}
 		}
 	}
-	if answered || lastErr == nil {
-		return nil, ErrNotSunSpec
-	}
-	return nil, lastErr
+	return p
 }
 
 // maxModels bounds a walk (a device with a broken chain).
-const maxModels = 64
+const maxModels = 256
 
 // Walk reads the model chain after the marker at base.
 func Walk(r Reader, base uint16) (*Map, error) {
@@ -276,10 +347,29 @@ func Walk(r Reader, base uint16) (*Map, error) {
 // short names the models in point names ("inverter.W"); the published
 // model names are long ("inverter_three_phase").
 var short = map[int]string{
-	1: "common", 101: "inverter", 102: "inverter", 103: "inverter", 111: "inverter", 112: "inverter", 113: "inverter",
-	120: "nameplate", 121: "settings", 122: "status", 123: "controls", 124: "storage", 126: "voltVar", 160: "mppt",
-	201: "meter", 202: "meter", 203: "meter", 204: "meter",
-	701: "derAc", 702: "derCapacity", 703: "derEnterService", 704: "derControls", 705: "derVoltVar", 713: "derStorage", 715: "derControl",
+	1: "common", 2: "aggregator", 3: "secureReadRequest", 4: "secureReadResponse", 5: "secureWriteRequest",
+	6: "secureWriteSequential", 7: "secureWriteResponse", 8: "getCertificate", 9: "setCertificate",
+	10: "commInterface", 11: "ethernet", 12: "ipv4", 13: "ipv6", 14: "proxy", 15: "interfaceCounters",
+	16: "simpleIP", 17: "serial", 18: "cellular", 19: "ppp",
+	101: "inverter", 102: "inverter", 103: "inverter", 111: "inverter", 112: "inverter", 113: "inverter",
+	120: "nameplate", 121: "settings", 122: "status", 123: "controls", 124: "storage", 125: "pricing", 126: "voltVar",
+	127: "freqWattParam", 128: "reactiveCurrent", 129: "lvrt", 130: "hvrt", 131: "wattPF", 132: "voltWatt",
+	133: "schedule", 134: "freqWatt", 135: "lfrt", 136: "hfrt", 137: "lvrtc", 138: "hvrtc", 139: "lvrtx",
+	140: "hvrtx", 141: "lfrtc", 142: "hfrtc", 143: "lfrtx", 144: "hfrtx", 145: "extSettings", 160: "mppt",
+	201: "meter", 202: "meter", 203: "meter", 204: "meter", 211: "meter", 212: "meter", 213: "meter", 214: "meter",
+	220: "secureMeter",
+	302: "irradiance", 303: "moduleTemp", 304: "inclinometer", 305: "location", 306: "refPoint", 307: "baseMet", 308: "miniMet",
+	401: "stringCombiner", 402: "stringCombiner", 403: "stringCombiner", 404: "stringCombiner",
+	501: "solarModule", 502: "solarModule", 601: "tracker",
+	701: "derAc", 702: "derCapacity", 703: "derEnterService", 704: "derControls", 705: "derVoltVar", 706: "derVoltWatt",
+	707: "derTripLV", 708: "derTripHV", 709: "derTripLF", 710: "derTripHF", 711: "derFreqDroop", 712: "derWattVar",
+	713: "derStorage", 714: "derDC", 715: "derControl",
+	801: "storageBase", 802: "battery", 803: "lithiumIonBank", 804: "lithiumIonString", 805: "lithiumIonModule",
+	806: "flowBattery", 807: "flowBatteryString", 808: "flowBatteryModule", 809: "flowBatteryStack",
+	63001: "test1", 63002: "test2",
+	64001: "statusConfig", 64020: "stringMonitor", 64101: "inverterExtension", 64111: "chargeController",
+	64112: "chargeControllerExt", 64410: "dcSimulator", 64411: "acSimulator", 64412: "derExploitation",
+	64413: "pvCurves", 64414: "derSimControls", 64415: "csipControl",
 }
 
 // ShortName is the name a model's points are written under: a short
@@ -296,7 +386,9 @@ func ShortName(id int) string {
 // read again only now and then.
 func Dynamic(id int) bool {
 	switch id {
-	case 101, 102, 103, 111, 112, 113, 122, 160, 201, 202, 203, 204, 701, 713:
+	case 15, 101, 102, 103, 111, 112, 113, 122, 160, 201, 202, 203, 204, 211, 212, 213, 214, 220,
+		302, 303, 304, 305, 307, 308, 401, 402, 403, 404, 501, 502, 601, 701, 713, 714,
+		801, 802, 803, 804, 805, 806, 807, 808, 809, 64020, 64111, 64112:
 		return true
 	}
 	return false
@@ -341,8 +433,16 @@ type Value struct {
 	// Name is the point's name. A point of a group that occurs once is
 	// "<group>.<point>"; a point of the model's only repeating group is
 	// "<n>.<point>" (n counting from 1, so "2.DCV" in model 160); with
-	// more than one repeating group it is "<group>.<n>.<point>".
+	// more than one repeating group it is "<group>.<n>.<point>". Nested
+	// groups follow their parent's name the same way, always with the
+	// group's name: "1.Pt.3.V" is the third point of model 705's first
+	// curve.
 	Name string
+	// Path names the point with every group spelt out ("Crv.1.Pt.3.V",
+	// "module.2.DCV"); Write, Locate and PlanWrite take either.
+	Path string
+	// Offset counts registers from the model's first data register.
+	Offset int
 	// Point is the point's definition.
 	Point *Point
 	// V is a float64 (scaled), a string, or for enums the symbol name
@@ -355,74 +455,43 @@ type Value struct {
 	Raw int64
 }
 
-// Decode turns a model's registers into its implemented points. Scale
-// factor points, pads and points holding their "not implemented" value
-// are left out.
+// Decode turns a model's registers into its implemented points, nested
+// groups included (Layout). Scale factor points, pads, points holding
+// their "not implemented" value and points whose scale factor is not
+// implemented or out of range are left out.
 func Decode(inst Instance, regs []uint16) []Value {
-	def := inst.Def
-	if def == nil {
-		return nil
-	}
 	var out []Value
-	sfs := map[string]int64{}
-	for i := range def.Points {
-		p := &def.Points[i]
-		if p.Type == "sunssf" && p.Offset+1 <= len(regs) {
-			sfs[p.Name] = int64(int16(regs[p.Offset]))
-		}
-	}
-	for i := range def.Points {
-		p := &def.Points[i]
-		if v, ok := decodePoint(p, regs, 0, sfs); ok {
-			v.Name = p.Name
+	for _, l := range Layout(inst, regs) {
+		v, ok := decodeLocated(l, regs)
+		if ok {
 			out = append(out, v)
-		}
-	}
-	repeating := 0
-	for _, g := range def.Groups {
-		if g.Count != 1 {
-			repeating++
-		}
-	}
-	for gi := range def.Groups {
-		g := &def.Groups[gi]
-		n := GroupCount(inst, g, regs)
-		for k := 0; k < n; k++ {
-			base := g.Offset + k*g.Len
-			// Group scale factors may sit in the group itself.
-			gsf := map[string]int64{}
-			for s, v := range sfs {
-				gsf[s] = v
-			}
-			for i := range g.Points {
-				p := &g.Points[i]
-				if p.Type == "sunssf" && base+p.Offset < len(regs) {
-					gsf[p.Name] = int64(int16(regs[base+p.Offset]))
-				}
-			}
-			for i := range g.Points {
-				p := &g.Points[i]
-				v, ok := decodePoint(p, regs, base, gsf)
-				if !ok {
-					continue
-				}
-				switch {
-				case g.Count == 1:
-					v.Name = g.Name + "." + p.Name
-				case repeating == 1:
-					// The model's one repeating block: "mppt.2.DCV".
-					v.Name = fmt.Sprintf("%d.%s", k+1, p.Name)
-				default:
-					v.Name = fmt.Sprintf("%s.%d.%s", g.Name, k+1, p.Name)
-				}
-				out = append(out, v)
-			}
 		}
 	}
 	return out
 }
 
-// GroupCount is how many times a repeating group occurs in an instance.
+func decodeLocated(l Located, regs []uint16) (Value, bool) {
+	v, ok := decodePoint(l.Point, regs, l.Offset)
+	if !ok {
+		return v, false
+	}
+	v.Name, v.Path, v.Offset = l.Name, l.Path, l.Offset
+	if f, isNum := v.V.(float64); isNum && !strings.HasPrefix(l.Point.Type, "float") {
+		sf, scaled, usable := l.Scale(regs)
+		if !usable {
+			return v, false
+		}
+		if scaled {
+			f *= math.Pow10(sf)
+			v.V = round(f, sf)
+		}
+	}
+	return v, true
+}
+
+// GroupCount is how many times a top-level group occurs in an instance.
+// For nested groups, and for groups after a repeating group whose
+// occurrences have nested repeating groups, use Layout.
 func GroupCount(inst Instance, g *Group, regs []uint16) int {
 	switch {
 	case g.Count > 0:
@@ -446,9 +515,9 @@ func GroupCount(inst Instance, g *Group, regs []uint16) int {
 	return 0
 }
 
-func decodePoint(p *Point, regs []uint16, base int, sfs map[string]int64) (Value, bool) {
-	off := base + p.Offset
-	if off < 0 || off+p.Size > len(regs) {
+// decodePoint decodes the point at off, unscaled.
+func decodePoint(p *Point, regs []uint16, off int) (Value, bool) {
+	if off < 0 || p.Size < 1 || off+p.Size > len(regs) {
 		return Value{}, false
 	}
 	w := regs[off : off+p.Size]
@@ -468,6 +537,16 @@ func decodePoint(p *Point, regs []uint16, base int, sfs map[string]int64) (Value
 			return v, false
 		}
 		v.V = fmt.Sprintf("%d.%d.%d.%d", w[0]>>8, w[0]&0xFF, w[1]>>8, w[1]&0xFF)
+		return v, true
+	case "ipv6addr":
+		b := make([]byte, 0, 16)
+		for _, x := range w {
+			b = binary.BigEndian.AppendUint16(b, x)
+		}
+		if len(b) != 16 || allZero(b) {
+			return v, false
+		}
+		v.V = netip.AddrFrom16([16]byte(b)).String()
 		return v, true
 	case "eui48":
 		b := make([]byte, 0, 8)
@@ -517,7 +596,7 @@ func decodePoint(p *Point, regs []uint16, base int, sfs map[string]int64) (Value
 	case strings.HasPrefix(p.Type, "bitfield"):
 		set := []string{}
 		for name, bit := range p.Symbols {
-			if raw&(1<<uint(bit)) != 0 {
+			if bit >= 0 && bit < 64 && uint64(raw)&(1<<uint(bit)) != 0 {
 				set = append(set, name)
 			}
 		}
@@ -525,15 +604,11 @@ func decodePoint(p *Point, regs []uint16, base int, sfs map[string]int64) (Value
 		v.V = set
 		return v, true
 	}
-	f := float64(raw)
-	if sf, ok := scaleOf(p, sfs); ok {
-		if sf == math.MinInt16 { // the scale factor is not implemented
-			return v, false
-		}
-		f *= math.Pow10(int(sf))
-		f = round(f, int(sf))
+	if p.Type == "uint64" || p.Type == "acc64" {
+		v.V = float64(uint64(raw))
+	} else {
+		v.V = float64(raw)
 	}
-	v.V = f
 	return v, true
 }
 
@@ -547,17 +622,6 @@ const (
 	pysunspec2Float32 = float32(0x7FC00000)
 	pysunspec2Float64 = float64(0x7FF8000000000000)
 )
-
-func scaleOf(p *Point, sfs map[string]int64) (int64, bool) {
-	switch s := p.SF.(type) {
-	case string:
-		v, ok := sfs[s]
-		return v, ok
-	case float64:
-		return int64(s), true
-	}
-	return 0, false
-}
 
 // round removes the float noise of a negative power of ten (230.10000001).
 func round(f float64, sf int) float64 {
@@ -611,6 +675,15 @@ func decodeString(w []uint16) string {
 	return strings.TrimSpace(strings.ToValidUTF8(string(b), ""))
 }
 
+func allZero(b []byte) bool {
+	for _, x := range b {
+		if x != 0 {
+			return false
+		}
+	}
+	return true
+}
+
 func allFF(b []byte) bool {
 	for _, x := range b {
 		if x != 0xFF {
@@ -637,6 +710,34 @@ func Unit(u string) string {
 		return ""
 	case "C":
 		return "Cel"
+	// Units of the models added in v0.2.0 (the ones above keep their
+	// v0.1.0 mapping; others, such as "% VRef", stay as written).
+	case "VNomPct", "WMaxPct", "VarPct", "DeptRef", "% WRef":
+		return "%"
+	case "Sec", "Tms":
+		return "s"
+	case "mSecs":
+		return "ms"
+	case "Tmh":
+		return "h"
+	case "Tmd":
+		return "d"
+	case "Degrees", "deg":
+		return "deg"
+	case "W/m^2":
+		return "W/m2"
+	case "HPa":
+		return "hPa"
+	case "kO":
+		return "kOhm"
+	case "kAH":
+		return "kAh"
+	case "mps":
+		return "m/s"
+	case "meters":
+		return "m"
+	case "PF":
+		return ""
 	}
 	return u
 }

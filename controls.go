@@ -88,11 +88,23 @@ func IsControl(content any) bool {
 type Write struct {
 	// Model is the instance the point belongs to.
 	Model Instance
-	// Point is a top-level point name, or "<group>.<point>" for a group
-	// that occurs once ("PFWInj.PF").
+	// Point is a top-level point name, "<group>.<point>" for a group
+	// that occurs once ("PFWInj.PF"), or any name or path Decode gives
+	// (Value.Name, Value.Path) for a point of a repeating or nested group
+	// ("1.V1" in model 126, "Crv.2.Pt.3.V" in model 705).
 	Point string
-	// Raw is the unscaled value to write.
+	// Raw is the unscaled value to write, for the integer types (int,
+	// uint, acc, count, enum and bitfield of 16, 32 and 64 bits).
 	Raw int64
+	// Value, when not nil, is written instead of Raw: a float64 for a
+	// float32 or float64 point, a string for a string point (padded with
+	// zeros, at most two characters a register), an IPv4 address in
+	// dotted form for an ipaddr point.
+	Value any
+	// Regs are the model's registers as last read. They place a point of
+	// a repeating group counted by a point (the curves of models 705 to
+	// 712) and may be nil for others. PlanWrite and PlanCurve fill them.
+	Regs []uint16
 }
 
 // Plan is the writes an action needs, in order (setpoints before their
@@ -126,13 +138,13 @@ func PlanControl(m *Map, c Control, regs func(Instance) ([]uint16, error)) (Plan
 			on = 1
 		}
 		if old != nil {
-			return Plan{Model: 123, Writes: []Write{{*old, "Conn", on}}}, nil
+			return Plan{Model: 123, Writes: []Write{{Model: *old, Point: "Conn", Raw: on}}}, nil
 		}
 		if ctl := m.Model(715); ctl != nil {
-			return Plan{Model: 715, Writes: []Write{{*ctl, "OpCtl", on}}}, nil // STOP 0, START 1
+			return Plan{Model: 715, Writes: []Write{{Model: *ctl, Point: "OpCtl", Raw: on}}}, nil // STOP 0, START 1
 		}
 		if es := m.Model(703); es != nil {
-			return Plan{Model: 703, Writes: []Write{{*es, "ES", on}}, Note: "enter service permitted or not (model 703)"}, nil
+			return Plan{Model: 703, Writes: []Write{{Model: *es, Point: "ES", Raw: on}}, Note: "enter service permitted or not (model 703)"}, nil
 		}
 	case ActionLimitPower, ActionClearPowerLimit:
 		inst, enable, sf := der, "WMaxLimPctEna", "WMaxLimPct_SF"
@@ -143,17 +155,17 @@ func PlanControl(m *Map, c Control, regs func(Instance) ([]uint16, error)) (Plan
 			break
 		}
 		if c.Action == ActionClearPowerLimit {
-			return Plan{Model: inst.ID, Writes: []Write{{*inst, enable, 0}}}, nil
+			return Plan{Model: inst.ID, Writes: []Write{{Model: *inst, Point: enable, Raw: 0}}}, nil
 		}
 		raw, err := scaled(*inst, sf, *c.Percent, regs)
 		if err != nil {
 			return Plan{}, err
 		}
-		return Plan{Model: inst.ID, Writes: []Write{{*inst, "WMaxLimPct", raw}, {*inst, enable, 1}}}, nil
+		return Plan{Model: inst.ID, Writes: []Write{{Model: *inst, Point: "WMaxLimPct", Raw: raw}, {Model: *inst, Point: enable, Raw: 1}}}, nil
 	case ActionSetPowerFactor, ActionClearPowerFactor:
 		if der != nil {
 			if c.Action == ActionClearPowerFactor {
-				return Plan{Model: 704, Writes: []Write{{*der, "PFWInjEna", 0}}}, nil
+				return Plan{Model: 704, Writes: []Write{{Model: *der, Point: "PFWInjEna", Raw: 0}}}, nil
 			}
 			raw, err := scaled(*der, "PF_SF", math.Abs(*c.PowerFactor), regs)
 			if err != nil {
@@ -163,17 +175,17 @@ func PlanControl(m *Map, c Control, regs func(Instance) ([]uint16, error)) (Plan
 			if c.Excitation == "under" {
 				ext = 1
 			}
-			return Plan{Model: 704, Writes: []Write{{*der, "PFWInj.PF", raw}, {*der, "PFWInj.Ext", ext}, {*der, "PFWInjEna", 1}}}, nil
+			return Plan{Model: 704, Writes: []Write{{Model: *der, Point: "PFWInj.PF", Raw: raw}, {Model: *der, Point: "PFWInj.Ext", Raw: ext}, {Model: *der, Point: "PFWInjEna", Raw: 1}}}, nil
 		}
 		if old != nil {
 			if c.Action == ActionClearPowerFactor {
-				return Plan{Model: 123, Writes: []Write{{*old, "OutPFSet_Ena", 0}}}, nil
+				return Plan{Model: 123, Writes: []Write{{Model: *old, Point: "OutPFSet_Ena", Raw: 0}}}, nil
 			}
 			raw, err := scaled(*old, "OutPFSet_SF", *c.PowerFactor, regs)
 			if err != nil {
 				return Plan{}, err
 			}
-			p := Plan{Model: 123, Writes: []Write{{*old, "OutPFSet", raw}, {*old, "OutPFSet_Ena", 1}}}
+			p := Plan{Model: 123, Writes: []Write{{Model: *old, Point: "OutPFSet", Raw: raw}, {Model: *old, Point: "OutPFSet_Ena", Raw: 1}}}
 			if c.Excitation != "" {
 				p.Note = "model 123 takes a signed power factor in the device's own convention; excitation was not used"
 			}
@@ -201,6 +213,9 @@ func scaled(inst Instance, sfName string, v float64, regs func(Instance) ([]uint
 	if sf == math.MinInt16 {
 		sf = 0
 	}
+	if sf < MinSF || sf > MaxSF {
+		return 0, fmt.Errorf("model %d scale factor %s is %d, outside %d to %d", inst.ID, sfName, sf, MinSF, MaxSF)
+	}
 	return int64(math.Round(v / math.Pow10(int(sf)))), nil
 }
 
@@ -223,52 +238,4 @@ func (m *Model) point(name string) *Point {
 		}
 	}
 	return nil
-}
-
-// Encode turns a write into its register address and words.
-func (w Write) Encode() (uint16, []uint16, error) {
-	p := w.Model.Def.point(w.Point)
-	if p == nil {
-		return 0, nil, fmt.Errorf("model %d has no point %s", w.Model.ID, w.Point)
-	}
-	if !p.RW {
-		return 0, nil, fmt.Errorf("model %d point %s is read-only", w.Model.ID, w.Point)
-	}
-	if p.Offset+p.Size > w.Model.L {
-		return 0, nil, fmt.Errorf("model %d is too short for %s", w.Model.ID, w.Point)
-	}
-	var words []uint16
-	switch p.Size {
-	case 1:
-		if p.Type == "int16" && (w.Raw < math.MinInt16 || w.Raw > math.MaxInt16) || p.Type != "int16" && (w.Raw < 0 || w.Raw > math.MaxUint16) {
-			return 0, nil, fmt.Errorf("%d does not fit %s (%s)", w.Raw, w.Point, p.Type)
-		}
-		words = []uint16{uint16(w.Raw)}
-	case 2:
-		words = []uint16{uint16(uint32(w.Raw) >> 16), uint16(w.Raw)}
-	default:
-		return 0, nil, fmt.Errorf("writing %s (%d registers) is not supported", w.Point, p.Size)
-	}
-	return w.Model.Addr + uint16(p.Offset), words, nil
-}
-
-// ReadBack returns the raw value the device holds for the write's point,
-// from regs, a fresh read of the write's model after the writes; ok is
-// false when the model has no such point or regs is too short.
-func (w Write) ReadBack(regs []uint16) (int64, bool) {
-	p := w.Model.Def.point(w.Point)
-	if p == nil || p.Offset+p.Size > len(regs) {
-		return 0, false
-	}
-	var u uint64
-	for _, x := range regs[p.Offset : p.Offset+p.Size] {
-		u = u<<16 | uint64(x)
-	}
-	if p.Type == "int16" {
-		return int64(int16(u)), true
-	}
-	if p.Type == "int32" {
-		return int64(int32(u)), true
-	}
-	return int64(u), true
 }

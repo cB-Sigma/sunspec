@@ -436,16 +436,54 @@ type pyPoint struct {
 type pyGroup struct {
 	Name   string    `json:"name"`
 	Off    int       `json:"off"`
-	Len    *int      `json:"len"`
+	Len    int       `json:"len"`
 	Count  any       `json:"count"`
 	Points []pyPoint `json:"points"`
+	Groups []pyGroup `json:"groups"`
 }
 
 type pyModel struct {
-	Name   string    `json:"name"`
-	Fixed  int       `json:"fixed"`
-	Points []pyPoint `json:"points"`
-	Groups []pyGroup `json:"groups"`
+	Name    string    `json:"name"`
+	Label   string    `json:"label"`
+	Fixed   int       `json:"fixed"`
+	Repeats bool      `json:"repeats"`
+	Points  []pyPoint `json:"points"`
+	Groups  []pyGroup `json:"groups"`
+}
+
+// compareGroups compares groups (and their nested groups) with
+// pysunspec2's: place, length, count and points.
+func compareGroups(t *testing.T, where string, ours []sunspec.Group, theirs []pyGroup) int {
+	t.Helper()
+	points := 0
+	if len(ours) != len(theirs) {
+		t.Errorf("%s: %d groups, pysunspec2 %d", where, len(ours), len(theirs))
+	}
+	for i, g := range ours {
+		if i >= len(theirs) {
+			break
+		}
+		q := theirs[i]
+		count := ""
+		switch {
+		case g.CountPoint != "":
+			count = g.CountPoint
+		case g.FromLength:
+			count = "0"
+		case g.Count > 1:
+			count = fmt.Sprint(g.Count)
+		}
+		qc := ""
+		if q.Count != nil && fmt.Sprint(q.Count) != "1" {
+			qc = fmt.Sprint(q.Count)
+		}
+		if q.Name != g.Name || q.Off != g.Offset || q.Len != g.Len || qc != count {
+			t.Errorf("%s.%s: at %d len %d count %q, pysunspec2 %s at %d len %d count %q", where, g.Name, g.Offset, g.Len, count, q.Name, q.Off, q.Len, qc)
+		}
+		comparePoints(t, where+"."+g.Name, g.Points, q.Points)
+		points += len(g.Points) + compareGroups(t, where+"."+g.Name, g.Groups, q.Groups)
+	}
+	return points
 }
 
 // Our symbol corrections of the source data (see NOTICE): pysunspec2
@@ -521,39 +559,26 @@ func TestModelTablesAgainstPysunspec2(t *testing.T) {
 			continue
 		}
 		where := fmt.Sprint(id)
-		if ours.Name != py.Name {
-			t.Errorf("model %d: name %q, pysunspec2 %q", id, ours.Name, py.Name)
+		if ours.Name != py.Name || ours.Label != strings.TrimSpace(py.Label) {
+			t.Errorf("model %d: name %q label %q, pysunspec2 %q %q", id, ours.Name, ours.Label, py.Name, py.Label)
 		}
 		comparePoints(t, where, ours.Points, py.Points)
 		points += len(ours.Points)
 		total := py.Fixed
 		for _, g := range py.Groups {
-			if (g.Count == nil || fmt.Sprint(g.Count) == "1") && g.Len != nil {
-				total += *g.Len
+			if g.Count == nil || fmt.Sprint(g.Count) == "1" {
+				total += g.Len
 			}
 		}
 		switch {
+		case py.Repeats && ours.Len > 0, !py.Repeats && ours.Len == 0:
+			t.Errorf("model %d: length %d, fixed %d; pysunspec2 has repeating groups: %v", id, ours.Len, ours.Fixed, py.Repeats)
 		case ours.Len > 0 && ours.Len != total:
 			t.Errorf("model %d: length %d, pysunspec2 %d", id, ours.Len, total)
-		case ours.Fixed > 0 && ours.Fixed != py.Fixed:
+		case ours.Len == 0 && ours.Fixed != py.Fixed:
 			t.Errorf("model %d: fixed part %d, pysunspec2 %d", id, ours.Fixed, py.Fixed)
 		}
-		pyGroups := map[string]pyGroup{}
-		for _, g := range py.Groups {
-			pyGroups[g.Name] = g
-		}
-		for _, g := range ours.Groups {
-			q, ok := pyGroups[g.Name]
-			if !ok {
-				t.Errorf("model %d: group %s not in pysunspec2", id, g.Name)
-				continue
-			}
-			if q.Off != g.Offset || q.Len == nil || *q.Len != g.Len {
-				t.Errorf("model %d: group %s at %d len %d, pysunspec2 at %d len %v", id, g.Name, g.Offset, g.Len, q.Off, q.Len)
-			}
-			comparePoints(t, where+"."+g.Name, g.Points, q.Points)
-			points += len(g.Points)
-		}
+		points += compareGroups(t, where, ours.Groups, py.Groups)
 	}
 	t.Logf("compared %d models and %d points with pysunspec2's definitions", len(sunspec.Known()), points)
 }
