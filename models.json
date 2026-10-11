@@ -1,0 +1,8863 @@
+{
+ "source": "Derived from the SunSpec Alliance information models (https://github.com/sunspec/models, json/model_<id>.json, commit 90b4a331dcca1d6eac69c1bead952fddcc5852e0, Apache License 2.0): point names, offsets, types, sizes, scale factors, units, access and symbol values only. Offsets count from the first register after the model's ID and L. Modified: the symbol names of model 111's St are written without the stray \"gg\" prefix the source has, as in models 101 to 113.",
+ "models": [
+  {
+   "id": 1,
+   "name": "common",
+   "l": "Common",
+   "len": 66,
+   "points": [
+    {
+     "n": "Mn",
+     "o": 0,
+     "t": "string",
+     "s": 16,
+     "m": true,
+     "st": true,
+     "l": "Manufacturer"
+    },
+    {
+     "n": "Md",
+     "o": 16,
+     "t": "string",
+     "s": 16,
+     "m": true,
+     "st": true,
+     "l": "Model"
+    },
+    {
+     "n": "Opt",
+     "o": 32,
+     "t": "string",
+     "s": 8,
+     "st": true,
+     "l": "Options"
+    },
+    {
+     "n": "Vr",
+     "o": 40,
+     "t": "string",
+     "s": 8,
+     "st": true,
+     "l": "Version"
+    },
+    {
+     "n": "SN",
+     "o": 48,
+     "t": "string",
+     "s": 16,
+     "m": true,
+     "st": true,
+     "l": "Serial Number"
+    },
+    {
+     "n": "DA",
+     "o": 64,
+     "t": "uint16",
+     "s": 1,
+     "rw": true,
+     "l": "Device Address"
+    },
+    {
+     "n": "Pad",
+     "o": 65,
+     "t": "pad",
+     "s": 1,
+     "st": true
+    }
+   ]
+  },
+  {
+   "id": 101,
+   "name": "inverter_single_phase",
+   "l": "Inverter (Single Phase)",
+   "len": 50,
+   "points": [
+    {
+     "n": "A",
+     "o": 0,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps"
+    },
+    {
+     "n": "AphA",
+     "o": 1,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseA"
+    },
+    {
+     "n": "AphB",
+     "o": 2,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "l": "Amps PhaseB"
+    },
+    {
+     "n": "AphC",
+     "o": 3,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "l": "Amps PhaseC"
+    },
+    {
+     "n": "A_SF",
+     "o": 4,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "PPVphAB",
+     "o": 5,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage AB"
+    },
+    {
+     "n": "PPVphBC",
+     "o": 6,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage BC"
+    },
+    {
+     "n": "PPVphCA",
+     "o": 7,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage CA"
+    },
+    {
+     "n": "PhVphA",
+     "o": 8,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage AN"
+    },
+    {
+     "n": "PhVphB",
+     "o": 9,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage BN"
+    },
+    {
+     "n": "PhVphC",
+     "o": 10,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage CN"
+    },
+    {
+     "n": "V_SF",
+     "o": 11,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "W",
+     "o": 12,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "m": true,
+     "l": "Watts"
+    },
+    {
+     "n": "W_SF",
+     "o": 13,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "Hz",
+     "o": 14,
+     "t": "uint16",
+     "s": 1,
+     "sf": "Hz_SF",
+     "u": "Hz",
+     "m": true,
+     "l": "Hz"
+    },
+    {
+     "n": "Hz_SF",
+     "o": 15,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "VA",
+     "o": 16,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA"
+    },
+    {
+     "n": "VA_SF",
+     "o": 17,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "VAr",
+     "o": 18,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAr_SF",
+     "u": "var",
+     "l": "VAr"
+    },
+    {
+     "n": "VAr_SF",
+     "o": 19,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "PF",
+     "o": 20,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF"
+    },
+    {
+     "n": "PF_SF",
+     "o": 21,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "WH",
+     "o": 22,
+     "t": "acc32",
+     "s": 2,
+     "sf": "WH_SF",
+     "u": "Wh",
+     "m": true,
+     "l": "WattHours"
+    },
+    {
+     "n": "WH_SF",
+     "o": 24,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "DCA",
+     "o": 25,
+     "t": "uint16",
+     "s": 1,
+     "sf": "DCA_SF",
+     "u": "A",
+     "l": "DC Amps"
+    },
+    {
+     "n": "DCA_SF",
+     "o": 26,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "DCV",
+     "o": 27,
+     "t": "uint16",
+     "s": 1,
+     "sf": "DCV_SF",
+     "u": "V",
+     "l": "DC Voltage"
+    },
+    {
+     "n": "DCV_SF",
+     "o": 28,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "DCW",
+     "o": 29,
+     "t": "int16",
+     "s": 1,
+     "sf": "DCW_SF",
+     "u": "W",
+     "l": "DC Watts"
+    },
+    {
+     "n": "DCW_SF",
+     "o": 30,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "TmpCab",
+     "o": 31,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "m": true,
+     "l": "Cabinet Temperature"
+    },
+    {
+     "n": "TmpSnk",
+     "o": 32,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Heat Sink Temperature"
+    },
+    {
+     "n": "TmpTrns",
+     "o": 33,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Transformer Temperature"
+    },
+    {
+     "n": "TmpOt",
+     "o": 34,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Other Temperature"
+    },
+    {
+     "n": "Tmp_SF",
+     "o": 35,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "St",
+     "o": 36,
+     "t": "enum16",
+     "s": 1,
+     "m": true,
+     "sym": {
+      "OFF": 1,
+      "SLEEPING": 2,
+      "STARTING": 3,
+      "MPPT": 4,
+      "THROTTLED": 5,
+      "SHUTTING_DOWN": 6,
+      "FAULT": 7,
+      "STANDBY": 8
+     },
+     "l": "Operating State"
+    },
+    {
+     "n": "StVnd",
+     "o": 37,
+     "t": "enum16",
+     "s": 1,
+     "l": "Vendor Operating State"
+    },
+    {
+     "n": "Evt1",
+     "o": 38,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "sym": {
+      "GROUND_FAULT": 0,
+      "DC_OVER_VOLT": 1,
+      "AC_DISCONNECT": 2,
+      "DC_DISCONNECT": 3,
+      "GRID_DISCONNECT": 4,
+      "CABINET_OPEN": 5,
+      "MANUAL_SHUTDOWN": 6,
+      "OVER_TEMP": 7,
+      "OVER_FREQUENCY": 8,
+      "UNDER_FREQUENCY": 9,
+      "AC_OVER_VOLT": 10,
+      "AC_UNDER_VOLT": 11,
+      "BLOWN_STRING_FUSE": 12,
+      "UNDER_TEMP": 13,
+      "MEMORY_LOSS": 14,
+      "HW_TEST_FAILURE": 15
+     },
+     "l": "Event1"
+    },
+    {
+     "n": "Evt2",
+     "o": 40,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "l": "Event Bitfield 2"
+    },
+    {
+     "n": "EvtVnd1",
+     "o": 42,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 1"
+    },
+    {
+     "n": "EvtVnd2",
+     "o": 44,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 2"
+    },
+    {
+     "n": "EvtVnd3",
+     "o": 46,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 3"
+    },
+    {
+     "n": "EvtVnd4",
+     "o": 48,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 4"
+    }
+   ]
+  },
+  {
+   "id": 102,
+   "name": "inverter_split_phase",
+   "l": "Inverter (Split-Phase)",
+   "len": 50,
+   "points": [
+    {
+     "n": "A",
+     "o": 0,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps"
+    },
+    {
+     "n": "AphA",
+     "o": 1,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseA"
+    },
+    {
+     "n": "AphB",
+     "o": 2,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseB"
+    },
+    {
+     "n": "AphC",
+     "o": 3,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "l": "Amps PhaseC"
+    },
+    {
+     "n": "A_SF",
+     "o": 4,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "PPVphAB",
+     "o": 5,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage AB"
+    },
+    {
+     "n": "PPVphBC",
+     "o": 6,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage BC"
+    },
+    {
+     "n": "PPVphCA",
+     "o": 7,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage CA"
+    },
+    {
+     "n": "PhVphA",
+     "o": 8,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage AN"
+    },
+    {
+     "n": "PhVphB",
+     "o": 9,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage BN"
+    },
+    {
+     "n": "PhVphC",
+     "o": 10,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage CN"
+    },
+    {
+     "n": "V_SF",
+     "o": 11,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "W",
+     "o": 12,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "m": true,
+     "l": "Watts"
+    },
+    {
+     "n": "W_SF",
+     "o": 13,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "Hz",
+     "o": 14,
+     "t": "uint16",
+     "s": 1,
+     "sf": "Hz_SF",
+     "u": "Hz",
+     "m": true,
+     "l": "Hz"
+    },
+    {
+     "n": "Hz_SF",
+     "o": 15,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "VA",
+     "o": 16,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA"
+    },
+    {
+     "n": "VA_SF",
+     "o": 17,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "VAr",
+     "o": 18,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAr_SF",
+     "u": "var",
+     "l": "VAr"
+    },
+    {
+     "n": "VAr_SF",
+     "o": 19,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "PF",
+     "o": 20,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF"
+    },
+    {
+     "n": "PF_SF",
+     "o": 21,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "WH",
+     "o": 22,
+     "t": "acc32",
+     "s": 2,
+     "sf": "WH_SF",
+     "u": "Wh",
+     "m": true,
+     "l": "WattHours"
+    },
+    {
+     "n": "WH_SF",
+     "o": 24,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "DCA",
+     "o": 25,
+     "t": "uint16",
+     "s": 1,
+     "sf": "DCA_SF",
+     "u": "A",
+     "l": "DC Amps"
+    },
+    {
+     "n": "DCA_SF",
+     "o": 26,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "DCV",
+     "o": 27,
+     "t": "uint16",
+     "s": 1,
+     "sf": "DCV_SF",
+     "u": "V",
+     "l": "DC Voltage"
+    },
+    {
+     "n": "DCV_SF",
+     "o": 28,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "DCW",
+     "o": 29,
+     "t": "int16",
+     "s": 1,
+     "sf": "DCW_SF",
+     "u": "W",
+     "l": "DC Watts"
+    },
+    {
+     "n": "DCW_SF",
+     "o": 30,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "TmpCab",
+     "o": 31,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "m": true,
+     "l": "Cabinet Temperature"
+    },
+    {
+     "n": "TmpSnk",
+     "o": 32,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Heat Sink Temperature"
+    },
+    {
+     "n": "TmpTrns",
+     "o": 33,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Transformer Temperature"
+    },
+    {
+     "n": "TmpOt",
+     "o": 34,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Other Temperature"
+    },
+    {
+     "n": "Tmp_SF",
+     "o": 35,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "St",
+     "o": 36,
+     "t": "enum16",
+     "s": 1,
+     "m": true,
+     "sym": {
+      "OFF": 1,
+      "SLEEPING": 2,
+      "STARTING": 3,
+      "MPPT": 4,
+      "THROTTLED": 5,
+      "SHUTTING_DOWN": 6,
+      "FAULT": 7,
+      "STANDBY": 8
+     },
+     "l": "Operating State"
+    },
+    {
+     "n": "StVnd",
+     "o": 37,
+     "t": "enum16",
+     "s": 1,
+     "l": "Vendor Operating State"
+    },
+    {
+     "n": "Evt1",
+     "o": 38,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "sym": {
+      "GROUND_FAULT": 0,
+      "DC_OVER_VOLT": 1,
+      "AC_DISCONNECT": 2,
+      "DC_DISCONNECT": 3,
+      "GRID_DISCONNECT": 4,
+      "CABINET_OPEN": 5,
+      "MANUAL_SHUTDOWN": 6,
+      "OVER_TEMP": 7,
+      "OVER_FREQUENCY": 8,
+      "UNDER_FREQUENCY": 9,
+      "AC_OVER_VOLT": 10,
+      "AC_UNDER_VOLT": 11,
+      "BLOWN_STRING_FUSE": 12,
+      "UNDER_TEMP": 13,
+      "MEMORY_LOSS": 14,
+      "HW_TEST_FAILURE": 15
+     },
+     "l": "Event1"
+    },
+    {
+     "n": "Evt2",
+     "o": 40,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "l": "Event Bitfield 2"
+    },
+    {
+     "n": "EvtVnd1",
+     "o": 42,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 1"
+    },
+    {
+     "n": "EvtVnd2",
+     "o": 44,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 2"
+    },
+    {
+     "n": "EvtVnd3",
+     "o": 46,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 3"
+    },
+    {
+     "n": "EvtVnd4",
+     "o": 48,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 4"
+    }
+   ]
+  },
+  {
+   "id": 103,
+   "name": "inverter_three_phase",
+   "l": "Inverter (Three Phase)",
+   "len": 50,
+   "points": [
+    {
+     "n": "A",
+     "o": 0,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps"
+    },
+    {
+     "n": "AphA",
+     "o": 1,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseA"
+    },
+    {
+     "n": "AphB",
+     "o": 2,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseB"
+    },
+    {
+     "n": "AphC",
+     "o": 3,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseC"
+    },
+    {
+     "n": "A_SF",
+     "o": 4,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "PPVphAB",
+     "o": 5,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage AB"
+    },
+    {
+     "n": "PPVphBC",
+     "o": 6,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage BC"
+    },
+    {
+     "n": "PPVphCA",
+     "o": 7,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage CA"
+    },
+    {
+     "n": "PhVphA",
+     "o": 8,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage AN"
+    },
+    {
+     "n": "PhVphB",
+     "o": 9,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage BN"
+    },
+    {
+     "n": "PhVphC",
+     "o": 10,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage CN"
+    },
+    {
+     "n": "V_SF",
+     "o": 11,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "W",
+     "o": 12,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "m": true,
+     "l": "Watts"
+    },
+    {
+     "n": "W_SF",
+     "o": 13,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "Hz",
+     "o": 14,
+     "t": "uint16",
+     "s": 1,
+     "sf": "Hz_SF",
+     "u": "Hz",
+     "m": true,
+     "l": "Hz"
+    },
+    {
+     "n": "Hz_SF",
+     "o": 15,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "VA",
+     "o": 16,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA"
+    },
+    {
+     "n": "VA_SF",
+     "o": 17,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "VAr",
+     "o": 18,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAr_SF",
+     "u": "var",
+     "l": "VAr"
+    },
+    {
+     "n": "VAr_SF",
+     "o": 19,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "PF",
+     "o": 20,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF"
+    },
+    {
+     "n": "PF_SF",
+     "o": 21,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "WH",
+     "o": 22,
+     "t": "acc32",
+     "s": 2,
+     "sf": "WH_SF",
+     "u": "Wh",
+     "m": true,
+     "l": "WattHours"
+    },
+    {
+     "n": "WH_SF",
+     "o": 24,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "DCA",
+     "o": 25,
+     "t": "uint16",
+     "s": 1,
+     "sf": "DCA_SF",
+     "u": "A",
+     "l": "DC Amps"
+    },
+    {
+     "n": "DCA_SF",
+     "o": 26,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "DCV",
+     "o": 27,
+     "t": "uint16",
+     "s": 1,
+     "sf": "DCV_SF",
+     "u": "V",
+     "l": "DC Voltage"
+    },
+    {
+     "n": "DCV_SF",
+     "o": 28,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "DCW",
+     "o": 29,
+     "t": "int16",
+     "s": 1,
+     "sf": "DCW_SF",
+     "u": "W",
+     "l": "DC Watts"
+    },
+    {
+     "n": "DCW_SF",
+     "o": 30,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "TmpCab",
+     "o": 31,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "m": true,
+     "l": "Cabinet Temperature"
+    },
+    {
+     "n": "TmpSnk",
+     "o": 32,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Heat Sink Temperature"
+    },
+    {
+     "n": "TmpTrns",
+     "o": 33,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Transformer Temperature"
+    },
+    {
+     "n": "TmpOt",
+     "o": 34,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Other Temperature"
+    },
+    {
+     "n": "Tmp_SF",
+     "o": 35,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "St",
+     "o": 36,
+     "t": "enum16",
+     "s": 1,
+     "m": true,
+     "sym": {
+      "OFF": 1,
+      "SLEEPING": 2,
+      "STARTING": 3,
+      "MPPT": 4,
+      "THROTTLED": 5,
+      "SHUTTING_DOWN": 6,
+      "FAULT": 7,
+      "STANDBY": 8
+     },
+     "l": "Operating State"
+    },
+    {
+     "n": "StVnd",
+     "o": 37,
+     "t": "enum16",
+     "s": 1,
+     "l": "Vendor Operating State"
+    },
+    {
+     "n": "Evt1",
+     "o": 38,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "sym": {
+      "GROUND_FAULT": 0,
+      "DC_OVER_VOLT": 1,
+      "AC_DISCONNECT": 2,
+      "DC_DISCONNECT": 3,
+      "GRID_DISCONNECT": 4,
+      "CABINET_OPEN": 5,
+      "MANUAL_SHUTDOWN": 6,
+      "OVER_TEMP": 7,
+      "OVER_FREQUENCY": 8,
+      "UNDER_FREQUENCY": 9,
+      "AC_OVER_VOLT": 10,
+      "AC_UNDER_VOLT": 11,
+      "BLOWN_STRING_FUSE": 12,
+      "UNDER_TEMP": 13,
+      "MEMORY_LOSS": 14,
+      "HW_TEST_FAILURE": 15
+     },
+     "l": "Event1"
+    },
+    {
+     "n": "Evt2",
+     "o": 40,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "l": "Event Bitfield 2"
+    },
+    {
+     "n": "EvtVnd1",
+     "o": 42,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 1"
+    },
+    {
+     "n": "EvtVnd2",
+     "o": 44,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 2"
+    },
+    {
+     "n": "EvtVnd3",
+     "o": 46,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 3"
+    },
+    {
+     "n": "EvtVnd4",
+     "o": 48,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 4"
+    }
+   ]
+  },
+  {
+   "id": 111,
+   "name": "inverter_single_phase_float",
+   "l": "Inverter (Single Phase) FLOAT",
+   "len": 60,
+   "points": [
+    {
+     "n": "A",
+     "o": 0,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "m": true,
+     "l": "Amps"
+    },
+    {
+     "n": "AphA",
+     "o": 2,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseA"
+    },
+    {
+     "n": "AphB",
+     "o": 4,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "l": "Amps PhaseB"
+    },
+    {
+     "n": "AphC",
+     "o": 6,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "l": "Amps PhaseC"
+    },
+    {
+     "n": "PPVphAB",
+     "o": 8,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "Phase Voltage AB"
+    },
+    {
+     "n": "PPVphBC",
+     "o": 10,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "Phase Voltage BC"
+    },
+    {
+     "n": "PPVphCA",
+     "o": 12,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "Phase Voltage CA"
+    },
+    {
+     "n": "PhVphA",
+     "o": 14,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage AN"
+    },
+    {
+     "n": "PhVphB",
+     "o": 16,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "Phase Voltage BN"
+    },
+    {
+     "n": "PhVphC",
+     "o": 18,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "Phase Voltage CN"
+    },
+    {
+     "n": "W",
+     "o": 20,
+     "t": "float32",
+     "s": 2,
+     "u": "W",
+     "m": true,
+     "l": "Watts"
+    },
+    {
+     "n": "Hz",
+     "o": 22,
+     "t": "float32",
+     "s": 2,
+     "u": "Hz",
+     "m": true,
+     "l": "Hz"
+    },
+    {
+     "n": "VA",
+     "o": 24,
+     "t": "float32",
+     "s": 2,
+     "u": "VA",
+     "l": "VA"
+    },
+    {
+     "n": "VAr",
+     "o": 26,
+     "t": "float32",
+     "s": 2,
+     "u": "var",
+     "l": "VAr"
+    },
+    {
+     "n": "PF",
+     "o": 28,
+     "t": "float32",
+     "s": 2,
+     "u": "Pct",
+     "l": "PF"
+    },
+    {
+     "n": "WH",
+     "o": 30,
+     "t": "float32",
+     "s": 2,
+     "u": "Wh",
+     "m": true,
+     "l": "WattHours"
+    },
+    {
+     "n": "DCA",
+     "o": 32,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "l": "DC Amps"
+    },
+    {
+     "n": "DCV",
+     "o": 34,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "DC Voltage"
+    },
+    {
+     "n": "DCW",
+     "o": 36,
+     "t": "float32",
+     "s": 2,
+     "u": "W",
+     "l": "DC Watts"
+    },
+    {
+     "n": "TmpCab",
+     "o": 38,
+     "t": "float32",
+     "s": 2,
+     "u": "C",
+     "m": true,
+     "l": "Cabinet Temperature"
+    },
+    {
+     "n": "TmpSnk",
+     "o": 40,
+     "t": "float32",
+     "s": 2,
+     "u": "C",
+     "l": "Heat Sink Temperature"
+    },
+    {
+     "n": "TmpTrns",
+     "o": 42,
+     "t": "float32",
+     "s": 2,
+     "u": "C",
+     "l": "Transformer Temperature"
+    },
+    {
+     "n": "TmpOt",
+     "o": 44,
+     "t": "float32",
+     "s": 2,
+     "u": "C",
+     "l": "Other Temperature"
+    },
+    {
+     "n": "St",
+     "o": 46,
+     "t": "enum16",
+     "s": 1,
+     "m": true,
+     "sym": {
+      "OFF": 1,
+      "SLEEPING": 2,
+      "STARTING": 3,
+      "MPPT": 4,
+      "THROTTLED": 5,
+      "SHUTTING_DOWN": 6,
+      "FAULT": 7,
+      "STANDBY": 8
+     },
+     "l": "Operating State"
+    },
+    {
+     "n": "StVnd",
+     "o": 47,
+     "t": "enum16",
+     "s": 1,
+     "l": "Vendor Operating State"
+    },
+    {
+     "n": "Evt1",
+     "o": 48,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "sym": {
+      "GROUND_FAULT": 0,
+      "DC_OVER_VOLT": 1,
+      "AC_DISCONNECT": 2,
+      "DC_DISCONNECT": 3,
+      "GRID_DISCONNECT": 4,
+      "CABINET_OPEN": 5,
+      "MANUAL_SHUTDOWN": 6,
+      "OVER_TEMP": 7,
+      "OVER_FREQUENCY": 8,
+      "UNDER_FREQUENCY": 9,
+      "AC_OVER_VOLT": 10,
+      "AC_UNDER_VOLT": 11,
+      "BLOWN_STRING_FUSE": 12,
+      "UNDER_TEMP": 13,
+      "MEMORY_LOSS": 14,
+      "HW_TEST_FAILURE": 15
+     },
+     "l": "Event1"
+    },
+    {
+     "n": "Evt2",
+     "o": 50,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "l": "Event Bitfield 2"
+    },
+    {
+     "n": "EvtVnd1",
+     "o": 52,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 1"
+    },
+    {
+     "n": "EvtVnd2",
+     "o": 54,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 2"
+    },
+    {
+     "n": "EvtVnd3",
+     "o": 56,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 3"
+    },
+    {
+     "n": "EvtVnd4",
+     "o": 58,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 4"
+    }
+   ]
+  },
+  {
+   "id": 112,
+   "name": "inverter_split_phase_float",
+   "l": "Inverter (Split Phase) FLOAT",
+   "len": 60,
+   "points": [
+    {
+     "n": "A",
+     "o": 0,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "m": true,
+     "l": "Amps"
+    },
+    {
+     "n": "AphA",
+     "o": 2,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseA"
+    },
+    {
+     "n": "AphB",
+     "o": 4,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseB"
+    },
+    {
+     "n": "AphC",
+     "o": 6,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "l": "Amps PhaseC"
+    },
+    {
+     "n": "PPVphAB",
+     "o": 8,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "Phase Voltage AB"
+    },
+    {
+     "n": "PPVphBC",
+     "o": 10,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "Phase Voltage BC"
+    },
+    {
+     "n": "PPVphCA",
+     "o": 12,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "Phase Voltage CA"
+    },
+    {
+     "n": "PhVphA",
+     "o": 14,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage AN"
+    },
+    {
+     "n": "PhVphB",
+     "o": 16,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage BN"
+    },
+    {
+     "n": "PhVphC",
+     "o": 18,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "Phase Voltage CN"
+    },
+    {
+     "n": "W",
+     "o": 20,
+     "t": "float32",
+     "s": 2,
+     "u": "W",
+     "m": true,
+     "l": "Watts"
+    },
+    {
+     "n": "Hz",
+     "o": 22,
+     "t": "float32",
+     "s": 2,
+     "u": "Hz",
+     "m": true,
+     "l": "Hz"
+    },
+    {
+     "n": "VA",
+     "o": 24,
+     "t": "float32",
+     "s": 2,
+     "u": "VA",
+     "l": "VA"
+    },
+    {
+     "n": "VAr",
+     "o": 26,
+     "t": "float32",
+     "s": 2,
+     "u": "var",
+     "l": "VAr"
+    },
+    {
+     "n": "PF",
+     "o": 28,
+     "t": "float32",
+     "s": 2,
+     "u": "Pct",
+     "l": "PF"
+    },
+    {
+     "n": "WH",
+     "o": 30,
+     "t": "float32",
+     "s": 2,
+     "u": "Wh",
+     "m": true,
+     "l": "WattHours"
+    },
+    {
+     "n": "DCA",
+     "o": 32,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "l": "DC Amps"
+    },
+    {
+     "n": "DCV",
+     "o": 34,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "DC Voltage"
+    },
+    {
+     "n": "DCW",
+     "o": 36,
+     "t": "float32",
+     "s": 2,
+     "u": "W",
+     "l": "DC Watts"
+    },
+    {
+     "n": "TmpCab",
+     "o": 38,
+     "t": "float32",
+     "s": 2,
+     "u": "C",
+     "m": true,
+     "l": "Cabinet Temperature"
+    },
+    {
+     "n": "TmpSnk",
+     "o": 40,
+     "t": "float32",
+     "s": 2,
+     "u": "C",
+     "l": "Heat Sink Temperature"
+    },
+    {
+     "n": "TmpTrns",
+     "o": 42,
+     "t": "float32",
+     "s": 2,
+     "u": "C",
+     "l": "Transformer Temperature"
+    },
+    {
+     "n": "TmpOt",
+     "o": 44,
+     "t": "float32",
+     "s": 2,
+     "u": "C",
+     "l": "Other Temperature"
+    },
+    {
+     "n": "St",
+     "o": 46,
+     "t": "enum16",
+     "s": 1,
+     "m": true,
+     "sym": {
+      "OFF": 1,
+      "SLEEPING": 2,
+      "STARTING": 3,
+      "MPPT": 4,
+      "THROTTLED": 5,
+      "SHUTTING_DOWN": 6,
+      "FAULT": 7,
+      "STANDBY": 8
+     },
+     "l": "Operating State"
+    },
+    {
+     "n": "StVnd",
+     "o": 47,
+     "t": "enum16",
+     "s": 1,
+     "l": "Vendor Operating State"
+    },
+    {
+     "n": "Evt1",
+     "o": 48,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "sym": {
+      "GROUND_FAULT": 0,
+      "DC_OVER_VOLT": 1,
+      "AC_DISCONNECT": 2,
+      "DC_DISCONNECT": 3,
+      "GRID_DISCONNECT": 4,
+      "CABINET_OPEN": 5,
+      "MANUAL_SHUTDOWN": 6,
+      "OVER_TEMP": 7,
+      "OVER_FREQUENCY": 8,
+      "UNDER_FREQUENCY": 9,
+      "AC_OVER_VOLT": 10,
+      "AC_UNDER_VOLT": 11,
+      "BLOWN_STRING_FUSE": 12,
+      "UNDER_TEMP": 13,
+      "MEMORY_LOSS": 14,
+      "HW_TEST_FAILURE": 15
+     },
+     "l": "Event1"
+    },
+    {
+     "n": "Evt2",
+     "o": 50,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "l": "Event Bitfield 2"
+    },
+    {
+     "n": "EvtVnd1",
+     "o": 52,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 1"
+    },
+    {
+     "n": "EvtVnd2",
+     "o": 54,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 2"
+    },
+    {
+     "n": "EvtVnd3",
+     "o": 56,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 3"
+    },
+    {
+     "n": "EvtVnd4",
+     "o": 58,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 4"
+    }
+   ]
+  },
+  {
+   "id": 113,
+   "name": "inverter_three_phase_float",
+   "l": "Inverter (Three Phase) FLOAT",
+   "len": 60,
+   "points": [
+    {
+     "n": "A",
+     "o": 0,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "m": true,
+     "l": "Amps"
+    },
+    {
+     "n": "AphA",
+     "o": 2,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseA"
+    },
+    {
+     "n": "AphB",
+     "o": 4,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseB"
+    },
+    {
+     "n": "AphC",
+     "o": 6,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseC"
+    },
+    {
+     "n": "PPVphAB",
+     "o": 8,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "Phase Voltage AB"
+    },
+    {
+     "n": "PPVphBC",
+     "o": 10,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "Phase Voltage BC"
+    },
+    {
+     "n": "PPVphCA",
+     "o": 12,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "Phase Voltage CA"
+    },
+    {
+     "n": "PhVphA",
+     "o": 14,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage AN"
+    },
+    {
+     "n": "PhVphB",
+     "o": 16,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage BN"
+    },
+    {
+     "n": "PhVphC",
+     "o": 18,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage CN"
+    },
+    {
+     "n": "W",
+     "o": 20,
+     "t": "float32",
+     "s": 2,
+     "u": "W",
+     "m": true,
+     "l": "Watts"
+    },
+    {
+     "n": "Hz",
+     "o": 22,
+     "t": "float32",
+     "s": 2,
+     "u": "Hz",
+     "m": true,
+     "l": "Hz"
+    },
+    {
+     "n": "VA",
+     "o": 24,
+     "t": "float32",
+     "s": 2,
+     "u": "VA",
+     "l": "VA"
+    },
+    {
+     "n": "VAr",
+     "o": 26,
+     "t": "float32",
+     "s": 2,
+     "u": "var",
+     "l": "VAr"
+    },
+    {
+     "n": "PF",
+     "o": 28,
+     "t": "float32",
+     "s": 2,
+     "u": "Pct",
+     "l": "PF"
+    },
+    {
+     "n": "WH",
+     "o": 30,
+     "t": "float32",
+     "s": 2,
+     "u": "Wh",
+     "m": true,
+     "l": "WattHours"
+    },
+    {
+     "n": "DCA",
+     "o": 32,
+     "t": "float32",
+     "s": 2,
+     "u": "A",
+     "l": "DC Amps"
+    },
+    {
+     "n": "DCV",
+     "o": 34,
+     "t": "float32",
+     "s": 2,
+     "u": "V",
+     "l": "DC Voltage"
+    },
+    {
+     "n": "DCW",
+     "o": 36,
+     "t": "float32",
+     "s": 2,
+     "u": "W",
+     "l": "DC Watts"
+    },
+    {
+     "n": "TmpCab",
+     "o": 38,
+     "t": "float32",
+     "s": 2,
+     "u": "C",
+     "m": true,
+     "l": "Cabinet Temperature"
+    },
+    {
+     "n": "TmpSnk",
+     "o": 40,
+     "t": "float32",
+     "s": 2,
+     "u": "C",
+     "l": "Heat Sink Temperature"
+    },
+    {
+     "n": "TmpTrns",
+     "o": 42,
+     "t": "float32",
+     "s": 2,
+     "u": "C",
+     "l": "Transformer Temperature"
+    },
+    {
+     "n": "TmpOt",
+     "o": 44,
+     "t": "float32",
+     "s": 2,
+     "u": "C",
+     "l": "Other Temperature"
+    },
+    {
+     "n": "St",
+     "o": 46,
+     "t": "enum16",
+     "s": 1,
+     "m": true,
+     "sym": {
+      "OFF": 1,
+      "SLEEPING": 2,
+      "STARTING": 3,
+      "MPPT": 4,
+      "THROTTLED": 5,
+      "SHUTTING_DOWN": 6,
+      "FAULT": 7,
+      "STANDBY": 8
+     },
+     "l": "Operating State"
+    },
+    {
+     "n": "StVnd",
+     "o": 47,
+     "t": "enum16",
+     "s": 1,
+     "l": "Vendor Operating State"
+    },
+    {
+     "n": "Evt1",
+     "o": 48,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "sym": {
+      "GROUND_FAULT": 0,
+      "DC_OVER_VOLT": 1,
+      "AC_DISCONNECT": 2,
+      "DC_DISCONNECT": 3,
+      "GRID_DISCONNECT": 4,
+      "CABINET_OPEN": 5,
+      "MANUAL_SHUTDOWN": 6,
+      "OVER_TEMP": 7,
+      "OVER_FREQUENCY": 8,
+      "UNDER_FREQUENCY": 9,
+      "AC_OVER_VOLT": 10,
+      "AC_UNDER_VOLT": 11,
+      "BLOWN_STRING_FUSE": 12,
+      "UNDER_TEMP": 13,
+      "MEMORY_LOSS": 14,
+      "HW_TEST_FAILURE": 15
+     },
+     "l": "Event1"
+    },
+    {
+     "n": "Evt2",
+     "o": 50,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "l": "Event Bitfield 2"
+    },
+    {
+     "n": "EvtVnd1",
+     "o": 52,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 1"
+    },
+    {
+     "n": "EvtVnd2",
+     "o": 54,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 2"
+    },
+    {
+     "n": "EvtVnd3",
+     "o": 56,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 3"
+    },
+    {
+     "n": "EvtVnd4",
+     "o": 58,
+     "t": "bitfield32",
+     "s": 2,
+     "l": "Vendor Event Bitfield 4"
+    }
+   ]
+  },
+  {
+   "id": 120,
+   "name": "nameplate",
+   "l": "Nameplate",
+   "len": 26,
+   "points": [
+    {
+     "n": "DERTyp",
+     "o": 0,
+     "t": "enum16",
+     "s": 1,
+     "m": true,
+     "sym": {
+      "PV": 4,
+      "PV_STOR": 82
+     },
+     "l": "DERTyp"
+    },
+    {
+     "n": "WRtg",
+     "o": 1,
+     "t": "uint16",
+     "s": 1,
+     "sf": "WRtg_SF",
+     "u": "W",
+     "m": true,
+     "l": "WRtg"
+    },
+    {
+     "n": "WRtg_SF",
+     "o": 2,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "WRtg_SF"
+    },
+    {
+     "n": "VARtg",
+     "o": 3,
+     "t": "uint16",
+     "s": 1,
+     "sf": "VARtg_SF",
+     "u": "VA",
+     "m": true,
+     "l": "VARtg"
+    },
+    {
+     "n": "VARtg_SF",
+     "o": 4,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "VARtg_SF"
+    },
+    {
+     "n": "VArRtgQ1",
+     "o": 5,
+     "t": "int16",
+     "s": 1,
+     "sf": "VArRtg_SF",
+     "u": "var",
+     "m": true,
+     "l": "VArRtgQ1"
+    },
+    {
+     "n": "VArRtgQ2",
+     "o": 6,
+     "t": "int16",
+     "s": 1,
+     "sf": "VArRtg_SF",
+     "u": "var",
+     "m": true,
+     "l": "VArRtgQ2"
+    },
+    {
+     "n": "VArRtgQ3",
+     "o": 7,
+     "t": "int16",
+     "s": 1,
+     "sf": "VArRtg_SF",
+     "u": "var",
+     "m": true,
+     "l": "VArRtgQ3"
+    },
+    {
+     "n": "VArRtgQ4",
+     "o": 8,
+     "t": "int16",
+     "s": 1,
+     "sf": "VArRtg_SF",
+     "u": "var",
+     "m": true,
+     "l": "VArRtgQ4"
+    },
+    {
+     "n": "VArRtg_SF",
+     "o": 9,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "VArRtg_SF"
+    },
+    {
+     "n": "ARtg",
+     "o": 10,
+     "t": "uint16",
+     "s": 1,
+     "sf": "ARtg_SF",
+     "u": "A",
+     "m": true,
+     "l": "ARtg"
+    },
+    {
+     "n": "ARtg_SF",
+     "o": 11,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "ARtg_SF"
+    },
+    {
+     "n": "PFRtgQ1",
+     "o": 12,
+     "t": "int16",
+     "s": 1,
+     "sf": "PFRtg_SF",
+     "u": "cos()",
+     "m": true,
+     "l": "PFRtgQ1"
+    },
+    {
+     "n": "PFRtgQ2",
+     "o": 13,
+     "t": "int16",
+     "s": 1,
+     "sf": "PFRtg_SF",
+     "u": "cos()",
+     "m": true,
+     "l": "PFRtgQ2"
+    },
+    {
+     "n": "PFRtgQ3",
+     "o": 14,
+     "t": "int16",
+     "s": 1,
+     "sf": "PFRtg_SF",
+     "u": "cos()",
+     "m": true,
+     "l": "PFRtgQ3"
+    },
+    {
+     "n": "PFRtgQ4",
+     "o": 15,
+     "t": "int16",
+     "s": 1,
+     "sf": "PFRtg_SF",
+     "u": "cos()",
+     "m": true,
+     "l": "PFRtgQ4"
+    },
+    {
+     "n": "PFRtg_SF",
+     "o": 16,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "PFRtg_SF"
+    },
+    {
+     "n": "WHRtg",
+     "o": 17,
+     "t": "uint16",
+     "s": 1,
+     "sf": "WHRtg_SF",
+     "u": "Wh",
+     "l": "WHRtg"
+    },
+    {
+     "n": "WHRtg_SF",
+     "o": 18,
+     "t": "sunssf",
+     "s": 1,
+     "l": "WHRtg_SF"
+    },
+    {
+     "n": "AhrRtg",
+     "o": 19,
+     "t": "uint16",
+     "s": 1,
+     "sf": "AhrRtg_SF",
+     "u": "AH",
+     "l": "AhrRtg"
+    },
+    {
+     "n": "AhrRtg_SF",
+     "o": 20,
+     "t": "sunssf",
+     "s": 1,
+     "l": "AhrRtg_SF"
+    },
+    {
+     "n": "MaxChaRte",
+     "o": 21,
+     "t": "uint16",
+     "s": 1,
+     "sf": "MaxChaRte_SF",
+     "u": "W",
+     "l": "MaxChaRte"
+    },
+    {
+     "n": "MaxChaRte_SF",
+     "o": 22,
+     "t": "sunssf",
+     "s": 1,
+     "l": "MaxChaRte_SF"
+    },
+    {
+     "n": "MaxDisChaRte",
+     "o": 23,
+     "t": "uint16",
+     "s": 1,
+     "sf": "MaxDisChaRte_SF",
+     "u": "W",
+     "l": "MaxDisChaRte"
+    },
+    {
+     "n": "MaxDisChaRte_SF",
+     "o": 24,
+     "t": "sunssf",
+     "s": 1,
+     "l": "MaxDisChaRte_SF"
+    },
+    {
+     "n": "Pad",
+     "o": 25,
+     "t": "pad",
+     "s": 1,
+     "l": "Pad"
+    }
+   ]
+  },
+  {
+   "id": 121,
+   "name": "settings",
+   "l": "Basic Settings",
+   "len": 30,
+   "points": [
+    {
+     "n": "WMax",
+     "o": 0,
+     "t": "uint16",
+     "s": 1,
+     "sf": "WMax_SF",
+     "u": "W",
+     "rw": true,
+     "m": true,
+     "l": "WMax"
+    },
+    {
+     "n": "VRef",
+     "o": 1,
+     "t": "uint16",
+     "s": 1,
+     "sf": "VRef_SF",
+     "u": "V",
+     "rw": true,
+     "m": true,
+     "l": "VRef"
+    },
+    {
+     "n": "VRefOfs",
+     "o": 2,
+     "t": "int16",
+     "s": 1,
+     "sf": "VRefOfs_SF",
+     "u": "V",
+     "rw": true,
+     "m": true,
+     "l": "VRefOfs"
+    },
+    {
+     "n": "VMax",
+     "o": 3,
+     "t": "uint16",
+     "s": 1,
+     "sf": "VMinMax_SF",
+     "u": "V",
+     "rw": true,
+     "l": "VMax"
+    },
+    {
+     "n": "VMin",
+     "o": 4,
+     "t": "uint16",
+     "s": 1,
+     "sf": "VMinMax_SF",
+     "u": "V",
+     "rw": true,
+     "l": "VMin"
+    },
+    {
+     "n": "VAMax",
+     "o": 5,
+     "t": "uint16",
+     "s": 1,
+     "sf": "VAMax_SF",
+     "u": "VA",
+     "rw": true,
+     "l": "VAMax"
+    },
+    {
+     "n": "VArMaxQ1",
+     "o": 6,
+     "t": "int16",
+     "s": 1,
+     "sf": "VArMax_SF",
+     "u": "var",
+     "rw": true,
+     "l": "VArMaxQ1"
+    },
+    {
+     "n": "VArMaxQ2",
+     "o": 7,
+     "t": "int16",
+     "s": 1,
+     "sf": "VArMax_SF",
+     "u": "var",
+     "rw": true,
+     "l": "VArMaxQ2"
+    },
+    {
+     "n": "VArMaxQ3",
+     "o": 8,
+     "t": "int16",
+     "s": 1,
+     "sf": "VArMax_SF",
+     "u": "var",
+     "rw": true,
+     "l": "VArMaxQ3"
+    },
+    {
+     "n": "VArMaxQ4",
+     "o": 9,
+     "t": "int16",
+     "s": 1,
+     "sf": "VArMax_SF",
+     "u": "var",
+     "rw": true,
+     "l": "VArMaxQ4"
+    },
+    {
+     "n": "WGra",
+     "o": 10,
+     "t": "uint16",
+     "s": 1,
+     "sf": "WGra_SF",
+     "u": "% WMax/sec",
+     "rw": true,
+     "l": "WGra"
+    },
+    {
+     "n": "PFMinQ1",
+     "o": 11,
+     "t": "int16",
+     "s": 1,
+     "sf": "PFMin_SF",
+     "u": "cos()",
+     "rw": true,
+     "l": "PFMinQ1"
+    },
+    {
+     "n": "PFMinQ2",
+     "o": 12,
+     "t": "int16",
+     "s": 1,
+     "sf": "PFMin_SF",
+     "u": "cos()",
+     "rw": true,
+     "l": "PFMinQ2"
+    },
+    {
+     "n": "PFMinQ3",
+     "o": 13,
+     "t": "int16",
+     "s": 1,
+     "sf": "PFMin_SF",
+     "u": "cos()",
+     "rw": true,
+     "l": "PFMinQ3"
+    },
+    {
+     "n": "PFMinQ4",
+     "o": 14,
+     "t": "int16",
+     "s": 1,
+     "sf": "PFMin_SF",
+     "u": "cos()",
+     "rw": true,
+     "l": "PFMinQ4"
+    },
+    {
+     "n": "VArAct",
+     "o": 15,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "SWITCH": 1,
+      "MAINTAIN": 2
+     },
+     "l": "VArAct"
+    },
+    {
+     "n": "ClcTotVA",
+     "o": 16,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "VECTOR": 1,
+      "ARITHMETIC": 2
+     },
+     "l": "ClcTotVA"
+    },
+    {
+     "n": "MaxRmpRte",
+     "o": 17,
+     "t": "uint16",
+     "s": 1,
+     "sf": "MaxRmpRte_SF",
+     "u": "% WGra",
+     "rw": true,
+     "l": "MaxRmpRte"
+    },
+    {
+     "n": "ECPNomHz",
+     "o": 18,
+     "t": "uint16",
+     "s": 1,
+     "sf": "ECPNomHz_SF",
+     "u": "Hz",
+     "rw": true,
+     "l": "ECPNomHz"
+    },
+    {
+     "n": "ConnPh",
+     "o": 19,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "A": 1,
+      "B": 2,
+      "C": 3
+     },
+     "l": "ConnPh"
+    },
+    {
+     "n": "WMax_SF",
+     "o": 20,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "WMax_SF"
+    },
+    {
+     "n": "VRef_SF",
+     "o": 21,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "VRef_SF"
+    },
+    {
+     "n": "VRefOfs_SF",
+     "o": 22,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "VRefOfs_SF"
+    },
+    {
+     "n": "VMinMax_SF",
+     "o": 23,
+     "t": "sunssf",
+     "s": 1,
+     "l": "VMinMax_SF"
+    },
+    {
+     "n": "VAMax_SF",
+     "o": 24,
+     "t": "sunssf",
+     "s": 1,
+     "l": "VAMax_SF"
+    },
+    {
+     "n": "VArMax_SF",
+     "o": 25,
+     "t": "sunssf",
+     "s": 1,
+     "l": "VArMax_SF"
+    },
+    {
+     "n": "WGra_SF",
+     "o": 26,
+     "t": "sunssf",
+     "s": 1,
+     "l": "WGra_SF"
+    },
+    {
+     "n": "PFMin_SF",
+     "o": 27,
+     "t": "sunssf",
+     "s": 1,
+     "l": "PFMin_SF"
+    },
+    {
+     "n": "MaxRmpRte_SF",
+     "o": 28,
+     "t": "sunssf",
+     "s": 1,
+     "l": "MaxRmpRte_SF"
+    },
+    {
+     "n": "ECPNomHz_SF",
+     "o": 29,
+     "t": "sunssf",
+     "s": 1,
+     "l": "ECPNomHz_SF"
+    }
+   ]
+  },
+  {
+   "id": 122,
+   "name": "status",
+   "l": "Measurements_Status",
+   "len": 44,
+   "points": [
+    {
+     "n": "PVConn",
+     "o": 0,
+     "t": "bitfield16",
+     "s": 1,
+     "m": true,
+     "sym": {
+      "CONNECTED": 0,
+      "AVAILABLE": 1,
+      "OPERATING": 2,
+      "TEST": 3
+     },
+     "l": "PVConn"
+    },
+    {
+     "n": "StorConn",
+     "o": 1,
+     "t": "bitfield16",
+     "s": 1,
+     "m": true,
+     "sym": {
+      "CONNECTED": 0,
+      "AVAILABLE": 1,
+      "OPERATING": 2,
+      "TEST": 3
+     },
+     "l": "StorConn"
+    },
+    {
+     "n": "ECPConn",
+     "o": 2,
+     "t": "bitfield16",
+     "s": 1,
+     "m": true,
+     "sym": {
+      "DISCONNECTED": 0,
+      "CONNECTED": 1
+     },
+     "l": "ECPConn"
+    },
+    {
+     "n": "ActWh",
+     "o": 3,
+     "t": "acc64",
+     "s": 4,
+     "u": "Wh",
+     "l": "ActWh"
+    },
+    {
+     "n": "ActVAh",
+     "o": 7,
+     "t": "acc64",
+     "s": 4,
+     "u": "VAh",
+     "l": "ActVAh"
+    },
+    {
+     "n": "ActVArhQ1",
+     "o": 11,
+     "t": "acc64",
+     "s": 4,
+     "u": "varh",
+     "l": "ActVArhQ1"
+    },
+    {
+     "n": "ActVArhQ2",
+     "o": 15,
+     "t": "acc64",
+     "s": 4,
+     "u": "varh",
+     "l": "ActVArhQ2"
+    },
+    {
+     "n": "ActVArhQ3",
+     "o": 19,
+     "t": "acc64",
+     "s": 4,
+     "u": "varh",
+     "l": "ActVArhQ3"
+    },
+    {
+     "n": "ActVArhQ4",
+     "o": 23,
+     "t": "acc64",
+     "s": 4,
+     "u": "varh",
+     "l": "ActVArhQ4"
+    },
+    {
+     "n": "VArAval",
+     "o": 27,
+     "t": "int16",
+     "s": 1,
+     "sf": "VArAval_SF",
+     "u": "var",
+     "l": "VArAval"
+    },
+    {
+     "n": "VArAval_SF",
+     "o": 28,
+     "t": "sunssf",
+     "s": 1,
+     "l": "VArAval_SF"
+    },
+    {
+     "n": "WAval",
+     "o": 29,
+     "t": "uint16",
+     "s": 1,
+     "sf": "WAval_SF",
+     "u": "W",
+     "l": "WAval"
+    },
+    {
+     "n": "WAval_SF",
+     "o": 30,
+     "t": "sunssf",
+     "s": 1,
+     "l": "WAval_SF"
+    },
+    {
+     "n": "StSetLimMsk",
+     "o": 31,
+     "t": "bitfield32",
+     "s": 2,
+     "sym": {
+      "WMax": 0,
+      "VAMax": 1,
+      "VArAval": 2,
+      "VArMaxQ1": 3,
+      "VArMaxQ2": 4,
+      "VArMaxQ3": 5,
+      "VArMaxQ4": 6,
+      "PFMinQ1": 7,
+      "PFMinQ2": 8,
+      "PFMinQ3": 9,
+      "PFMinQ4": 10
+     },
+     "l": "StSetLimMsk"
+    },
+    {
+     "n": "StActCtl",
+     "o": 33,
+     "t": "bitfield32",
+     "s": 2,
+     "sym": {
+      "FixedW": 0,
+      "FixedVAR": 1,
+      "FixedPF": 2,
+      "Volt-VAr": 3,
+      "Freq-Watt-Param": 4,
+      "Freq-Watt-Curve": 5,
+      "Dyn-Reactive-Current": 6,
+      "LVRT": 7,
+      "HVRT": 8,
+      "Watt-PF": 9,
+      "Volt-Watt": 10,
+      "Scheduled": 12,
+      "LFRT": 13,
+      "HFRT": 14
+     },
+     "l": "StActCtl"
+    },
+    {
+     "n": "TmSrc",
+     "o": 35,
+     "t": "string",
+     "s": 4,
+     "l": "TmSrc"
+    },
+    {
+     "n": "Tms",
+     "o": 39,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "l": "Tms"
+    },
+    {
+     "n": "RtSt",
+     "o": 41,
+     "t": "bitfield16",
+     "s": 1,
+     "sym": {
+      "LVRT_ACTIVE": 0,
+      "HVRT_ACTIVE": 1,
+      "LFRT_ACTIVE": 2,
+      "HFRT_ACTIVE": 3
+     },
+     "l": "RtSt"
+    },
+    {
+     "n": "Ris",
+     "o": 42,
+     "t": "uint16",
+     "s": 1,
+     "sf": "Ris_SF",
+     "u": "ohms",
+     "l": "Ris"
+    },
+    {
+     "n": "Ris_SF",
+     "o": 43,
+     "t": "sunssf",
+     "s": 1,
+     "l": "Ris_SF"
+    }
+   ]
+  },
+  {
+   "id": 123,
+   "name": "controls",
+   "l": "Immediate Controls",
+   "len": 24,
+   "points": [
+    {
+     "n": "Conn_WinTms",
+     "o": 0,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "Conn_WinTms"
+    },
+    {
+     "n": "Conn_RvrtTms",
+     "o": 1,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "Conn_RvrtTms"
+    },
+    {
+     "n": "Conn",
+     "o": 2,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "m": true,
+     "sym": {
+      "DISCONNECT": 0,
+      "CONNECT": 1
+     },
+     "l": "Conn"
+    },
+    {
+     "n": "WMaxLimPct",
+     "o": 3,
+     "t": "uint16",
+     "s": 1,
+     "sf": "WMaxLimPct_SF",
+     "u": "% WMax",
+     "rw": true,
+     "m": true,
+     "l": "WMaxLimPct"
+    },
+    {
+     "n": "WMaxLimPct_WinTms",
+     "o": 4,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "WMaxLimPct_WinTms"
+    },
+    {
+     "n": "WMaxLimPct_RvrtTms",
+     "o": 5,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "WMaxLimPct_RvrtTms"
+    },
+    {
+     "n": "WMaxLimPct_RmpTms",
+     "o": 6,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "WMaxLimPct_RmpTms"
+    },
+    {
+     "n": "WMaxLim_Ena",
+     "o": 7,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "m": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "WMaxLim_Ena"
+    },
+    {
+     "n": "OutPFSet",
+     "o": 8,
+     "t": "int16",
+     "s": 1,
+     "sf": "OutPFSet_SF",
+     "u": "cos()",
+     "rw": true,
+     "m": true,
+     "l": "OutPFSet"
+    },
+    {
+     "n": "OutPFSet_WinTms",
+     "o": 9,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "OutPFSet_WinTms"
+    },
+    {
+     "n": "OutPFSet_RvrtTms",
+     "o": 10,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "OutPFSet_RvrtTms"
+    },
+    {
+     "n": "OutPFSet_RmpTms",
+     "o": 11,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "OutPFSet_RmpTms"
+    },
+    {
+     "n": "OutPFSet_Ena",
+     "o": 12,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "m": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "OutPFSet_Ena"
+    },
+    {
+     "n": "VArWMaxPct",
+     "o": 13,
+     "t": "int16",
+     "s": 1,
+     "sf": "VArPct_SF",
+     "u": "% WMax",
+     "rw": true,
+     "l": "VArWMaxPct"
+    },
+    {
+     "n": "VArMaxPct",
+     "o": 14,
+     "t": "int16",
+     "s": 1,
+     "sf": "VArPct_SF",
+     "u": "% VArMax",
+     "rw": true,
+     "l": "VArMaxPct"
+    },
+    {
+     "n": "VArAvalPct",
+     "o": 15,
+     "t": "int16",
+     "s": 1,
+     "sf": "VArPct_SF",
+     "u": "% VArAval",
+     "rw": true,
+     "l": "VArAvalPct"
+    },
+    {
+     "n": "VArPct_WinTms",
+     "o": 16,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "VArPct_WinTms"
+    },
+    {
+     "n": "VArPct_RvrtTms",
+     "o": 17,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "VArPct_RvrtTms"
+    },
+    {
+     "n": "VArPct_RmpTms",
+     "o": 18,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "VArPct_RmpTms"
+    },
+    {
+     "n": "VArPct_Mod",
+     "o": 19,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "NONE": 0,
+      "WMax": 1,
+      "VArMax": 2,
+      "VArAval": 3
+     },
+     "l": "VArPct_Mod"
+    },
+    {
+     "n": "VArPct_Ena",
+     "o": 20,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "m": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "VArPct_Ena"
+    },
+    {
+     "n": "WMaxLimPct_SF",
+     "o": 21,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "WMaxLimPct_SF"
+    },
+    {
+     "n": "OutPFSet_SF",
+     "o": 22,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "OutPFSet_SF"
+    },
+    {
+     "n": "VArPct_SF",
+     "o": 23,
+     "t": "sunssf",
+     "s": 1,
+     "l": "VArPct_SF"
+    }
+   ]
+  },
+  {
+   "id": 124,
+   "name": "storage_basic",
+   "l": "Storage",
+   "len": 24,
+   "points": [
+    {
+     "n": "WChaMax",
+     "o": 0,
+     "t": "uint16",
+     "s": 1,
+     "sf": "WChaMax_SF",
+     "u": "W",
+     "rw": true,
+     "m": true,
+     "l": "WChaMax"
+    },
+    {
+     "n": "WChaGra",
+     "o": 1,
+     "t": "uint16",
+     "s": 1,
+     "sf": "WChaDisChaGra_SF",
+     "u": "% WChaMax/sec",
+     "rw": true,
+     "m": true,
+     "l": "WChaGra"
+    },
+    {
+     "n": "WDisChaGra",
+     "o": 2,
+     "t": "uint16",
+     "s": 1,
+     "sf": "WChaDisChaGra_SF",
+     "u": "% WChaMax/sec",
+     "rw": true,
+     "m": true,
+     "l": "WDisChaGra"
+    },
+    {
+     "n": "StorCtl_Mod",
+     "o": 3,
+     "t": "bitfield16",
+     "s": 1,
+     "rw": true,
+     "m": true,
+     "sym": {
+      "CHARGE": 0,
+      "DiSCHARGE": 1
+     },
+     "l": "StorCtl_Mod"
+    },
+    {
+     "n": "VAChaMax",
+     "o": 4,
+     "t": "uint16",
+     "s": 1,
+     "sf": "VAChaMax_SF",
+     "u": "VA",
+     "rw": true,
+     "l": "VAChaMax"
+    },
+    {
+     "n": "MinRsvPct",
+     "o": 5,
+     "t": "uint16",
+     "s": 1,
+     "sf": "MinRsvPct_SF",
+     "u": "% WChaMax",
+     "rw": true,
+     "l": "MinRsvPct"
+    },
+    {
+     "n": "ChaState",
+     "o": 6,
+     "t": "uint16",
+     "s": 1,
+     "sf": "ChaState_SF",
+     "u": "% AhrRtg",
+     "l": "ChaState"
+    },
+    {
+     "n": "StorAval",
+     "o": 7,
+     "t": "uint16",
+     "s": 1,
+     "sf": "StorAval_SF",
+     "u": "AH",
+     "l": "StorAval"
+    },
+    {
+     "n": "InBatV",
+     "o": 8,
+     "t": "uint16",
+     "s": 1,
+     "sf": "InBatV_SF",
+     "u": "V",
+     "l": "InBatV"
+    },
+    {
+     "n": "ChaSt",
+     "o": 9,
+     "t": "enum16",
+     "s": 1,
+     "sym": {
+      "OFF": 1,
+      "EMPTY": 2,
+      "DISCHARGING": 3,
+      "CHARGING": 4,
+      "FULL": 5,
+      "HOLDING": 6,
+      "TESTING": 7
+     },
+     "l": "ChaSt"
+    },
+    {
+     "n": "OutWRte",
+     "o": 10,
+     "t": "int16",
+     "s": 1,
+     "sf": "InOutWRte_SF",
+     "u": "% WDisChaMax",
+     "rw": true,
+     "l": "OutWRte"
+    },
+    {
+     "n": "InWRte",
+     "o": 11,
+     "t": "int16",
+     "s": 1,
+     "sf": "InOutWRte_SF",
+     "u": " % WChaMax",
+     "rw": true,
+     "l": "InWRte"
+    },
+    {
+     "n": "InOutWRte_WinTms",
+     "o": 12,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "InOutWRte_WinTms"
+    },
+    {
+     "n": "InOutWRte_RvrtTms",
+     "o": 13,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "InOutWRte_RvrtTms"
+    },
+    {
+     "n": "InOutWRte_RmpTms",
+     "o": 14,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "InOutWRte_RmpTms"
+    },
+    {
+     "n": "ChaGriSet",
+     "o": 15,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "PV": 0,
+      "GRID": 1
+     }
+    },
+    {
+     "n": "WChaMax_SF",
+     "o": 16,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "WChaMax_SF"
+    },
+    {
+     "n": "WChaDisChaGra_SF",
+     "o": 17,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "WChaDisChaGra_SF"
+    },
+    {
+     "n": "VAChaMax_SF",
+     "o": 18,
+     "t": "sunssf",
+     "s": 1,
+     "l": "VAChaMax_SF"
+    },
+    {
+     "n": "MinRsvPct_SF",
+     "o": 19,
+     "t": "sunssf",
+     "s": 1,
+     "l": "MinRsvPct_SF"
+    },
+    {
+     "n": "ChaState_SF",
+     "o": 20,
+     "t": "sunssf",
+     "s": 1,
+     "l": "ChaState_SF"
+    },
+    {
+     "n": "StorAval_SF",
+     "o": 21,
+     "t": "sunssf",
+     "s": 1,
+     "l": "StorAval_SF"
+    },
+    {
+     "n": "InBatV_SF",
+     "o": 22,
+     "t": "sunssf",
+     "s": 1,
+     "l": "InBatV_SF"
+    },
+    {
+     "n": "InOutWRte_SF",
+     "o": 23,
+     "t": "sunssf",
+     "s": 1,
+     "l": "InOutWRte_SF"
+    }
+   ]
+  },
+  {
+   "id": 126,
+   "name": "volt_var",
+   "l": "Static Volt-VAR",
+   "fixed": 10,
+   "points": [
+    {
+     "n": "ActCrv",
+     "o": 0,
+     "t": "uint16",
+     "s": 1,
+     "rw": true,
+     "m": true,
+     "l": "ActCrv"
+    },
+    {
+     "n": "ModEna",
+     "o": 1,
+     "t": "bitfield16",
+     "s": 1,
+     "rw": true,
+     "m": true,
+     "sym": {
+      "ENABLED": 0
+     },
+     "l": "ModEna"
+    },
+    {
+     "n": "WinTms",
+     "o": 2,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "WinTms"
+    },
+    {
+     "n": "RvrtTms",
+     "o": 3,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "RvrtTms"
+    },
+    {
+     "n": "RmpTms",
+     "o": 4,
+     "t": "uint16",
+     "s": 1,
+     "u": "Secs",
+     "rw": true,
+     "l": "RmpTms"
+    },
+    {
+     "n": "NCrv",
+     "o": 5,
+     "t": "uint16",
+     "s": 1,
+     "m": true,
+     "l": "NCrv"
+    },
+    {
+     "n": "NPt",
+     "o": 6,
+     "t": "uint16",
+     "s": 1,
+     "m": true,
+     "l": "NPt"
+    },
+    {
+     "n": "V_SF",
+     "o": 7,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "V_SF"
+    },
+    {
+     "n": "DeptRef_SF",
+     "o": 8,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "l": "DeptRef_SF"
+    },
+    {
+     "n": "RmpIncDec_SF",
+     "o": 9,
+     "t": "sunssf",
+     "s": 1
+    }
+   ],
+   "groups": [
+    {
+     "name": "curve",
+     "off": 10,
+     "len": 54,
+     "points": [
+      {
+       "n": "ActPt",
+       "o": 0,
+       "t": "uint16",
+       "s": 1,
+       "rw": true,
+       "m": true,
+       "l": "ActPt"
+      },
+      {
+       "n": "DeptRef",
+       "o": 1,
+       "t": "enum16",
+       "s": 1,
+       "rw": true,
+       "m": true,
+       "sym": {
+        "WMax": 1,
+        "VArMax": 2,
+        "VArAval": 3
+       },
+       "l": "DeptRef"
+      },
+      {
+       "n": "V1",
+       "o": 2,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "m": true,
+       "l": "V1"
+      },
+      {
+       "n": "VAr1",
+       "o": 3,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "m": true,
+       "l": "VAr1"
+      },
+      {
+       "n": "V2",
+       "o": 4,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V2"
+      },
+      {
+       "n": "VAr2",
+       "o": 5,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr2"
+      },
+      {
+       "n": "V3",
+       "o": 6,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V3"
+      },
+      {
+       "n": "VAr3",
+       "o": 7,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr3"
+      },
+      {
+       "n": "V4",
+       "o": 8,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V4"
+      },
+      {
+       "n": "VAr4",
+       "o": 9,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr4"
+      },
+      {
+       "n": "V5",
+       "o": 10,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V5"
+      },
+      {
+       "n": "VAr5",
+       "o": 11,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr5"
+      },
+      {
+       "n": "V6",
+       "o": 12,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V6"
+      },
+      {
+       "n": "VAr6",
+       "o": 13,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr6"
+      },
+      {
+       "n": "V7",
+       "o": 14,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V7"
+      },
+      {
+       "n": "VAr7",
+       "o": 15,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr7"
+      },
+      {
+       "n": "V8",
+       "o": 16,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V8"
+      },
+      {
+       "n": "VAr8",
+       "o": 17,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr8"
+      },
+      {
+       "n": "V9",
+       "o": 18,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V9"
+      },
+      {
+       "n": "VAr9",
+       "o": 19,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr9"
+      },
+      {
+       "n": "V10",
+       "o": 20,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V10"
+      },
+      {
+       "n": "VAr10",
+       "o": 21,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr10"
+      },
+      {
+       "n": "V11",
+       "o": 22,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V11"
+      },
+      {
+       "n": "VAr11",
+       "o": 23,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr11"
+      },
+      {
+       "n": "V12",
+       "o": 24,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V12"
+      },
+      {
+       "n": "VAr12",
+       "o": 25,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr12"
+      },
+      {
+       "n": "V13",
+       "o": 26,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V13"
+      },
+      {
+       "n": "VAr13",
+       "o": 27,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr13"
+      },
+      {
+       "n": "V14",
+       "o": 28,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V14"
+      },
+      {
+       "n": "VAr14",
+       "o": 29,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr14"
+      },
+      {
+       "n": "V15",
+       "o": 30,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V15"
+      },
+      {
+       "n": "VAr15",
+       "o": 31,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr15"
+      },
+      {
+       "n": "V16",
+       "o": 32,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V16"
+      },
+      {
+       "n": "VAr16",
+       "o": 33,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr16"
+      },
+      {
+       "n": "V17",
+       "o": 34,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V17"
+      },
+      {
+       "n": "VAr17",
+       "o": 35,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr17"
+      },
+      {
+       "n": "V18",
+       "o": 36,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V18"
+      },
+      {
+       "n": "VAr18",
+       "o": 37,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr18"
+      },
+      {
+       "n": "V19",
+       "o": 38,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V19"
+      },
+      {
+       "n": "VAr19",
+       "o": 39,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr19"
+      },
+      {
+       "n": "V20",
+       "o": 40,
+       "t": "uint16",
+       "s": 1,
+       "sf": "V_SF",
+       "u": "% VRef",
+       "rw": true,
+       "l": "V20"
+      },
+      {
+       "n": "VAr20",
+       "o": 41,
+       "t": "int16",
+       "s": 1,
+       "sf": "DeptRef_SF",
+       "rw": true,
+       "l": "VAr20"
+      },
+      {
+       "n": "CrvNam",
+       "o": 42,
+       "t": "string",
+       "s": 8,
+       "rw": true,
+       "l": "CrvNam"
+      },
+      {
+       "n": "RmpTms",
+       "o": 50,
+       "t": "uint16",
+       "s": 1,
+       "u": "Secs",
+       "rw": true,
+       "l": "RmpTms"
+      },
+      {
+       "n": "RmpDecTmm",
+       "o": 51,
+       "t": "uint16",
+       "s": 1,
+       "sf": "RmpIncDec_SF",
+       "u": "% ref_value/min",
+       "rw": true,
+       "l": "RmpDecTmm"
+      },
+      {
+       "n": "RmpIncTmm",
+       "o": 52,
+       "t": "uint16",
+       "s": 1,
+       "sf": "RmpIncDec_SF",
+       "u": "% ref_value/min",
+       "rw": true,
+       "l": "RmpIncTmm"
+      },
+      {
+       "n": "ReadOnly",
+       "o": 53,
+       "t": "enum16",
+       "s": 1,
+       "m": true,
+       "sym": {
+        "READWRITE": 0,
+        "READONLY": 1
+       },
+       "l": "ReadOnly"
+      }
+     ],
+     "fromLength": true
+    }
+   ]
+  },
+  {
+   "id": 160,
+   "name": "mppt",
+   "l": "Multiple MPPT Inverter Extension Model",
+   "fixed": 8,
+   "points": [
+    {
+     "n": "DCA_SF",
+     "o": 0,
+     "t": "sunssf",
+     "s": 1,
+     "l": "Current Scale Factor"
+    },
+    {
+     "n": "DCV_SF",
+     "o": 1,
+     "t": "sunssf",
+     "s": 1,
+     "l": "Voltage Scale Factor"
+    },
+    {
+     "n": "DCW_SF",
+     "o": 2,
+     "t": "sunssf",
+     "s": 1,
+     "l": "Power Scale Factor"
+    },
+    {
+     "n": "DCWH_SF",
+     "o": 3,
+     "t": "sunssf",
+     "s": 1,
+     "l": "Energy Scale Factor"
+    },
+    {
+     "n": "Evt",
+     "o": 4,
+     "t": "bitfield32",
+     "s": 2,
+     "sym": {
+      "GROUND_FAULT": 0,
+      "INPUT_OVER_VOLTAGE": 1,
+      "RESERVED_2": 2,
+      "DC_DISCONNECT": 3,
+      "RESERVED_4": 4,
+      "CABINET_OPEN": 5,
+      "MANUAL_SHUTDOWN": 6,
+      "OVER_TEMP": 7,
+      "RESERVED_8": 8,
+      "RESERVED_9": 9,
+      "RESERVED_10": 10,
+      "RESERVED_11": 11,
+      "BLOWN_FUSE": 12,
+      "UNDER_TEMP": 13,
+      "MEMORY_LOSS": 14,
+      "ARC_DETECTION": 15,
+      "RESERVED_16": 16,
+      "RESERVED_17": 17,
+      "RESERVED_18": 18,
+      "RESERVED_19": 19,
+      "TEST_FAILED": 20,
+      "INPUT_UNDER_VOLTAGE": 21,
+      "INPUT_OVER_CURRENT": 22
+     },
+     "l": "Global Events"
+    },
+    {
+     "n": "N",
+     "o": 6,
+     "t": "count",
+     "s": 1,
+     "l": "Number of Modules"
+    },
+    {
+     "n": "TmsPer",
+     "o": 7,
+     "t": "uint16",
+     "s": 1,
+     "l": "Timestamp Period"
+    }
+   ],
+   "groups": [
+    {
+     "name": "module",
+     "off": 8,
+     "len": 20,
+     "points": [
+      {
+       "n": "ID",
+       "o": 0,
+       "t": "uint16",
+       "s": 1,
+       "l": "Input ID"
+      },
+      {
+       "n": "IDStr",
+       "o": 1,
+       "t": "string",
+       "s": 8,
+       "l": "Input ID String"
+      },
+      {
+       "n": "DCA",
+       "o": 9,
+       "t": "uint16",
+       "s": 1,
+       "sf": "DCA_SF",
+       "u": "A",
+       "l": "DC Current"
+      },
+      {
+       "n": "DCV",
+       "o": 10,
+       "t": "uint16",
+       "s": 1,
+       "sf": "DCV_SF",
+       "u": "V",
+       "l": "DC Voltage"
+      },
+      {
+       "n": "DCW",
+       "o": 11,
+       "t": "uint16",
+       "s": 1,
+       "sf": "DCW_SF",
+       "u": "W",
+       "l": "DC Power"
+      },
+      {
+       "n": "DCWH",
+       "o": 12,
+       "t": "acc32",
+       "s": 2,
+       "sf": "DCWH_SF",
+       "u": "Wh",
+       "l": "Lifetime Energy"
+      },
+      {
+       "n": "Tms",
+       "o": 14,
+       "t": "uint32",
+       "s": 2,
+       "u": "Secs",
+       "l": "Timestamp"
+      },
+      {
+       "n": "Tmp",
+       "o": 16,
+       "t": "int16",
+       "s": 1,
+       "u": "C",
+       "l": "Temperature"
+      },
+      {
+       "n": "DCSt",
+       "o": 17,
+       "t": "enum16",
+       "s": 1,
+       "sym": {
+        "OFF": 1,
+        "SLEEPING": 2,
+        "STARTING": 3,
+        "MPPT": 4,
+        "THROTTLED": 5,
+        "SHUTTING_DOWN": 6,
+        "FAULT": 7,
+        "STANDBY": 8,
+        "TEST": 9,
+        "RESERVED_10": 10
+       },
+       "l": "Operating State"
+      },
+      {
+       "n": "DCEvt",
+       "o": 18,
+       "t": "bitfield32",
+       "s": 2,
+       "sym": {
+        "GROUND_FAULT": 0,
+        "INPUT_OVER_VOLTAGE": 1,
+        "RESERVED_2": 2,
+        "DC_DISCONNECT": 3,
+        "RESERVED_4": 4,
+        "CABINET_OPEN": 5,
+        "MANUAL_SHUTDOWN": 6,
+        "OVER_TEMP": 7,
+        "RESERVED_8": 8,
+        "RESERVED_9": 9,
+        "RESERVED_10": 10,
+        "RESERVED_11": 11,
+        "BLOWN_FUSE": 12,
+        "UNDER_TEMP": 13,
+        "MEMORY_LOSS": 14,
+        "ARC_DETECTION": 15,
+        "RESERVED_16": 16,
+        "RESERVED_17": 17,
+        "RESERVED_18": 18,
+        "RESERVED_19": 19,
+        "TEST_FAILED": 20,
+        "INPUT_UNDER_VOLTAGE": 21,
+        "INPUT_OVER_CURRENT": 22
+       },
+       "l": "Module Events"
+      }
+     ],
+     "fromLength": true
+    }
+   ]
+  },
+  {
+   "id": 201,
+   "name": "ac_meter_an_or_ab",
+   "l": "Meter (Single Phase) single phase (AN or AB) meter",
+   "len": 105,
+   "points": [
+    {
+     "n": "A",
+     "o": 0,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps"
+    },
+    {
+     "n": "AphA",
+     "o": 1,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseA"
+    },
+    {
+     "n": "AphB",
+     "o": 2,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "l": "Amps PhaseB"
+    },
+    {
+     "n": "AphC",
+     "o": 3,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "l": "Amps PhaseC"
+    },
+    {
+     "n": "A_SF",
+     "o": 4,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "PhV",
+     "o": 5,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Voltage LN"
+    },
+    {
+     "n": "PhVphA",
+     "o": 6,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage AN"
+    },
+    {
+     "n": "PhVphB",
+     "o": 7,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage BN"
+    },
+    {
+     "n": "PhVphC",
+     "o": 8,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage CN"
+    },
+    {
+     "n": "PPV",
+     "o": 9,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Voltage LL"
+    },
+    {
+     "n": "PPVphAB",
+     "o": 10,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage AB"
+    },
+    {
+     "n": "PPVphBC",
+     "o": 11,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage BC"
+    },
+    {
+     "n": "PPVphCA",
+     "o": 12,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage CA"
+    },
+    {
+     "n": "V_SF",
+     "o": 13,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "Hz",
+     "o": 14,
+     "t": "int16",
+     "s": 1,
+     "sf": "Hz_SF",
+     "u": "Hz",
+     "m": true,
+     "l": "Hz"
+    },
+    {
+     "n": "Hz_SF",
+     "o": 15,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "W",
+     "o": 16,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "m": true,
+     "l": "Watts"
+    },
+    {
+     "n": "WphA",
+     "o": 17,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts phase A"
+    },
+    {
+     "n": "WphB",
+     "o": 18,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts phase B"
+    },
+    {
+     "n": "WphC",
+     "o": 19,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts phase C"
+    },
+    {
+     "n": "W_SF",
+     "o": 20,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "VA",
+     "o": 21,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA"
+    },
+    {
+     "n": "VAphA",
+     "o": 22,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA phase A"
+    },
+    {
+     "n": "VAphB",
+     "o": 23,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA phase B"
+    },
+    {
+     "n": "VAphC",
+     "o": 24,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA phase C"
+    },
+    {
+     "n": "VA_SF",
+     "o": 25,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "VAR",
+     "o": 26,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR"
+    },
+    {
+     "n": "VARphA",
+     "o": 27,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR phase A"
+    },
+    {
+     "n": "VARphB",
+     "o": 28,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR phase B"
+    },
+    {
+     "n": "VARphC",
+     "o": 29,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR phase C"
+    },
+    {
+     "n": "VAR_SF",
+     "o": 30,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "PF",
+     "o": 31,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF"
+    },
+    {
+     "n": "PFphA",
+     "o": 32,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF phase A"
+    },
+    {
+     "n": "PFphB",
+     "o": 33,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF phase B"
+    },
+    {
+     "n": "PFphC",
+     "o": 34,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF phase C"
+    },
+    {
+     "n": "PF_SF",
+     "o": 35,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "TotWhExp",
+     "o": 36,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "m": true,
+     "l": "Total Watt-hours Exported"
+    },
+    {
+     "n": "TotWhExpPhA",
+     "o": 38,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Exported phase A"
+    },
+    {
+     "n": "TotWhExpPhB",
+     "o": 40,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Exported phase B"
+    },
+    {
+     "n": "TotWhExpPhC",
+     "o": 42,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Exported phase C"
+    },
+    {
+     "n": "TotWhImp",
+     "o": 44,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "m": true,
+     "l": "Total Watt-hours Imported"
+    },
+    {
+     "n": "TotWhImpPhA",
+     "o": 46,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Imported phase A"
+    },
+    {
+     "n": "TotWhImpPhB",
+     "o": 48,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Imported phase B"
+    },
+    {
+     "n": "TotWhImpPhC",
+     "o": 50,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Imported phase C"
+    },
+    {
+     "n": "TotWh_SF",
+     "o": 52,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "TotVAhExp",
+     "o": 53,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported"
+    },
+    {
+     "n": "TotVAhExpPhA",
+     "o": 55,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported phase A"
+    },
+    {
+     "n": "TotVAhExpPhB",
+     "o": 57,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported phase B"
+    },
+    {
+     "n": "TotVAhExpPhC",
+     "o": 59,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported phase C"
+    },
+    {
+     "n": "TotVAhImp",
+     "o": 61,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported"
+    },
+    {
+     "n": "TotVAhImpPhA",
+     "o": 63,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported phase A"
+    },
+    {
+     "n": "TotVAhImpPhB",
+     "o": 65,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported phase B"
+    },
+    {
+     "n": "TotVAhImpPhC",
+     "o": 67,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported phase C"
+    },
+    {
+     "n": "TotVAh_SF",
+     "o": 69,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "TotVArhImpQ1",
+     "o": 70,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAR-hours Imported Q1"
+    },
+    {
+     "n": "TotVArhImpQ1PhA",
+     "o": 72,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q1 phase A"
+    },
+    {
+     "n": "TotVArhImpQ1PhB",
+     "o": 74,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q1 phase B"
+    },
+    {
+     "n": "TotVArhImpQ1PhC",
+     "o": 76,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q1 phase C"
+    },
+    {
+     "n": "TotVArhImpQ2",
+     "o": 78,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2"
+    },
+    {
+     "n": "TotVArhImpQ2PhA",
+     "o": 80,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2 phase A"
+    },
+    {
+     "n": "TotVArhImpQ2PhB",
+     "o": 82,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2 phase B"
+    },
+    {
+     "n": "TotVArhImpQ2PhC",
+     "o": 84,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2 phase C"
+    },
+    {
+     "n": "TotVArhExpQ3",
+     "o": 86,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3"
+    },
+    {
+     "n": "TotVArhExpQ3PhA",
+     "o": 88,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3 phase A"
+    },
+    {
+     "n": "TotVArhExpQ3PhB",
+     "o": 90,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3 phase B"
+    },
+    {
+     "n": "TotVArhExpQ3PhC",
+     "o": 92,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3 phase C"
+    },
+    {
+     "n": "TotVArhExpQ4",
+     "o": 94,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4"
+    },
+    {
+     "n": "TotVArhExpQ4PhA",
+     "o": 96,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4 Imported phase A"
+    },
+    {
+     "n": "TotVArhExpQ4PhB",
+     "o": 98,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4 Imported phase B"
+    },
+    {
+     "n": "TotVArhExpQ4PhC",
+     "o": 100,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4 Imported phase C"
+    },
+    {
+     "n": "TotVArh_SF",
+     "o": 102,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "Evt",
+     "o": 103,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "sym": {
+      "Power_Failure": 2,
+      "Under_Voltage": 3,
+      "Low_PF": 4,
+      "Over_Current": 5,
+      "Over_Voltage": 6,
+      "Missing_Sensor": 7,
+      "OEM01": 16,
+      "OEM02": 17,
+      "OEM03": 18,
+      "OEM04": 19,
+      "OEM05": 20,
+      "OEM06": 21,
+      "OEM07": 22,
+      "OEM08": 23,
+      "OEM09": 24,
+      "OEM10": 25,
+      "OEM11": 26,
+      "OEM12": 27,
+      "OEM13": 28,
+      "OEM14": 29,
+      "OEM15": 30
+     },
+     "l": "Events"
+    }
+   ]
+  },
+  {
+   "id": 202,
+   "name": "ac_meter_abn",
+   "l": "split single phase (ABN) meter",
+   "len": 105,
+   "points": [
+    {
+     "n": "A",
+     "o": 0,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps"
+    },
+    {
+     "n": "AphA",
+     "o": 1,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "l": "Amps PhaseA"
+    },
+    {
+     "n": "AphB",
+     "o": 2,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseB"
+    },
+    {
+     "n": "AphC",
+     "o": 3,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseC"
+    },
+    {
+     "n": "A_SF",
+     "o": 4,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "PhV",
+     "o": 5,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Voltage LN"
+    },
+    {
+     "n": "PhVphA",
+     "o": 6,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage AN"
+    },
+    {
+     "n": "PhVphB",
+     "o": 7,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage BN"
+    },
+    {
+     "n": "PhVphC",
+     "o": 8,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage CN"
+    },
+    {
+     "n": "PPV",
+     "o": 9,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Voltage LL"
+    },
+    {
+     "n": "PhVphAB",
+     "o": 10,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage AB"
+    },
+    {
+     "n": "PhVphBC",
+     "o": 11,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage BC"
+    },
+    {
+     "n": "PhVphCA",
+     "o": 12,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage CA"
+    },
+    {
+     "n": "V_SF",
+     "o": 13,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "Hz",
+     "o": 14,
+     "t": "int16",
+     "s": 1,
+     "sf": "Hz_SF",
+     "u": "Hz",
+     "m": true,
+     "l": "Hz"
+    },
+    {
+     "n": "Hz_SF",
+     "o": 15,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "W",
+     "o": 16,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "m": true,
+     "l": "Watts"
+    },
+    {
+     "n": "WphA",
+     "o": 17,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts phase A"
+    },
+    {
+     "n": "WphB",
+     "o": 18,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts phase B"
+    },
+    {
+     "n": "WphC",
+     "o": 19,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts phase C"
+    },
+    {
+     "n": "W_SF",
+     "o": 20,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "VA",
+     "o": 21,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA"
+    },
+    {
+     "n": "VAphA",
+     "o": 22,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA phase A"
+    },
+    {
+     "n": "VAphB",
+     "o": 23,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA phase B"
+    },
+    {
+     "n": "VAphC",
+     "o": 24,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA phase C"
+    },
+    {
+     "n": "VA_SF",
+     "o": 25,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "VAR",
+     "o": 26,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR"
+    },
+    {
+     "n": "VARphA",
+     "o": 27,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR phase A"
+    },
+    {
+     "n": "VARphB",
+     "o": 28,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR phase B"
+    },
+    {
+     "n": "VARphC",
+     "o": 29,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR phase C"
+    },
+    {
+     "n": "VAR_SF",
+     "o": 30,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "PF",
+     "o": 31,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF"
+    },
+    {
+     "n": "PFphA",
+     "o": 32,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF phase A"
+    },
+    {
+     "n": "PFphB",
+     "o": 33,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF phase B"
+    },
+    {
+     "n": "PFphC",
+     "o": 34,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF phase C"
+    },
+    {
+     "n": "PF_SF",
+     "o": 35,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "TotWhExp",
+     "o": 36,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "m": true,
+     "l": "Total Watt-hours Exported"
+    },
+    {
+     "n": "TotWhExpPhA",
+     "o": 38,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Exported phase A"
+    },
+    {
+     "n": "TotWhExpPhB",
+     "o": 40,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Exported phase B"
+    },
+    {
+     "n": "TotWhExpPhC",
+     "o": 42,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Exported phase C"
+    },
+    {
+     "n": "TotWhImp",
+     "o": 44,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "m": true,
+     "l": "Total Watt-hours Imported"
+    },
+    {
+     "n": "TotWhImpPhA",
+     "o": 46,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Imported phase A"
+    },
+    {
+     "n": "TotWhImpPhB",
+     "o": 48,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Imported phase B"
+    },
+    {
+     "n": "TotWhImpPhC",
+     "o": 50,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Imported phase C"
+    },
+    {
+     "n": "TotWh_SF",
+     "o": 52,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "TotVAhExp",
+     "o": 53,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported"
+    },
+    {
+     "n": "TotVAhExpPhA",
+     "o": 55,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported phase A"
+    },
+    {
+     "n": "TotVAhExpPhB",
+     "o": 57,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported phase B"
+    },
+    {
+     "n": "TotVAhExpPhC",
+     "o": 59,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported phase C"
+    },
+    {
+     "n": "TotVAhImp",
+     "o": 61,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported"
+    },
+    {
+     "n": "TotVAhImpPhA",
+     "o": 63,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported phase A"
+    },
+    {
+     "n": "TotVAhImpPhB",
+     "o": 65,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported phase B"
+    },
+    {
+     "n": "TotVAhImpPhC",
+     "o": 67,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported phase C"
+    },
+    {
+     "n": "TotVAh_SF",
+     "o": 69,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "TotVArhImpQ1",
+     "o": 70,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAR-hours Imported Q1"
+    },
+    {
+     "n": "TotVArhImpQ1PhA",
+     "o": 72,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q1 phase A"
+    },
+    {
+     "n": "TotVArhImpQ1PhB",
+     "o": 74,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q1 phase B"
+    },
+    {
+     "n": "TotVArhImpQ1PhC",
+     "o": 76,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q1 phase C"
+    },
+    {
+     "n": "TotVArhImpQ2",
+     "o": 78,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2"
+    },
+    {
+     "n": "TotVArhImpQ2PhA",
+     "o": 80,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2 phase A"
+    },
+    {
+     "n": "TotVArhImpQ2PhB",
+     "o": 82,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2 phase B"
+    },
+    {
+     "n": "TotVArhImpQ2PhC",
+     "o": 84,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2 phase C"
+    },
+    {
+     "n": "TotVArhExpQ3",
+     "o": 86,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3"
+    },
+    {
+     "n": "TotVArhExpQ3PhA",
+     "o": 88,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3 phase A"
+    },
+    {
+     "n": "TotVArhExpQ3PhB",
+     "o": 90,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3 phase B"
+    },
+    {
+     "n": "TotVArhExpQ3PhC",
+     "o": 92,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3 phase C"
+    },
+    {
+     "n": "TotVArhExpQ4",
+     "o": 94,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4"
+    },
+    {
+     "n": "TotVArhExpQ4PhA",
+     "o": 96,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4 Imported phase A"
+    },
+    {
+     "n": "TotVArhExpQ4PhB",
+     "o": 98,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4 Imported phase B"
+    },
+    {
+     "n": "TotVArhExpQ4PhC",
+     "o": 100,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4 Imported phase C"
+    },
+    {
+     "n": "TotVArh_SF",
+     "o": 102,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "Evt",
+     "o": 103,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "sym": {
+      "M_EVENT_Power_Failure": 2,
+      "M_EVENT_Under_Voltage": 3,
+      "M_EVENT_Low_PF": 4,
+      "M_EVENT_Over_Current": 5,
+      "M_EVENT_Over_Voltage": 6,
+      "M_EVENT_Missing_Sensor": 7,
+      "M_EVENT_Reserved1": 8,
+      "M_EVENT_Reserved2": 9,
+      "M_EVENT_Reserved3": 10,
+      "M_EVENT_Reserved4": 11,
+      "M_EVENT_Reserved5": 12,
+      "M_EVENT_Reserved6": 13,
+      "M_EVENT_Reserved7": 14,
+      "M_EVENT_Reserved8": 15,
+      "M_EVENT_OEM01": 16,
+      "M_EVENT_OEM02": 17,
+      "M_EVENT_OEM03": 18,
+      "M_EVENT_OEM04": 19,
+      "M_EVENT_OEM05": 20,
+      "M_EVENT_OEM06": 21,
+      "M_EVENT_OEM07": 22,
+      "M_EVENT_OEM08": 23,
+      "M_EVENT_OEM09": 24,
+      "M_EVENT_OEM10": 25,
+      "M_EVENT_OEM11": 26,
+      "M_EVENT_OEM12": 27,
+      "M_EVENT_OEM13": 28,
+      "M_EVENT_OEM14": 29,
+      "M_EVENT_OEM15": 30
+     },
+     "l": "Events"
+    }
+   ]
+  },
+  {
+   "id": 203,
+   "name": "ac_meter_abcn",
+   "l": "wye-connect three phase (abcn) meter",
+   "len": 105,
+   "points": [
+    {
+     "n": "A",
+     "o": 0,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps"
+    },
+    {
+     "n": "AphA",
+     "o": 1,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseA"
+    },
+    {
+     "n": "AphB",
+     "o": 2,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseB"
+    },
+    {
+     "n": "AphC",
+     "o": 3,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseC"
+    },
+    {
+     "n": "A_SF",
+     "o": 4,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "PhV",
+     "o": 5,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Voltage LN"
+    },
+    {
+     "n": "PhVphA",
+     "o": 6,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage AN"
+    },
+    {
+     "n": "PhVphB",
+     "o": 7,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage BN"
+    },
+    {
+     "n": "PhVphC",
+     "o": 8,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage CN"
+    },
+    {
+     "n": "PPV",
+     "o": 9,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Voltage LL"
+    },
+    {
+     "n": "PhVphAB",
+     "o": 10,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage AB"
+    },
+    {
+     "n": "PhVphBC",
+     "o": 11,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage BC"
+    },
+    {
+     "n": "PhVphCA",
+     "o": 12,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage CA"
+    },
+    {
+     "n": "V_SF",
+     "o": 13,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "Hz",
+     "o": 14,
+     "t": "int16",
+     "s": 1,
+     "sf": "Hz_SF",
+     "u": "Hz",
+     "m": true,
+     "l": "Hz"
+    },
+    {
+     "n": "Hz_SF",
+     "o": 15,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "W",
+     "o": 16,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "m": true,
+     "l": "Watts"
+    },
+    {
+     "n": "WphA",
+     "o": 17,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts phase A"
+    },
+    {
+     "n": "WphB",
+     "o": 18,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts phase B"
+    },
+    {
+     "n": "WphC",
+     "o": 19,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts phase C"
+    },
+    {
+     "n": "W_SF",
+     "o": 20,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "VA",
+     "o": 21,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA"
+    },
+    {
+     "n": "VAphA",
+     "o": 22,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA phase A"
+    },
+    {
+     "n": "VAphB",
+     "o": 23,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA phase B"
+    },
+    {
+     "n": "VAphC",
+     "o": 24,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA phase C"
+    },
+    {
+     "n": "VA_SF",
+     "o": 25,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "VAR",
+     "o": 26,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR"
+    },
+    {
+     "n": "VARphA",
+     "o": 27,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR phase A"
+    },
+    {
+     "n": "VARphB",
+     "o": 28,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR phase B"
+    },
+    {
+     "n": "VARphC",
+     "o": 29,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR phase C"
+    },
+    {
+     "n": "VAR_SF",
+     "o": 30,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "PF",
+     "o": 31,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF"
+    },
+    {
+     "n": "PFphA",
+     "o": 32,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF phase A"
+    },
+    {
+     "n": "PFphB",
+     "o": 33,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF phase B"
+    },
+    {
+     "n": "PFphC",
+     "o": 34,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF phase C"
+    },
+    {
+     "n": "PF_SF",
+     "o": 35,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "TotWhExp",
+     "o": 36,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "m": true,
+     "l": "Total Watt-hours Exported"
+    },
+    {
+     "n": "TotWhExpPhA",
+     "o": 38,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Exported phase A"
+    },
+    {
+     "n": "TotWhExpPhB",
+     "o": 40,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Exported phase B"
+    },
+    {
+     "n": "TotWhExpPhC",
+     "o": 42,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Exported phase C"
+    },
+    {
+     "n": "TotWhImp",
+     "o": 44,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "m": true,
+     "l": "Total Watt-hours Imported"
+    },
+    {
+     "n": "TotWhImpPhA",
+     "o": 46,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Imported phase A"
+    },
+    {
+     "n": "TotWhImpPhB",
+     "o": 48,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Imported phase B"
+    },
+    {
+     "n": "TotWhImpPhC",
+     "o": 50,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Imported phase C"
+    },
+    {
+     "n": "TotWh_SF",
+     "o": 52,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "TotVAhExp",
+     "o": 53,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported"
+    },
+    {
+     "n": "TotVAhExpPhA",
+     "o": 55,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported phase A"
+    },
+    {
+     "n": "TotVAhExpPhB",
+     "o": 57,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported phase B"
+    },
+    {
+     "n": "TotVAhExpPhC",
+     "o": 59,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported phase C"
+    },
+    {
+     "n": "TotVAhImp",
+     "o": 61,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported"
+    },
+    {
+     "n": "TotVAhImpPhA",
+     "o": 63,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported phase A"
+    },
+    {
+     "n": "TotVAhImpPhB",
+     "o": 65,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported phase B"
+    },
+    {
+     "n": "TotVAhImpPhC",
+     "o": 67,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported phase C"
+    },
+    {
+     "n": "TotVAh_SF",
+     "o": 69,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "TotVArhImpQ1",
+     "o": 70,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAR-hours Imported Q1"
+    },
+    {
+     "n": "TotVArhImpQ1PhA",
+     "o": 72,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q1 phase A"
+    },
+    {
+     "n": "TotVArhImpQ1PhB",
+     "o": 74,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q1 phase B"
+    },
+    {
+     "n": "TotVArhImpQ1PhC",
+     "o": 76,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q1 phase C"
+    },
+    {
+     "n": "TotVArhImpQ2",
+     "o": 78,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2"
+    },
+    {
+     "n": "TotVArhImpQ2PhA",
+     "o": 80,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2 phase A"
+    },
+    {
+     "n": "TotVArhImpQ2PhB",
+     "o": 82,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2 phase B"
+    },
+    {
+     "n": "TotVArhImpQ2PhC",
+     "o": 84,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2 phase C"
+    },
+    {
+     "n": "TotVArhExpQ3",
+     "o": 86,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3"
+    },
+    {
+     "n": "TotVArhExpQ3PhA",
+     "o": 88,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3 phase A"
+    },
+    {
+     "n": "TotVArhExpQ3PhB",
+     "o": 90,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3 phase B"
+    },
+    {
+     "n": "TotVArhExpQ3PhC",
+     "o": 92,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3 phase C"
+    },
+    {
+     "n": "TotVArhExpQ4",
+     "o": 94,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4"
+    },
+    {
+     "n": "TotVArhExpQ4PhA",
+     "o": 96,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4 Imported phase A"
+    },
+    {
+     "n": "TotVArhExpQ4PhB",
+     "o": 98,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4 Imported phase B"
+    },
+    {
+     "n": "TotVArhExpQ4PhC",
+     "o": 100,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4 Imported phase C"
+    },
+    {
+     "n": "TotVArh_SF",
+     "o": 102,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "Evt",
+     "o": 103,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "sym": {
+      "M_EVENT_Power_Failure": 2,
+      "M_EVENT_Under_Voltage": 3,
+      "M_EVENT_Low_PF": 4,
+      "M_EVENT_Over_Current": 5,
+      "M_EVENT_Over_Voltage": 6,
+      "M_EVENT_Missing_Sensor": 7,
+      "M_EVENT_Reserved1": 8,
+      "M_EVENT_Reserved2": 9,
+      "M_EVENT_Reserved3": 10,
+      "M_EVENT_Reserved4": 11,
+      "M_EVENT_Reserved5": 12,
+      "M_EVENT_Reserved6": 13,
+      "M_EVENT_Reserved7": 14,
+      "M_EVENT_Reserved8": 15,
+      "M_EVENT_OEM01": 16,
+      "M_EVENT_OEM02": 17,
+      "M_EVENT_OEM03": 18,
+      "M_EVENT_OEM04": 19,
+      "M_EVENT_OEM05": 20,
+      "M_EVENT_OEM06": 21,
+      "M_EVENT_OEM07": 22,
+      "M_EVENT_OEM08": 23,
+      "M_EVENT_OEM09": 24,
+      "M_EVENT_OEM10": 25,
+      "M_EVENT_OEM11": 26,
+      "M_EVENT_OEM12": 27,
+      "M_EVENT_OEM13": 28,
+      "M_EVENT_OEM14": 29,
+      "M_EVENT_OEM15": 30
+     },
+     "l": "Events"
+    }
+   ]
+  },
+  {
+   "id": 204,
+   "name": "ac_meter_abc",
+   "l": "delta-connect three phase (abc) meter",
+   "len": 105,
+   "points": [
+    {
+     "n": "A",
+     "o": 0,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps"
+    },
+    {
+     "n": "AphA",
+     "o": 1,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseA"
+    },
+    {
+     "n": "AphB",
+     "o": 2,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseB"
+    },
+    {
+     "n": "AphC",
+     "o": 3,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "m": true,
+     "l": "Amps PhaseC"
+    },
+    {
+     "n": "A_SF",
+     "o": 4,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "PhV",
+     "o": 5,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Voltage LN"
+    },
+    {
+     "n": "PhVphA",
+     "o": 6,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage AN"
+    },
+    {
+     "n": "PhVphB",
+     "o": 7,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage BN"
+    },
+    {
+     "n": "PhVphC",
+     "o": 8,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage CN"
+    },
+    {
+     "n": "PPV",
+     "o": 9,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Voltage LL"
+    },
+    {
+     "n": "PhVphAB",
+     "o": 10,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage AB"
+    },
+    {
+     "n": "PhVphBC",
+     "o": 11,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage BC"
+    },
+    {
+     "n": "PhVphCA",
+     "o": 12,
+     "t": "int16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "m": true,
+     "l": "Phase Voltage CA"
+    },
+    {
+     "n": "V_SF",
+     "o": 13,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "Hz",
+     "o": 14,
+     "t": "int16",
+     "s": 1,
+     "sf": "Hz_SF",
+     "u": "Hz",
+     "m": true,
+     "l": "Hz"
+    },
+    {
+     "n": "Hz_SF",
+     "o": 15,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "W",
+     "o": 16,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "m": true,
+     "l": "Watts"
+    },
+    {
+     "n": "WphA",
+     "o": 17,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts phase A"
+    },
+    {
+     "n": "WphB",
+     "o": 18,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts phase B"
+    },
+    {
+     "n": "WphC",
+     "o": 19,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts phase C"
+    },
+    {
+     "n": "W_SF",
+     "o": 20,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "VA",
+     "o": 21,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA"
+    },
+    {
+     "n": "VAphA",
+     "o": 22,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA phase A"
+    },
+    {
+     "n": "VAphB",
+     "o": 23,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA phase B"
+    },
+    {
+     "n": "VAphC",
+     "o": 24,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA phase C"
+    },
+    {
+     "n": "VA_SF",
+     "o": 25,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "VAR",
+     "o": 26,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR"
+    },
+    {
+     "n": "VARphA",
+     "o": 27,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR phase A"
+    },
+    {
+     "n": "VARphB",
+     "o": 28,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR phase B"
+    },
+    {
+     "n": "VARphC",
+     "o": 29,
+     "t": "int16",
+     "s": 1,
+     "sf": "VAR_SF",
+     "u": "var",
+     "l": "VAR phase C"
+    },
+    {
+     "n": "VAR_SF",
+     "o": 30,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "PF",
+     "o": 31,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF"
+    },
+    {
+     "n": "PFphA",
+     "o": 32,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF phase A"
+    },
+    {
+     "n": "PFphB",
+     "o": 33,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF phase B"
+    },
+    {
+     "n": "PFphC",
+     "o": 34,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "u": "Pct",
+     "l": "PF phase C"
+    },
+    {
+     "n": "PF_SF",
+     "o": 35,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "TotWhExp",
+     "o": 36,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "m": true,
+     "l": "Total Watt-hours Exported"
+    },
+    {
+     "n": "TotWhExpPhA",
+     "o": 38,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Exported phase A"
+    },
+    {
+     "n": "TotWhExpPhB",
+     "o": 40,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Exported phase B"
+    },
+    {
+     "n": "TotWhExpPhC",
+     "o": 42,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Exported phase C"
+    },
+    {
+     "n": "TotWhImp",
+     "o": 44,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "m": true,
+     "l": "Total Watt-hours Imported"
+    },
+    {
+     "n": "TotWhImpPhA",
+     "o": 46,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Imported phase A"
+    },
+    {
+     "n": "TotWhImpPhB",
+     "o": 48,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Imported phase B"
+    },
+    {
+     "n": "TotWhImpPhC",
+     "o": 50,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-hours Imported phase C"
+    },
+    {
+     "n": "TotWh_SF",
+     "o": 52,
+     "t": "sunssf",
+     "s": 1,
+     "m": true
+    },
+    {
+     "n": "TotVAhExp",
+     "o": 53,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported"
+    },
+    {
+     "n": "TotVAhExpPhA",
+     "o": 55,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported phase A"
+    },
+    {
+     "n": "TotVAhExpPhB",
+     "o": 57,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported phase B"
+    },
+    {
+     "n": "TotVAhExpPhC",
+     "o": 59,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Exported phase C"
+    },
+    {
+     "n": "TotVAhImp",
+     "o": 61,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported"
+    },
+    {
+     "n": "TotVAhImpPhA",
+     "o": 63,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported phase A"
+    },
+    {
+     "n": "TotVAhImpPhB",
+     "o": 65,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported phase B"
+    },
+    {
+     "n": "TotVAhImpPhC",
+     "o": 67,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVAh_SF",
+     "u": "VAh",
+     "l": "Total VA-hours Imported phase C"
+    },
+    {
+     "n": "TotVAh_SF",
+     "o": 69,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "TotVArhImpQ1",
+     "o": 70,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAR-hours Imported Q1"
+    },
+    {
+     "n": "TotVArhImpQ1PhA",
+     "o": 72,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q1 phase A"
+    },
+    {
+     "n": "TotVArhImpQ1PhB",
+     "o": 74,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q1 phase B"
+    },
+    {
+     "n": "TotVArhImpQ1PhC",
+     "o": 76,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q1 phase C"
+    },
+    {
+     "n": "TotVArhImpQ2",
+     "o": 78,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2"
+    },
+    {
+     "n": "TotVArhImpQ2PhA",
+     "o": 80,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2 phase A"
+    },
+    {
+     "n": "TotVArhImpQ2PhB",
+     "o": 82,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2 phase B"
+    },
+    {
+     "n": "TotVArhImpQ2PhC",
+     "o": 84,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Imported Q2 phase C"
+    },
+    {
+     "n": "TotVArhExpQ3",
+     "o": 86,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3"
+    },
+    {
+     "n": "TotVArhExpQ3PhA",
+     "o": 88,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3 phase A"
+    },
+    {
+     "n": "TotVArhExpQ3PhB",
+     "o": 90,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3 phase B"
+    },
+    {
+     "n": "TotVArhExpQ3PhC",
+     "o": 92,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q3 phase C"
+    },
+    {
+     "n": "TotVArhExpQ4",
+     "o": 94,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4"
+    },
+    {
+     "n": "TotVArhExpQ4PhA",
+     "o": 96,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4 Imported phase A"
+    },
+    {
+     "n": "TotVArhExpQ4PhB",
+     "o": 98,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4 Imported phase B"
+    },
+    {
+     "n": "TotVArhExpQ4PhC",
+     "o": 100,
+     "t": "acc32",
+     "s": 2,
+     "sf": "TotVArh_SF",
+     "u": "varh",
+     "l": "Total VAr-hours Exported Q4 Imported phase C"
+    },
+    {
+     "n": "TotVArh_SF",
+     "o": 102,
+     "t": "sunssf",
+     "s": 1
+    },
+    {
+     "n": "Evt",
+     "o": 103,
+     "t": "bitfield32",
+     "s": 2,
+     "m": true,
+     "sym": {
+      "M_EVENT_Power_Failure": 2,
+      "M_EVENT_Under_Voltage": 3,
+      "M_EVENT_Low_PF": 4,
+      "M_EVENT_Over_Current": 5,
+      "M_EVENT_Over_Voltage": 6,
+      "M_EVENT_Missing_Sensor": 7,
+      "M_EVENT_Reserved1": 8,
+      "M_EVENT_Reserved2": 9,
+      "M_EVENT_Reserved3": 10,
+      "M_EVENT_Reserved4": 11,
+      "M_EVENT_Reserved5": 12,
+      "M_EVENT_Reserved6": 13,
+      "M_EVENT_Reserved7": 14,
+      "M_EVENT_Reserved8": 15,
+      "M_EVENT_OEM01": 16,
+      "M_EVENT_OEM02": 17,
+      "M_EVENT_OEM03": 18,
+      "M_EVENT_OEM04": 19,
+      "M_EVENT_OEM05": 20,
+      "M_EVENT_OEM06": 21,
+      "M_EVENT_OEM07": 22,
+      "M_EVENT_OEM08": 23,
+      "M_EVENT_OEM09": 24,
+      "M_EVENT_OEM10": 25,
+      "M_EVENT_OEM11": 26,
+      "M_EVENT_OEM12": 27,
+      "M_EVENT_OEM13": 28,
+      "M_EVENT_OEM14": 29,
+      "M_EVENT_OEM15": 30
+     },
+     "l": "Events"
+    }
+   ]
+  },
+  {
+   "id": 701,
+   "name": "DERMeasureAC",
+   "l": "DER AC Measurement",
+   "len": 153,
+   "points": [
+    {
+     "n": "ACType",
+     "o": 0,
+     "t": "enum16",
+     "s": 1,
+     "m": true,
+     "sym": {
+      "SINGLE_PHASE": 0,
+      "SPLIT_PHASE": 1,
+      "THREE_PHASE": 2
+     },
+     "l": "AC Wiring Type"
+    },
+    {
+     "n": "St",
+     "o": 1,
+     "t": "enum16",
+     "s": 1,
+     "sym": {
+      "OFF": 0,
+      "ON": 1
+     },
+     "l": "Operating State"
+    },
+    {
+     "n": "InvSt",
+     "o": 2,
+     "t": "enum16",
+     "s": 1,
+     "sym": {
+      "OFF": 0,
+      "SLEEPING": 1,
+      "STARTING": 2,
+      "RUNNING": 3,
+      "THROTTLED": 4,
+      "SHUTTING_DOWN": 5,
+      "FAULT": 6,
+      "STANDBY": 7
+     },
+     "l": "Inverter State"
+    },
+    {
+     "n": "ConnSt",
+     "o": 3,
+     "t": "enum16",
+     "s": 1,
+     "sym": {
+      "DISCONNECTED": 0,
+      "CONNECTED": 1
+     },
+     "l": "Grid Connection State"
+    },
+    {
+     "n": "Alrm",
+     "o": 4,
+     "t": "bitfield32",
+     "s": 2,
+     "sym": {
+      "GROUND_FAULT": 0,
+      "DC_OVER_VOLT": 1,
+      "AC_DISCONNECT": 2,
+      "DC_DISCONNECT": 3,
+      "GRID_DISCONNECT": 4,
+      "CABINET_OPEN": 5,
+      "MANUAL_SHUTDOWN": 6,
+      "OVER_TEMP": 7,
+      "OVER_FREQUENCY": 8,
+      "UNDER_FREQUENCY": 9,
+      "AC_OVER_VOLT": 10,
+      "AC_UNDER_VOLT": 11,
+      "BLOWN_STRING_FUSE": 12,
+      "UNDER_TEMP": 13,
+      "MEMORY_LOSS": 14,
+      "HW_TEST_FAILURE": 15,
+      "MANUFACTURER_ALRM": 16
+     },
+     "l": "Alarm Bitfield"
+    },
+    {
+     "n": "DERMode",
+     "o": 6,
+     "t": "bitfield32",
+     "s": 2,
+     "sym": {
+      "GRID_FOLLOWING": 0,
+      "GRID_FORMING": 1,
+      "PV_CLIPPED": 2
+     },
+     "l": "DER Operational Characteristics"
+    },
+    {
+     "n": "W",
+     "o": 8,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Active Power"
+    },
+    {
+     "n": "VA",
+     "o": 9,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "Apparent Power"
+    },
+    {
+     "n": "Var",
+     "o": 10,
+     "t": "int16",
+     "s": 1,
+     "sf": "Var_SF",
+     "u": "Var",
+     "l": "Reactive Power"
+    },
+    {
+     "n": "PF",
+     "o": 11,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "l": "Power Factor"
+    },
+    {
+     "n": "A",
+     "o": 12,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "l": "Total AC Current"
+    },
+    {
+     "n": "LLV",
+     "o": 13,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Voltage LL"
+    },
+    {
+     "n": "LNV",
+     "o": 14,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Voltage LN"
+    },
+    {
+     "n": "Hz",
+     "o": 15,
+     "t": "uint32",
+     "s": 2,
+     "sf": "Hz_SF",
+     "u": "Hz",
+     "l": "Frequency"
+    },
+    {
+     "n": "TotWhInj",
+     "o": 17,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Energy Injected"
+    },
+    {
+     "n": "TotWhAbs",
+     "o": 21,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Energy Absorbed"
+    },
+    {
+     "n": "TotVarhInj",
+     "o": 25,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotVarh_SF",
+     "u": "Varh",
+     "l": "Total Reactive Energy Inj"
+    },
+    {
+     "n": "TotVarhAbs",
+     "o": 29,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotVarh_SF",
+     "u": "Varh",
+     "l": "Total Reactive Energy Abs"
+    },
+    {
+     "n": "TmpAmb",
+     "o": 33,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Ambient Temperature"
+    },
+    {
+     "n": "TmpCab",
+     "o": 34,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Cabinet Temperature"
+    },
+    {
+     "n": "TmpSnk",
+     "o": 35,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Heat Sink Temperature"
+    },
+    {
+     "n": "TmpTrns",
+     "o": 36,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Transformer Temperature"
+    },
+    {
+     "n": "TmpSw",
+     "o": 37,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "IGBT/MOSFET Temperature"
+    },
+    {
+     "n": "TmpOt",
+     "o": 38,
+     "t": "int16",
+     "s": 1,
+     "sf": "Tmp_SF",
+     "u": "C",
+     "l": "Other Temperature"
+    },
+    {
+     "n": "WL1",
+     "o": 39,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts L1"
+    },
+    {
+     "n": "VAL1",
+     "o": 40,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA L1"
+    },
+    {
+     "n": "VarL1",
+     "o": 41,
+     "t": "int16",
+     "s": 1,
+     "sf": "Var_SF",
+     "u": "Var",
+     "l": "Var L1"
+    },
+    {
+     "n": "PFL1",
+     "o": 42,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "l": "PF L1"
+    },
+    {
+     "n": "AL1",
+     "o": 43,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "l": "Amps L1"
+    },
+    {
+     "n": "VL1L2",
+     "o": 44,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage L1-L2"
+    },
+    {
+     "n": "VL1",
+     "o": 45,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage L1-N"
+    },
+    {
+     "n": "TotWhInjL1",
+     "o": 46,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-Hours Inj L1"
+    },
+    {
+     "n": "TotWhAbsL1",
+     "o": 50,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-Hours Abs L1"
+    },
+    {
+     "n": "TotVarhInjL1",
+     "o": 54,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotVarh_SF",
+     "u": "Varh",
+     "l": "Total Var-Hours Inj L1"
+    },
+    {
+     "n": "TotVarhAbsL1",
+     "o": 58,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotVarh_SF",
+     "u": "Varh",
+     "l": "Total Var-Hours Abs L1"
+    },
+    {
+     "n": "WL2",
+     "o": 62,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts L2"
+    },
+    {
+     "n": "VAL2",
+     "o": 63,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA L2"
+    },
+    {
+     "n": "VarL2",
+     "o": 64,
+     "t": "int16",
+     "s": 1,
+     "sf": "Var_SF",
+     "u": "Var",
+     "l": "Var L2"
+    },
+    {
+     "n": "PFL2",
+     "o": 65,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "l": "PF L2"
+    },
+    {
+     "n": "AL2",
+     "o": 66,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "l": "Amps L2"
+    },
+    {
+     "n": "VL2L3",
+     "o": 67,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage L2-L3"
+    },
+    {
+     "n": "VL2",
+     "o": 68,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage L2-N"
+    },
+    {
+     "n": "TotWhInjL2",
+     "o": 69,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-Hours Inj L2"
+    },
+    {
+     "n": "TotWhAbsL2",
+     "o": 73,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-Hours Abs L2"
+    },
+    {
+     "n": "TotVarhInjL2",
+     "o": 77,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotVarh_SF",
+     "u": "Varh",
+     "l": "Total Var-Hours Inj L2"
+    },
+    {
+     "n": "TotVarhAbsL2",
+     "o": 81,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotVarh_SF",
+     "u": "Varh",
+     "l": "Total Var-Hours Abs L2"
+    },
+    {
+     "n": "WL3",
+     "o": 85,
+     "t": "int16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "l": "Watts L3"
+    },
+    {
+     "n": "VAL3",
+     "o": 86,
+     "t": "int16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "l": "VA L3"
+    },
+    {
+     "n": "VarL3",
+     "o": 87,
+     "t": "int16",
+     "s": 1,
+     "sf": "Var_SF",
+     "u": "Var",
+     "l": "Var L3"
+    },
+    {
+     "n": "PFL3",
+     "o": 88,
+     "t": "int16",
+     "s": 1,
+     "sf": "PF_SF",
+     "l": "PF L3"
+    },
+    {
+     "n": "AL3",
+     "o": 89,
+     "t": "int16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "l": "Amps L3"
+    },
+    {
+     "n": "VL3L1",
+     "o": 90,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage L3-L1"
+    },
+    {
+     "n": "VL3",
+     "o": 91,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "l": "Phase Voltage L3-N"
+    },
+    {
+     "n": "TotWhInjL3",
+     "o": 92,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-Hours Inj L3"
+    },
+    {
+     "n": "TotWhAbsL3",
+     "o": 96,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotWh_SF",
+     "u": "Wh",
+     "l": "Total Watt-Hours Abs L3"
+    },
+    {
+     "n": "TotVarhInjL3",
+     "o": 100,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotVarh_SF",
+     "u": "Varh",
+     "l": "Total Var-Hours Inj L3"
+    },
+    {
+     "n": "TotVarhAbsL3",
+     "o": 104,
+     "t": "uint64",
+     "s": 4,
+     "sf": "TotVarh_SF",
+     "u": "Varh",
+     "l": "Total Var-Hours Abs L3"
+    },
+    {
+     "n": "ThrotPct",
+     "o": 108,
+     "t": "uint16",
+     "s": 1,
+     "u": "Pct",
+     "l": "Throttling In Pct"
+    },
+    {
+     "n": "ThrotSrc",
+     "o": 109,
+     "t": "bitfield32",
+     "s": 2,
+     "sym": {
+      "MAX_W": 0,
+      "FIXED_W": 1,
+      "FIXED_VAR": 2,
+      "FIXED_PF": 3,
+      "VOLT_VAR": 4,
+      "FREQ_WATT": 5,
+      "DYN_REACT_CURR": 6,
+      "LVRT": 7,
+      "HVRT": 8,
+      "WATT_VAR": 9,
+      "VOLT_WATT": 10,
+      "SCHEDULED": 11,
+      "LFRT": 12,
+      "HFRT": 13,
+      "DERATED": 14
+     },
+     "l": "Throttle Source Information"
+    },
+    {
+     "n": "A_SF",
+     "o": 111,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Current Scale Factor"
+    },
+    {
+     "n": "V_SF",
+     "o": 112,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Voltage Scale Factor"
+    },
+    {
+     "n": "Hz_SF",
+     "o": 113,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Frequency Scale Factor"
+    },
+    {
+     "n": "W_SF",
+     "o": 114,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Active Power Scale Factor"
+    },
+    {
+     "n": "PF_SF",
+     "o": 115,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Power Factor Scale Factor"
+    },
+    {
+     "n": "VA_SF",
+     "o": 116,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Apparent Power Scale Factor"
+    },
+    {
+     "n": "Var_SF",
+     "o": 117,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Reactive Power Scale Factor"
+    },
+    {
+     "n": "TotWh_SF",
+     "o": 118,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Active Energy Scale Factor"
+    },
+    {
+     "n": "TotVarh_SF",
+     "o": 119,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Reactive Energy Scale Factor"
+    },
+    {
+     "n": "Tmp_SF",
+     "o": 120,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Temperature Scale Factor"
+    },
+    {
+     "n": "MnAlrmInfo",
+     "o": 121,
+     "t": "string",
+     "s": 32,
+     "l": "Manufacturer Alarm Info"
+    }
+   ]
+  },
+  {
+   "id": 702,
+   "name": "DERCapacity",
+   "l": "DER Capacity",
+   "len": 50,
+   "points": [
+    {
+     "n": "WMaxRtg",
+     "o": 0,
+     "t": "uint16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "st": true,
+     "l": "Active Power Max Rating"
+    },
+    {
+     "n": "WOvrExtRtg",
+     "o": 1,
+     "t": "uint16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "st": true,
+     "l": "Active Power (Over-Excited) Rating"
+    },
+    {
+     "n": "WOvrExtRtgPF",
+     "o": 2,
+     "t": "uint16",
+     "s": 1,
+     "sf": "PF_SF",
+     "st": true,
+     "l": "Specified Over-Excited PF"
+    },
+    {
+     "n": "WUndExtRtg",
+     "o": 3,
+     "t": "uint16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "st": true,
+     "l": "Active Power (Under-Excited) Rating"
+    },
+    {
+     "n": "WUndExtRtgPF",
+     "o": 4,
+     "t": "uint16",
+     "s": 1,
+     "sf": "PF_SF",
+     "st": true,
+     "l": "Specified Under-Excited PF"
+    },
+    {
+     "n": "VAMaxRtg",
+     "o": 5,
+     "t": "uint16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "st": true,
+     "l": "Apparent Power Max Rating"
+    },
+    {
+     "n": "VarMaxInjRtg",
+     "o": 6,
+     "t": "uint16",
+     "s": 1,
+     "sf": "Var_SF",
+     "u": "Var",
+     "st": true,
+     "l": "Reactive Power Injected Rating"
+    },
+    {
+     "n": "VarMaxAbsRtg",
+     "o": 7,
+     "t": "uint16",
+     "s": 1,
+     "sf": "Var_SF",
+     "u": "Var",
+     "st": true,
+     "l": "Reactive Power Absorbed Rating"
+    },
+    {
+     "n": "WChaRteMaxRtg",
+     "o": 8,
+     "t": "uint16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "st": true,
+     "l": "Charge Rate Max Rating"
+    },
+    {
+     "n": "WDisChaRteMaxRtg",
+     "o": 9,
+     "t": "uint16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "st": true,
+     "l": "Discharge Rate Max Rating"
+    },
+    {
+     "n": "VAChaRteMaxRtg",
+     "o": 10,
+     "t": "uint16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "st": true,
+     "l": "Charge Rate Max VA Rating"
+    },
+    {
+     "n": "VADisChaRteMaxRtg",
+     "o": 11,
+     "t": "uint16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "st": true,
+     "l": "Discharge Rate Max VA Rating"
+    },
+    {
+     "n": "VNomRtg",
+     "o": 12,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "st": true,
+     "l": "AC Voltage Nominal Rating"
+    },
+    {
+     "n": "VMaxRtg",
+     "o": 13,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "st": true,
+     "l": "AC Voltage Max Rating"
+    },
+    {
+     "n": "VMinRtg",
+     "o": 14,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "st": true,
+     "l": "AC Voltage Min Rating"
+    },
+    {
+     "n": "AMaxRtg",
+     "o": 15,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "st": true,
+     "l": "AC Current Max Rating"
+    },
+    {
+     "n": "PFOvrExtRtg",
+     "o": 16,
+     "t": "uint16",
+     "s": 1,
+     "sf": "PF_SF",
+     "st": true,
+     "l": "PF Over-Excited Rating (Unused)"
+    },
+    {
+     "n": "PFUndExtRtg",
+     "o": 17,
+     "t": "uint16",
+     "s": 1,
+     "sf": "PF_SF",
+     "st": true,
+     "l": "PF Under-Excited Rating (Unused)"
+    },
+    {
+     "n": "ReactSusceptRtg",
+     "o": 18,
+     "t": "uint16",
+     "s": 1,
+     "sf": "S_SF",
+     "u": "S",
+     "st": true,
+     "l": "Reactive Susceptance"
+    },
+    {
+     "n": "NorOpCatRtg",
+     "o": 19,
+     "t": "enum16",
+     "s": 1,
+     "st": true,
+     "sym": {
+      "CAT_A": 0,
+      "CAT_B": 1
+     },
+     "l": "Normal Operating Category"
+    },
+    {
+     "n": "AbnOpCatRtg",
+     "o": 20,
+     "t": "enum16",
+     "s": 1,
+     "st": true,
+     "sym": {
+      "CAT_1": 0,
+      "CAT_2": 1,
+      "CAT_3": 2
+     },
+     "l": "Abnormal Operating Category"
+    },
+    {
+     "n": "CtrlModes",
+     "o": 21,
+     "t": "bitfield32",
+     "s": 2,
+     "st": true,
+     "sym": {
+      "MAX_W": 0,
+      "FIXED_W": 1,
+      "FIXED_VAR": 2,
+      "FIXED_PF": 3,
+      "VOLT_VAR": 4,
+      "FREQ_WATT": 5,
+      "DYN_REACT_CURR": 6,
+      "LV_TRIP": 7,
+      "HV_TRIP": 8,
+      "WATT_VAR": 9,
+      "VOLT_WATT": 10,
+      "SCHEDULED": 11,
+      "LF_TRIP": 12,
+      "HF_TRIP": 13
+     },
+     "l": "Supported Control Modes"
+    },
+    {
+     "n": "IntIslandCatRtg",
+     "o": 23,
+     "t": "bitfield16",
+     "s": 1,
+     "st": true,
+     "sym": {
+      "UNCATEGORIZED": 0,
+      "INT_ISL_CAPABLE": 1,
+      "BLACK_START_CAPABLE": 2,
+      "ISOCH_CAPABLE": 3
+     },
+     "l": "Intentional Island Categories"
+    },
+    {
+     "n": "WMax",
+     "o": 24,
+     "t": "uint16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "rw": true,
+     "l": "Active Power Max Setting"
+    },
+    {
+     "n": "WMaxOvrExt",
+     "o": 25,
+     "t": "uint16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "rw": true,
+     "l": "Active Power (Over-Excited) Setting"
+    },
+    {
+     "n": "WOvrExtPF",
+     "o": 26,
+     "t": "uint16",
+     "s": 1,
+     "sf": "PF_SF",
+     "rw": true,
+     "l": "Specified Over-Excited PF"
+    },
+    {
+     "n": "WMaxUndExt",
+     "o": 27,
+     "t": "uint16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "rw": true,
+     "l": "Active Power (Under-Excited) Setting"
+    },
+    {
+     "n": "WUndExtPF",
+     "o": 28,
+     "t": "uint16",
+     "s": 1,
+     "sf": "PF_SF",
+     "rw": true,
+     "l": "Specified Under-Excited PF"
+    },
+    {
+     "n": "VAMax",
+     "o": 29,
+     "t": "uint16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "rw": true,
+     "l": "Apparent Power Max Setting"
+    },
+    {
+     "n": "VarMaxInj",
+     "o": 30,
+     "t": "uint16",
+     "s": 1,
+     "sf": "Var_SF",
+     "u": "Var",
+     "rw": true,
+     "l": "Reactive Power Injected Setting"
+    },
+    {
+     "n": "VarMaxAbs",
+     "o": 31,
+     "t": "uint16",
+     "s": 1,
+     "sf": "Var_SF",
+     "u": "Var",
+     "rw": true,
+     "l": "Reactive Power Absorbed Setting"
+    },
+    {
+     "n": "WChaRteMax",
+     "o": 32,
+     "t": "uint16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "rw": true,
+     "l": "Charge Rate Max Setting"
+    },
+    {
+     "n": "WDisChaRteMax",
+     "o": 33,
+     "t": "uint16",
+     "s": 1,
+     "sf": "W_SF",
+     "u": "W",
+     "rw": true,
+     "l": "Discharge Rate Max Setting"
+    },
+    {
+     "n": "VAChaRteMax",
+     "o": 34,
+     "t": "uint16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "rw": true,
+     "l": "Charge Rate Max VA Setting"
+    },
+    {
+     "n": "VADisChaRteMax",
+     "o": 35,
+     "t": "uint16",
+     "s": 1,
+     "sf": "VA_SF",
+     "u": "VA",
+     "rw": true,
+     "l": "Discharge Rate Max VA Setting"
+    },
+    {
+     "n": "VNom",
+     "o": 36,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "rw": true,
+     "l": "Nominal AC Voltage Setting"
+    },
+    {
+     "n": "VMax",
+     "o": 37,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "rw": true,
+     "l": "AC Voltage Max Setting"
+    },
+    {
+     "n": "VMin",
+     "o": 38,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "V",
+     "rw": true,
+     "l": "AC Voltage Min Setting"
+    },
+    {
+     "n": "AMax",
+     "o": 39,
+     "t": "uint16",
+     "s": 1,
+     "sf": "A_SF",
+     "u": "A",
+     "rw": true,
+     "l": "AC Current Max Setting"
+    },
+    {
+     "n": "PFOvrExt",
+     "o": 40,
+     "t": "uint16",
+     "s": 1,
+     "sf": "PF_SF",
+     "rw": true,
+     "l": "PF Over-Excited Setting (Unused)"
+    },
+    {
+     "n": "PFUndExt",
+     "o": 41,
+     "t": "uint16",
+     "s": 1,
+     "sf": "PF_SF",
+     "rw": true,
+     "l": "PF Under-Excited Setting (Unused)"
+    },
+    {
+     "n": "IntIslandCat",
+     "o": 42,
+     "t": "bitfield16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "UNCATEGORIZED": 0,
+      "INT_ISL_CAPABLE": 1,
+      "BLACK_START_CAPABLE": 2,
+      "ISOCH_CAPABLE": 3
+     },
+     "l": "Intentional Island Categories"
+    },
+    {
+     "n": "W_SF",
+     "o": 43,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Active Power Scale Factor"
+    },
+    {
+     "n": "PF_SF",
+     "o": 44,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Power Factor Scale Factor"
+    },
+    {
+     "n": "VA_SF",
+     "o": 45,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Apparent Power Scale Factor"
+    },
+    {
+     "n": "Var_SF",
+     "o": 46,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Reactive Power Scale Factor"
+    },
+    {
+     "n": "V_SF",
+     "o": 47,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Voltage Scale Factor"
+    },
+    {
+     "n": "A_SF",
+     "o": 48,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Current Scale Factor"
+    },
+    {
+     "n": "S_SF",
+     "o": 49,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Susceptance Scale Factor"
+    }
+   ]
+  },
+  {
+   "id": 703,
+   "name": "DEREnterService",
+   "l": "Enter Service",
+   "len": 17,
+   "points": [
+    {
+     "n": "ES",
+     "o": 0,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "Permit Enter Service"
+    },
+    {
+     "n": "ESVHi",
+     "o": 1,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "Pct",
+     "rw": true,
+     "l": "Enter Service Voltage High"
+    },
+    {
+     "n": "ESVLo",
+     "o": 2,
+     "t": "uint16",
+     "s": 1,
+     "sf": "V_SF",
+     "u": "Pct",
+     "rw": true,
+     "l": "Enter Service Voltage Low"
+    },
+    {
+     "n": "ESHzHi",
+     "o": 3,
+     "t": "uint32",
+     "s": 2,
+     "sf": "Hz_SF",
+     "u": "Hz",
+     "rw": true,
+     "l": "Enter Service Frequency High"
+    },
+    {
+     "n": "ESHzLo",
+     "o": 5,
+     "t": "uint32",
+     "s": 2,
+     "sf": "Hz_SF",
+     "u": "Hz",
+     "rw": true,
+     "l": "Enter Service Frequency Low"
+    },
+    {
+     "n": "ESDlyTms",
+     "o": 7,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "rw": true,
+     "l": "Enter Service Delay Time"
+    },
+    {
+     "n": "ESRndTms",
+     "o": 9,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "rw": true,
+     "l": "Enter Service Random Delay"
+    },
+    {
+     "n": "ESRmpTms",
+     "o": 11,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "rw": true,
+     "l": "Enter Service Ramp Time"
+    },
+    {
+     "n": "ESDlyRemTms",
+     "o": 13,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "l": "Enter Service Delay Remaining"
+    },
+    {
+     "n": "V_SF",
+     "o": 15,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Voltage Scale Factor"
+    },
+    {
+     "n": "Hz_SF",
+     "o": 16,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Frequency Scale Factor"
+    }
+   ]
+  },
+  {
+   "id": 704,
+   "name": "DERCtlAC",
+   "l": "DER AC Controls",
+   "len": 65,
+   "points": [
+    {
+     "n": "PFWInjEna",
+     "o": 0,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "Power Factor Enable (W Inj) Enable"
+    },
+    {
+     "n": "PFWInjEnaRvrt",
+     "o": 1,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "Power Factor Reversion Enable (W Inj)"
+    },
+    {
+     "n": "PFWInjRvrtTms",
+     "o": 2,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "rw": true,
+     "l": "PF Reversion Time (W Inj)"
+    },
+    {
+     "n": "PFWInjRvrtRem",
+     "o": 4,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "l": "PF Reversion Time Rem (W Inj)"
+    },
+    {
+     "n": "PFWAbsEna",
+     "o": 6,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "Power Factor Enable (W Abs) Enable"
+    },
+    {
+     "n": "PFWAbsEnaRvrt",
+     "o": 7,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "Power Factor Reversion Enable (W Abs)"
+    },
+    {
+     "n": "PFWAbsRvrtTms",
+     "o": 8,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "rw": true,
+     "l": "PF Reversion Time (W Abs)"
+    },
+    {
+     "n": "PFWAbsRvrtRem",
+     "o": 10,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "l": "PF Reversion Time Rem (W Abs)"
+    },
+    {
+     "n": "WMaxLimPctEna",
+     "o": 12,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "Limit Max Power Pct Enable"
+    },
+    {
+     "n": "WMaxLimPct",
+     "o": 13,
+     "t": "uint16",
+     "s": 1,
+     "sf": "WMaxLimPct_SF",
+     "u": "Pct",
+     "rw": true,
+     "l": "Limit Max Power Pct Setpoint"
+    },
+    {
+     "n": "WMaxLimPctRvrt",
+     "o": 14,
+     "t": "uint16",
+     "s": 1,
+     "sf": "WMaxLimPct_SF",
+     "u": "Pct",
+     "rw": true,
+     "l": "Reversion Limit Max Power Pct"
+    },
+    {
+     "n": "WMaxLimPctEnaRvrt",
+     "o": 15,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "Reversion Limit Max Power Pct Enable"
+    },
+    {
+     "n": "WMaxLimPctRvrtTms",
+     "o": 16,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "rw": true,
+     "l": "Limit Max Power Pct Reversion Time"
+    },
+    {
+     "n": "WMaxLimPctRvrtRem",
+     "o": 18,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "l": "Limit Max Power Pct Rev Time Rem"
+    },
+    {
+     "n": "WSetEna",
+     "o": 20,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "Set Active Power Enable"
+    },
+    {
+     "n": "WSetMod",
+     "o": 21,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "W_MAX_PCT": 0,
+      "WATTS": 1
+     },
+     "l": "Set Active Power Mode"
+    },
+    {
+     "n": "WSet",
+     "o": 22,
+     "t": "int32",
+     "s": 2,
+     "sf": "WSet_SF",
+     "u": "W",
+     "rw": true,
+     "l": "Active Power Setpoint (W)"
+    },
+    {
+     "n": "WSetRvrt",
+     "o": 24,
+     "t": "int32",
+     "s": 2,
+     "sf": "WSet_SF",
+     "u": "W",
+     "rw": true,
+     "l": "Reversion Active Power (W)"
+    },
+    {
+     "n": "WSetPct",
+     "o": 26,
+     "t": "int16",
+     "s": 1,
+     "sf": "WSetPct_SF",
+     "u": "Pct",
+     "rw": true,
+     "l": "Active Power Setpoint (Pct)"
+    },
+    {
+     "n": "WSetPctRvrt",
+     "o": 27,
+     "t": "int16",
+     "s": 1,
+     "sf": "WSetPct_SF",
+     "u": "Pct",
+     "rw": true,
+     "l": "Reversion Active Power (Pct)"
+    },
+    {
+     "n": "WSetEnaRvrt",
+     "o": 28,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "Reversion Active Power Enable"
+    },
+    {
+     "n": "WSetRvrtTms",
+     "o": 29,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "rw": true,
+     "l": "Active Power Reversion Time"
+    },
+    {
+     "n": "WSetRvrtRem",
+     "o": 31,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "l": "Active Power Rev Time Rem"
+    },
+    {
+     "n": "VarSetEna",
+     "o": 33,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "Set Reactive Power Enable"
+    },
+    {
+     "n": "VarSetMod",
+     "o": 34,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "W_MAX_PCT": 0,
+      "VAR_MAX_PCT": 1,
+      "VAR_AVAIL_PCT": 2,
+      "VA_MAX_PCT": 3,
+      "VARS": 4
+     },
+     "l": "Set Reactive Power Mode"
+    },
+    {
+     "n": "VarSetPri",
+     "o": 35,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "ACTIVE": 0,
+      "REACTIVE": 1,
+      "VENDOR": 2
+     },
+     "l": "Reactive Power Priority"
+    },
+    {
+     "n": "VarSet",
+     "o": 36,
+     "t": "int32",
+     "s": 2,
+     "sf": "VarSet_SF",
+     "u": "Var",
+     "rw": true,
+     "l": "Reactive Power Setpoint (Vars)"
+    },
+    {
+     "n": "VarSetRvrt",
+     "o": 38,
+     "t": "int32",
+     "s": 2,
+     "sf": "VarSet_SF",
+     "u": "Var",
+     "rw": true,
+     "l": "Reversion Reactive Power (Vars)"
+    },
+    {
+     "n": "VarSetPct",
+     "o": 40,
+     "t": "int16",
+     "s": 1,
+     "sf": "VarSetPct_SF",
+     "u": "Pct",
+     "rw": true,
+     "l": "Reactive Power Setpoint (Pct)"
+    },
+    {
+     "n": "VarSetPctRvrt",
+     "o": 41,
+     "t": "int16",
+     "s": 1,
+     "sf": "VarSetPct_SF",
+     "u": "Pct",
+     "rw": true,
+     "l": "Reversion Reactive Power (Pct)"
+    },
+    {
+     "n": "VarSetEnaRvrt",
+     "o": 42,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "Reversion Reactive Power Enable"
+    },
+    {
+     "n": "VarSetRvrtTms",
+     "o": 43,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "rw": true,
+     "l": "Reactive Power Reversion Time"
+    },
+    {
+     "n": "VarSetRvrtRem",
+     "o": 45,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "l": "Reactive Power Rev Time Rem"
+    },
+    {
+     "n": "WRmp",
+     "o": 47,
+     "t": "uint16",
+     "s": 1,
+     "u": "%Max/Sec",
+     "rw": true,
+     "l": "Normal Ramp Rate"
+    },
+    {
+     "n": "WRmpRef",
+     "o": 48,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "A_MAX": 0,
+      "W_MAX": 1
+     },
+     "l": "Normal Ramp Rate Reference"
+    },
+    {
+     "n": "VarRmp",
+     "o": 49,
+     "t": "uint16",
+     "s": 1,
+     "u": "%Max/Sec",
+     "rw": true,
+     "l": "Reactive Power Ramp Rate"
+    },
+    {
+     "n": "AntiIslEna",
+     "o": 50,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "Anti-Islanding Enable"
+    },
+    {
+     "n": "PF_SF",
+     "o": 51,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Power Factor Scale Factor"
+    },
+    {
+     "n": "WMaxLimPct_SF",
+     "o": 52,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Limit Max Power Scale Factor"
+    },
+    {
+     "n": "WSet_SF",
+     "o": 53,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Active Power Scale Factor"
+    },
+    {
+     "n": "WSetPct_SF",
+     "o": 54,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Active Power Pct Scale Factor"
+    },
+    {
+     "n": "VarSet_SF",
+     "o": 55,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Reactive Power Scale Factor"
+    },
+    {
+     "n": "VarSetPct_SF",
+     "o": 56,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Reactive Power Pct Scale Factor"
+    }
+   ],
+   "groups": [
+    {
+     "name": "PFWInj",
+     "off": 57,
+     "len": 2,
+     "points": [
+      {
+       "n": "PF",
+       "o": 0,
+       "t": "uint16",
+       "s": 1,
+       "sf": "PF_SF",
+       "rw": true,
+       "l": "Power Factor (W Inj)"
+      },
+      {
+       "n": "Ext",
+       "o": 1,
+       "t": "enum16",
+       "s": 1,
+       "rw": true,
+       "sym": {
+        "OVER_EXCITED": 0,
+        "UNDER_EXCITED": 1
+       },
+       "l": "Power Factor Excitation (W Inj)"
+      }
+     ],
+     "count": 1
+    },
+    {
+     "name": "PFWInjRvrt",
+     "off": 59,
+     "len": 2,
+     "points": [
+      {
+       "n": "PF",
+       "o": 0,
+       "t": "uint16",
+       "s": 1,
+       "sf": "PF_SF",
+       "rw": true,
+       "l": "Reversion Power Factor (W Inj)"
+      },
+      {
+       "n": "Ext",
+       "o": 1,
+       "t": "enum16",
+       "s": 1,
+       "rw": true,
+       "sym": {
+        "OVER_EXCITED": 0,
+        "UNDER_EXCITED": 1
+       },
+       "l": "Reversion PF Excitation (W Inj)"
+      }
+     ],
+     "count": 1
+    },
+    {
+     "name": "PFWAbs",
+     "off": 61,
+     "len": 2,
+     "points": [
+      {
+       "n": "PF",
+       "o": 0,
+       "t": "uint16",
+       "s": 1,
+       "sf": "PF_SF",
+       "rw": true,
+       "l": "Power Factor (W Abs)"
+      },
+      {
+       "n": "Ext",
+       "o": 1,
+       "t": "enum16",
+       "s": 1,
+       "rw": true,
+       "sym": {
+        "OVER_EXCITED": 0,
+        "UNDER_EXCITED": 1
+       },
+       "l": "Power Factor Excitation (W Abs)"
+      }
+     ],
+     "count": 1
+    },
+    {
+     "name": "PFWAbsRvrt",
+     "off": 63,
+     "len": 2,
+     "points": [
+      {
+       "n": "PF",
+       "o": 0,
+       "t": "uint16",
+       "s": 1,
+       "sf": "PF_SF",
+       "rw": true,
+       "l": "Reversion Power Factor (W Abs)"
+      },
+      {
+       "n": "Ext",
+       "o": 1,
+       "t": "enum16",
+       "s": 1,
+       "rw": true,
+       "sym": {
+        "OVER_EXCITED": 0,
+        "UNDER_EXCITED": 1
+       },
+       "l": "Reversion PF Excitation (W Abs)"
+      }
+     ],
+     "count": 1
+    }
+   ]
+  },
+  {
+   "id": 705,
+   "name": "DERVoltVar",
+   "l": "DER Volt-Var",
+   "fixed": 13,
+   "points": [
+    {
+     "n": "Ena",
+     "o": 0,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "m": true,
+     "sym": {
+      "DISABLED": 0,
+      "ENABLED": 1
+     },
+     "l": "DER Volt-Var Module Enable"
+    },
+    {
+     "n": "AdptCrvReq",
+     "o": 1,
+     "t": "uint16",
+     "s": 1,
+     "rw": true,
+     "m": true,
+     "l": "Adopt Curve Request"
+    },
+    {
+     "n": "AdptCrvRslt",
+     "o": 2,
+     "t": "enum16",
+     "s": 1,
+     "m": true,
+     "sym": {
+      "IN_PROGRESS": 0,
+      "COMPLETED": 1,
+      "FAILED": 2
+     },
+     "l": "Adopt Curve Result"
+    },
+    {
+     "n": "NPt",
+     "o": 3,
+     "t": "uint16",
+     "s": 1,
+     "m": true,
+     "st": true,
+     "l": "Number Of Points"
+    },
+    {
+     "n": "NCrv",
+     "o": 4,
+     "t": "uint16",
+     "s": 1,
+     "m": true,
+     "st": true,
+     "l": "Stored Curve Count"
+    },
+    {
+     "n": "RvrtTms",
+     "o": 5,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "rw": true,
+     "l": "Reversion Timeout"
+    },
+    {
+     "n": "RvrtRem",
+     "o": 7,
+     "t": "uint32",
+     "s": 2,
+     "u": "Secs",
+     "l": "Reversion Time Remaining"
+    },
+    {
+     "n": "RvrtCrv",
+     "o": 9,
+     "t": "uint16",
+     "s": 1,
+     "rw": true,
+     "l": "Reversion Curve"
+    },
+    {
+     "n": "V_SF",
+     "o": 10,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "st": true,
+     "l": "Voltage Scale Factor"
+    },
+    {
+     "n": "DeptRef_SF",
+     "o": 11,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "st": true,
+     "l": "Var Scale Factor"
+    },
+    {
+     "n": "RspTms_SF",
+     "o": 12,
+     "t": "sunssf",
+     "s": 1,
+     "m": true,
+     "st": true,
+     "l": "Open-Loop Scale Factor"
+    }
+   ]
+  },
+  {
+   "id": 713,
+   "name": "DERStorageCapacity",
+   "l": "DER Storage Capacity",
+   "len": 7,
+   "points": [
+    {
+     "n": "WHRtg",
+     "o": 0,
+     "t": "uint16",
+     "s": 1,
+     "sf": "WH_SF",
+     "u": "WH",
+     "l": "Energy Rating"
+    },
+    {
+     "n": "WHAvail",
+     "o": 1,
+     "t": "uint16",
+     "s": 1,
+     "sf": "WH_SF",
+     "u": "WH",
+     "l": "Energy Available"
+    },
+    {
+     "n": "SoC",
+     "o": 2,
+     "t": "uint16",
+     "s": 1,
+     "sf": "Pct_SF",
+     "u": "Pct",
+     "l": "State of Charge"
+    },
+    {
+     "n": "SoH",
+     "o": 3,
+     "t": "uint16",
+     "s": 1,
+     "sf": "Pct_SF",
+     "u": "Pct",
+     "l": "State of Health"
+    },
+    {
+     "n": "Sta",
+     "o": 4,
+     "t": "enum16",
+     "s": 1,
+     "sym": {
+      "OK": 0,
+      "WARNING": 1,
+      "ERROR": 2
+     },
+     "l": "Status"
+    },
+    {
+     "n": "WH_SF",
+     "o": 5,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Energy Scale Factor"
+    },
+    {
+     "n": "Pct_SF",
+     "o": 6,
+     "t": "sunssf",
+     "s": 1,
+     "st": true,
+     "l": "Percent Scale Factor"
+    }
+   ]
+  },
+  {
+   "id": 715,
+   "name": "DERCtl",
+   "l": "DERCtl",
+   "len": 7,
+   "points": [
+    {
+     "n": "LocRemCtl",
+     "o": 0,
+     "t": "enum16",
+     "s": 1,
+     "sym": {
+      "REMOTE": 0,
+      "LOCAL": 1
+     },
+     "l": "Control Mode"
+    },
+    {
+     "n": "DERHb",
+     "o": 1,
+     "t": "uint32",
+     "s": 2,
+     "l": "DER Heartbeat"
+    },
+    {
+     "n": "ControllerHb",
+     "o": 3,
+     "t": "uint32",
+     "s": 2,
+     "rw": true,
+     "l": "Controller Heartbeat"
+    },
+    {
+     "n": "AlarmReset",
+     "o": 5,
+     "t": "uint16",
+     "s": 1,
+     "rw": true,
+     "l": "Alarm Reset"
+    },
+    {
+     "n": "OpCtl",
+     "o": 6,
+     "t": "enum16",
+     "s": 1,
+     "rw": true,
+     "sym": {
+      "STOP": 0,
+      "START": 1,
+      "ENTER_STANDBY": 2,
+      "EXIT_STANDBY": 3
+     },
+     "l": "Set Operation"
+    }
+   ]
+  }
+ ]
+}
